@@ -1,0 +1,61 @@
+\documentclass[a4paper]{ltjbook}
+%\usepackage{titlepage}
+
+\input{settingcommand.tex}
+\input{settingpackage.tex}
+\pagestyle{plain}
+\begin{document}
+%タイトルベージを作成
+\begin{titlepage}
+\Large
+\begin{center}
+\vspace*{80pt}aligned
+    {\huge 日本語タイトル} \\
+\vspace*{10mm}
+    {\huge english title}
+\vspace*{80mm} \\
+合田　理樹
+
+\vspace*{10mm}
+\begin{tabular}{ll}
+    指導教員 & 降籏　大介 \\
+    副指導教員 & 宮武　勇登 \\
+\end{tabular}
+\vspace*{20mm} \\
+令和7年2月 \\
+\end{center}
+\end{titlepage}
+
+%目次
+\tableofcontents
+
+%序論
+\include{2_intro}
+
+%〇〇についての基礎知識
+\include{3_bg1}
+
+%まるまるについての基礎知識2
+\include{4_bg2}
+
+%提案手法
+\include{5_proposal}
+
+%検証結果
+\include{6_analysis}
+
+%結論
+\include{7_conclusion}
+
+%謝辞
+\include{8_thanks}
+
+%参考文献
+\include{9_reference}
+
+%appendix1
+\include{10_appendix1}
+
+%appendix2
+\include{11_appendix2}
+\end{document}
