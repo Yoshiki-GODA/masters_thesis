@@ -3,8 +3,13 @@
 
 \subsubsection{実験の設定，目的}
 対象とした問題は，？つある．
-対象とした問題はいずれも厳密解を得ることができないため，本研究ではJuliaのパッケージによる十分に精度の高い数値解法による計算結果を厳密解の代わりとした．
-実験に用いる数値解法としては，陽的Euler法，4段4次Runge-Kutta法を用いた．
+実験に用いる数値解法は，陽的Euler法，4段4次Runge-Kutta法である．
+また，数値実験の比較する対象としては，数値解法としての計算の精度と，厳密解と比較しての計算の精度の２種類の比較を行った．
+数値解法としての計算の精度は，同じ解法を用いた時のその計算結果に対する比較である．
+数値解法を用いて対象の方程式を解く場合，対象の方程式を近似し，その近似によって厳密解と数値解の間には誤差が生じる．
+しかし，数値解法としての計算の精度は，その近似によって生じる誤差を考えず，数値計算として得られたもの同士を比較する．
+厳密には数値解法としての正確な計算結果を得ることも困難であるため，BigFloat型を用いて行った計算結果を正確な計算結果とみなし，その計算結果と各数値型での計算結果を比較した．
+また，厳密解との比較についても対象とした問題の厳密解を得ることは非常に困難であるため，十分に精度の高い数値解法を厳密解の代わりとし，その計算結果と各数値型での計算結果を比較した．
 
 \subsubsection{Lorenz方程式}
 Lorenz方程式は，次のような式で与えられる微分方程式である：
@@ -46,11 +51,114 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 ただし，$a,b,c$はパラメータである．
 図(？)はその一例である．
 %Rossler方程式の時間発展の様子を図示
+\begin{comment}
+\begin{figure}
+    \centering
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{rossler.png}
+        \caption{Rossler方程式の時間発展の様子}
+        \label{fig:rossler1}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{rossler2.png}
+        \caption{Rossler方程式の時間発展の様子}
+        \label{fig:rossler2}
+    \end{minipage}
+\end{figure}
+\end{comment}
 実験では,$a=0.344, b=0.4, c=4.5$，初期値は$x(0) = 4.0, y(0) = 4.0, z(0) = 0.0$とした.
-計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}, 1.0 \times 10^{-6}$とした．
+計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}$とした．
 \paragraph*{陽的Euler法を用いた場合}
+まず，Euler法による計算の数値解に対する誤差を確かめる．
+数値解法の刻み幅を$\Delta t = 1.0 \times 10^{-2},1.0 \times 10^{-4}$とした場合のEuler法による数値解の誤差を比較した．
+誤差は，正確な値を$\bm{x} \in \R^3$，各数値型を用いた数値計算により得られた値を$\hat{\bm{x}} \in \R^3$とした時の誤差ノルム
+\begin{equation}
+    ||\bm{x} - \hat{\bm{x}}|| = \sqrt{(x_1 - \hat{x}_1)^2 + (x_2 - \hat{x}_2)^2 + (x_3 - \hat{x}_3)^2}
+\end{equation}
+で表した．
+以下がその結果である．
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_euler_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解の誤差}
+        \label{fig:rossler_1e-2_euler_error}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_euler_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解の誤差}
+        \label{fig:rossler_1e-4_euler_error}
+    \end{minipage}
+\end{figure} 
+Euler法による数値実験では，,$\Delta t = 1.0 \times 10^{-2}$とした場合も$\Delta t = 1.0 \times 10^{-4}$とした場合も倍精度浮動小数点(Float64)を用いた計算結果と固定小数点(Q11f52)を用いた数値解としての計算精度はほぼ同等と言って良い．
+
+
+次に，厳密解と各数値型でのEuler法による計算結果の比較を行った．
+誤差は数値解の誤差を比べた時と同様に誤差ノルムで表した．
+以下がその結果である．\\
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_euler_exact_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解と厳密解の誤差}
+        \label{fig:rossler_1e-2_eluer_exact_error}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_euler_exact_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解と厳密の誤差}
+        \label{fig:rossler_1e-4_euler_exact_error}
+    \end{minipage}
+\end{figure}
+Euler法は1次精度の数値解法であるため，厳密解と比較すると精度がかなり悪いため，どの数値型を用いても近似による誤差の影響が大きくなっている．
 
 \paragraph*{4段4次Runge-Kutta法を用いた場合}
+数値解法の刻み幅を$\Delta t = 1.0 \times 10^{-2},1.0 \times 10^{-4}$とした場合のRunge-Kutta法による数値解の誤差を比較した．
+誤差は誤差ノルムで表した．
+以下がその結果である．
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_rk4_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解の誤差}
+        \label{fig:rossler_1e-2_rk4_error}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_rk4_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解の誤差}
+        \label{fig:rossler_1e-4_rk4_error}
+    \end{minipage}   
+\end{figure}
+%考察
+
+
+次に，厳密解と各数値型でのRunge-Kutta法による計算結果の比較を行った．
+誤差は数値解の誤差を比べた時と同様に誤差ノルムで表した．
+以下がその結果である．\\
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_rk4_exact_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解と厳密解の誤差}   
+        \label{fig:rossler_1e-2_exact_error}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_rk4_exact_error.png}
+        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解と厳密解の誤差}
+        \label{fig:rossler_1e-4_exact_error}
+    \end{minipage}
+\end{figure}
+刻み幅$\Delta t = 1.0 \times 10^{-2}$では，近似による誤差の影響が大きいと考えられ厳密解と比較して精度が悪い．
+一方，刻み幅$\Delta t = 1.0 \times 10^{-4}$では，近似による誤差の影響が小さくなりどの数値型を用いても厳密解と比較して精度が良いと言える．
 
 \subsubsection{Brusselator方程式}
 Brusselator方程式は，次のような式で与えられる微分方程式である：
