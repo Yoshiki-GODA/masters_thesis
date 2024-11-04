@@ -1,7 +1,9 @@
 \chapter{実験環境とプログラムコード}
 プログラムに用いる，パッケージ
 \begin{lstlisting}[caption=package,label=1]{}
-    using FixedPointNumbers, DifferentialEquations, GLMakie
+    using FixedPointNumbers #固定小数点を使用するためのパッケージ
+    using DifferentialEquations #微分方程式を数値計算をするためのパッケージ
+    using GLMakie #グラフを描画するためのパッケージ
 \end{lstlisting}
 
 
@@ -87,7 +89,6 @@
         return result1, result2, result3
     end
 
-    #euler_4も作らなければ
     function euler_4(f1,f2,f3,f4,x0,y0,z0,w0,stepsize,T,N)
         s = T(stepsize)
         result1 = T[x0]

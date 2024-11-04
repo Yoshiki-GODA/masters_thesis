@@ -1,1 +1,70 @@
-\chapter{検証}
+\chapter{数値実験}
+本章では前章で考察した固定小数点による数値計算を具体的な初期値問題を対象に適応し，浮動小数点を用いた計算結果との誤差を比較する．
+
+\subsubsection{実験の設定，目的}
+対象とした問題は，？つある．
+対象とした問題はいずれも厳密解を得ることができないため，本研究ではJuliaのパッケージによる十分に精度の高い数値解法による計算結果を厳密解の代わりとした．
+実験に用いる数値解法としては，陽的Euler法，4段4次Runge-Kutta法を用いた．
+
+\subsubsection{Lorenz方程式}
+Lorenz方程式は，次のような式で与えられる微分方程式である：
+\begin{align}
+    \frac{dx}{dt} &= \sigma(y-x) \\
+    \frac{dy}{dt} &= x(\rho-z)-y \\
+    \frac{dz}{dt} &= xy - \beta z
+\end{align}.
+ただし，$\sigma,\rho,\beta$はパラメータである．
+図(？)はその一例である．
+%Lorenz方程式の時間発展の様子を図示
+実験では，$\sigma=10$, $\rho=28$, $\beta=8/3$，初期値は$x(0) = 0.1, y(0) = 0.1, z(0) = 0.1$とした．
+計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}, 1.0 \times 10^{-6}$とした．
+\paragraph*{陽的Euler法を用いた場合}
+
+\paragraph*{4段4次Runge-Kutta法を用いた場合}
+
+\subsection{Duffing方程式}
+Duffing方程式は，次のような式で与えられる微分方程式である：
+\begin{align}
+    \frac{d^2 x}{dt^2} + \delta\frac{dx}{dt} - \alpha x + \beta x^3 - \gamma \cos(\omega t) = 0
+\end{align}.
+ただし，$\delta,\alpha,\beta,\gamma,\omega$はパラメータである．
+図(？)はその一例である．
+%Duffing方程式の時間発展の様子を図示
+対象の問題のパラメータは$\delta=0.1, \alpha=-0.4, \beta=2.0, \gamma=2.0, \omega=2.4$，初期値は$x(0) = 1.0, dx/dt(0) = 1.0$とした．
+計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}, 1.0 \times 10^{-6}$とした．
+\paragraph*{陽的Euler法を用いた場合}
+
+\paragraph*{4段4次Runge-Kutta法を用いた場合}
+
+\subsubsection{Rossler方程式}
+Rossler方程式は，次のような式で与えられる微分方程式である：
+\begin{align}
+    \frac{dx}{dt} &= -y-z \\
+    \frac{dy}{dt} &= x+ay \\
+    \frac{dz}{dt} &= bx + xz - cz
+\end{align}.
+ただし，$a,b,c$はパラメータである．
+図(？)はその一例である．
+%Rossler方程式の時間発展の様子を図示
+実験では,$a=0.344, b=0.4, c=4.5$，初期値は$x(0) = 4.0, y(0) = 4.0, z(0) = 0.0$とした.
+計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}, 1.0 \times 10^{-6}$とした．
+\paragraph*{陽的Euler法を用いた場合}
+
+\paragraph*{4段4次Runge-Kutta法を用いた場合}
+
+\subsubsection{Brusselator方程式}
+Brusselator方程式は，次のような式で与えられる微分方程式である：
+\begin{align}
+    \frac{d}{dt}[X] &= [A] + [x]^2[Y] - [B][X] - [X]\\
+    \frac{d}{dt}[Y] &= -[X]^2[Y] + [B][X]
+\end{align}.
+ただし，$A,B$はパラメータである．
+図(？)はその一例である．
+%Brusselator方程式の時間発展の様子を図示
+実験は,$A=1.0, B=3.0$，初期値は$X(0) = 1.0, Y(0) = 1.0$とした．
+計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}, 1.0 \times 10^{-6}$とした．
+\paragraph*{陽的Euler法を用いた場合}
+
+\paragraph*{4段4次Runge-Kutta法を用いた場合}
+
+
