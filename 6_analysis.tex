@@ -1,6 +1,6 @@
 \chapter{数値実験}
 本章では前章で考察した固定小数点による数値計算を具体的な初期値問題を対象に適応し，浮動小数点を用いた計算結果との誤差を比較する．
-
+%キャプションは本文を見なくても図や表を見た時に理解できるように書く
 \subsubsection{実験の設定，目的}
 対象とした問題は，？つある．
 実験に用いる数値解法は，陽的Euler法，4段4次Runge-Kutta法である．
@@ -50,8 +50,8 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 \begin{align}
     \frac{dx}{dt} &= -y-z \\
     \frac{dy}{dt} &= x+ay \\
-    \frac{dz}{dt} &= bx + xz - cz
-\end{align}.
+    \frac{dz}{dt} &= bx + xz - cz.
+\end{align}
 ただし，$a,b,c$はパラメータである．
 図(\ref{fig:rossler})はその一例である．
 %Rossler方程式の時間発展の様子を図示
@@ -72,13 +72,13 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_error.png}
-        \caption{$\Delta t = 2^{-7}$とした場合の数値解の誤差}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-7)_euler_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_error.png}
-        \caption{$\Delta t =  2^{-13}$とした場合の数値解の誤差}
+        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-13)_euler_error}
     \end{minipage}
 \end{figure} 
@@ -92,20 +92,20 @@ Euler法による数値実験では，,$\Delta t = 2^{-7}$とした場合も$\De
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_exact_error.png}
-        \caption{$\Delta t = 2^{-7}$とした場合の数値解と厳密解の誤差}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解との誤差}
         \label{fig:rossler_2^(-7)_eluer_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_exact_error.png}
-        \caption{$\Delta t =  2^{-13}$とした場合の数値解と厳密の誤差}
+        \caption{Eulur法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解との誤差}
         \label{fig:rossler_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
 Euler法は1次精度の数値解法であるため，厳密解と比較すると精度がかなり悪いため，どの数値型を用いても近似による誤差の影響が大きくなっている．
 
 \paragraph*{4段4次Runge-Kutta法を用いた場合}
-最初に，4段4次Runge-Kutta法による計算の数値会の誤差を確かめる．
+最初に，4段4次Runge-Kutta法による計算の数値解の誤差を確かめる．
 数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のRunge-Kutta法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
@@ -113,13 +113,13 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_error.png}
-        \caption{$\Delta t = 2^{-7}$とした場合の数値解の誤差}
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-7)_rk4_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_error.png}
-        \caption{$\Delta t =  2^{-13}$とした場合の数値解の誤差}
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-13)_rk4_error}
     \end{minipage}   
 \end{figure}
@@ -133,13 +133,13 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_exact_error.png}
-        \caption{$\Delta t = 2^{-7}$とした場合の数値解と厳密解の誤差}   
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解との誤差}   
         \label{fig:rossler_2^(-7)_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_exact_error.png}
-        \caption{$\Delta t =  2^{-13}$とした場合の数値解と厳密解の誤差}
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解との誤差}
         \label{fig:rossler_2^(-13)_exact_error}
     \end{minipage}
 \end{figure}
@@ -150,10 +150,10 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
 Brusselator方程式は，次のような式で与えられる微分方程式である：
 \begin{align}
     \frac{dx}{dt} &= A + x^2y - Bx - x\\
-    \frac{dy}{dt} &= -x^2y + Bx
-\end{align}.
+    \frac{dy}{dt} &= -x^2y + Bx.
+\end{align}
 ただし，$A,B$はパラメータである．
-図(？)はその一例である．
+図(\ref{fig:brusselator})はその一例である．
 %Brusselator方程式の時間発展の様子を図示
 \begin{figure}[H]
     \centering
@@ -174,13 +174,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_error.png}
-        \caption{$\Delta t = 2^{-7}$とした時の数値解の誤差}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-7)_euler_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_error.png}
-        \caption{$\Delta t =  2^{-13}$とした時の数値解の誤差}
+        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-13)_euler_error}
     \end{minipage}
 \end{figure}
@@ -193,13 +193,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.png}
-        \caption{$\Delta t = 2^{-7}$とした時の数値解と厳密解の誤差}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解との誤差}
         \label{fig:brusselator_2^(-7)_euler_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_exact_error.png}
-        \caption{$\Delta t =  2^{-13}$とした時の数値解と厳密解の誤差}
+        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解との誤差}
         \label{fig:brusselator_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
@@ -216,13 +216,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_rk4_error.png}
-        \caption{$\Delta t = 2^{-7}$とした時の数値解の誤差}
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-7)_rk4_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_error.png}
-        \caption{$\Delta t =  2^{-13}$とした時の数値解の誤差}
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-13)_rk4_error}
     \end{minipage}
 \end{figure}
@@ -235,13 +235,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.png}
-        \caption{$\Delta t = 2^{-7}$とした時の数値解と厳密解の誤差}
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解との誤差}
         \label{fig:brusselator_2^(-7)_rk4_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_exact_error.png}
-        \caption{$\Delta t =  2^{-13}$とした時の数値解と厳密解の誤差}
+        \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解との誤差}
         \label{fig:brusselator_2^(-13)_exact_error}
     \end{minipage}
 \end{figure}
