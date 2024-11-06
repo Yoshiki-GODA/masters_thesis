@@ -26,7 +26,7 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 図(？)はその一例である．
 %Lorenz方程式の時間発展の様子を図示
 実験では，$\sigma=10$, $\rho=28$, $\beta=8/3$，初期値は$x(0) = 0.1, y(0) = 0.1, z(0) = 0.1$とした．
-計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}, 1.0 \times 10^{-6}$とした．
+計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  2^{-7}, 2^{-13}, 1.0 \times 10^{-6}$とした．
 \paragraph*{陽的Euler法を用いた場合}
 
 \paragraph*{4段4次Runge-Kutta法を用いた場合}
@@ -40,7 +40,7 @@ Duffing方程式は，次のような式で与えられる微分方程式であ�
 図(？)はその一例である．
 %Duffing方程式の時間発展の様子を図示
 対象の問題のパラメータは$\delta=0.1, \alpha=-0.4, \beta=2.0, \gamma=2.0, \omega=2.4$，初期値は$x(0) = 1.0, dx/dt(0) = 1.0$とした．
-計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}, 1.0 \times 10^{-6}$とした．
+計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  2^{-7}, 2^{-13}, 1.0 \times 10^{-6}$とした．
 \paragraph*{陽的Euler法を用いた場合}
 
 \paragraph*{4段4次Runge-Kutta法を用いた場合}
@@ -53,47 +53,36 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
     \frac{dz}{dt} &= bx + xz - cz
 \end{align}.
 ただし，$a,b,c$はパラメータである．
-図(？)はその一例である．
+図(\ref{fig:rossler})はその一例である．
 %Rossler方程式の時間発展の様子を図示
-\begin{comment}
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
-        \centering
-        \includegraphics[width=0.9\columnwidth]{rossler.png}
-        \caption{Rossler方程式の時間発展の様子}
-        \label{fig:rossler1}
-    \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
-        \centering
-        \includegraphics[width=0.9\columnwidth]{rossler2.png}
-        \caption{Rossler方程式の時間発展の様子}
-        \label{fig:rossler2}
-    \end{minipage}
+    \includegraphics[width=0.9\linewidth]{fig_rossler2/rossler_2^(-13)_BigFloat_rk4.png}
+    \caption{Rossler方程式の解の時間発展の様子}
+    \label{fig:rossler}
 \end{figure}
-\end{comment}
-実験では,$a=0.344, b=0.4, c=4.5$，初期値は$x(0) = 4.0, y(0) = 4.0, z(0) = 0.0$とした.
-計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}$とした．
+実験では,$a=0.34275, b=0.390625, c=4.5$，初期値は$x(0) = 4.0, y(0) = 4.0, z(0) = 0.0$とした.
+計算時間の領域は$t \in [0.0 \times 2^7]$，数値解法では刻み幅を$\Delta t =   2^{-7},2^{-13}$とした．
 \paragraph*{陽的Euler法を用いた場合}
 最初に，Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 1.0 \times 10^{-2},1.0 \times 10^{-4}$とした場合のEuler法による数値解の誤差を比較した．
+数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_euler_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解の誤差}
-        \label{fig:rossler_1e-2_euler_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_error.png}
+        \caption{$\Delta t = 2^{-7}$とした場合の数値解の誤差}
+        \label{fig:rossler_2^(-7)_euler_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_euler_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解の誤差}
-        \label{fig:rossler_1e-4_euler_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_error.png}
+        \caption{$\Delta t =  2^{-13}$とした場合の数値解の誤差}
+        \label{fig:rossler_2^(-13)_euler_error}
     \end{minipage}
 \end{figure} 
-Euler法による数値実験では，,$\Delta t = 1.0 \times 10^{-2}$とした場合も$\Delta t = 1.0 \times 10^{-4}$とした場合も倍精度浮動小数点(Float64)を用いた計算結果と固定小数点(Q11f52)を用いた数値解としての計算精度はほぼ同等と言って良い．
+Euler法による数値実験では，,$\Delta t = 2^{-7}$とした場合も$\Delta t =  2^{-13}$とした場合も倍精度浮動小数点(Float64)を用いた計算結果と固定小数点(Q11f52)を用いた数値解としての計算精度はほぼ同等と言って良い．
 
 
 次に，厳密解と各数値型でのEuler法による計算結果の比較を行った．
@@ -102,36 +91,36 @@ Euler法による数値実験では，,$\Delta t = 1.0 \times 10^{-2}$とした�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_euler_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解と厳密解の誤差}
-        \label{fig:rossler_1e-2_eluer_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_exact_error.png}
+        \caption{$\Delta t = 2^{-7}$とした場合の数値解と厳密解の誤差}
+        \label{fig:rossler_2^(-7)_eluer_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_euler_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解と厳密の誤差}
-        \label{fig:rossler_1e-4_euler_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_exact_error.png}
+        \caption{$\Delta t =  2^{-13}$とした場合の数値解と厳密の誤差}
+        \label{fig:rossler_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
 Euler法は1次精度の数値解法であるため，厳密解と比較すると精度がかなり悪いため，どの数値型を用いても近似による誤差の影響が大きくなっている．
 
 \paragraph*{4段4次Runge-Kutta法を用いた場合}
 最初に，4段4次Runge-Kutta法による計算の数値会の誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 1.0 \times 10^{-2},1.0 \times 10^{-4}$とした場合のRunge-Kutta法による数値解の誤差を比較した．
+数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のRunge-Kutta法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_rk4_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解の誤差}
-        \label{fig:rossler_1e-2_rk4_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_error.png}
+        \caption{$\Delta t = 2^{-7}$とした場合の数値解の誤差}
+        \label{fig:rossler_2^(-7)_rk4_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_rk4_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解の誤差}
-        \label{fig:rossler_1e-4_rk4_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_error.png}
+        \caption{$\Delta t =  2^{-13}$とした場合の数値解の誤差}
+        \label{fig:rossler_2^(-13)_rk4_error}
     \end{minipage}   
 \end{figure}
 %考察
@@ -143,25 +132,25 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-2_rk4_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした場合の数値解と厳密解の誤差}   
-        \label{fig:rossler_1e-2_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_exact_error.png}
+        \caption{$\Delta t = 2^{-7}$とした場合の数値解と厳密解の誤差}   
+        \label{fig:rossler_2^(-7)_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler/rossler_1e-4_rk4_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした場合の数値解と厳密解の誤差}
-        \label{fig:rossler_1e-4_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_exact_error.png}
+        \caption{$\Delta t =  2^{-13}$とした場合の数値解と厳密解の誤差}
+        \label{fig:rossler_2^(-13)_exact_error}
     \end{minipage}
 \end{figure}
-刻み幅$\Delta t = 1.0 \times 10^{-2}$では，近似による誤差の影響が大きいと考えられ厳密解と比較して精度が悪い．
-一方，刻み幅$\Delta t = 1.0 \times 10^{-4}$では，近似による誤差の影響が小さくなりどの数値型を用いても厳密解と比較して精度が良いと言える．
+刻み幅$\Delta t = 2^{-7}$では，近似による誤差の影響が大きいと考えられ厳密解と比較して精度が悪い．
+一方，刻み幅$\Delta t =  2^{-13}$では，近似による誤差の影響が小さくなりどの数値型を用いても厳密解と比較して精度が良いと言える．
 
 \subsubsection{Brusselator方程式}
 Brusselator方程式は，次のような式で与えられる微分方程式である：
 \begin{align}
-    \frac{d}{dt}[X] &= [A] + [x]^2[Y] - [B][X] - [X]\\
-    \frac{d}{dt}[Y] &= -[X]^2[Y] + [B][X]
+    \frac{dx}{dt} &= A + x^2y - Bx - x\\
+    \frac{dy}{dt} &= -x^2y + Bx
 \end{align}.
 ただし，$A,B$はパラメータである．
 図(？)はその一例である．
@@ -169,29 +158,30 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.9\columnwidth}
-            \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-4_bigfloat_exact.png}
+            \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_bigfloat_exact.png}
     \end{minipage}
     \caption{Bruesslator方程式の解の時間発展の様子}
+    \label{fig:brusselator}
 \end{figure}
 実験は,$A=1.0, B=3.0$，初期値は$X(0) = 1.0, Y(0) = 1.0$とした．
-計算時間の領域は$t \in [0,1.0 \times 10^2]$，数値解法では刻み幅を$\Delta t =  1.0 \times 10^{-2},1.0 \times 10^{-4}$とした．
+計算時間の領域は$t \in [0.0, \times 2^5]$，数値解法では刻み幅を$\Delta t =  2^{-7}, 2^{-13}$とした．
 \paragraph*{陽的Euler法を用いた場合}
 最初に，Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 1.0 \times 10^{-2},1.0 \times 10^{-4}$とした場合のEuler法による数値解の誤差を比較した．
+数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-2_euler_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした時の数値解の誤差}
-        \label{fig:brusselator_1e-2_euler_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_error.png}
+        \caption{$\Delta t = 2^{-7}$とした時の数値解の誤差}
+        \label{fig:brusselator_2^(-7)_euler_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-4_euler_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした時の数値解の誤差}
-        \label{fig:brusselator_1e-4_euler_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_error.png}
+        \caption{$\Delta t =  2^{-13}$とした時の数値解の誤差}
+        \label{fig:brusselator_2^(-13)_euler_error}
     \end{minipage}
 \end{figure}
 %考察
@@ -202,15 +192,15 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-2_euler_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした時の数値解と厳密解の誤差}
-        \label{fig:brusselator_1e-2_euler_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.png}
+        \caption{$\Delta t = 2^{-7}$とした時の数値解と厳密解の誤差}
+        \label{fig:brusselator_2^(-7)_euler_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-4_euler_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした時の数値解と厳密解の誤差}
-        \label{fig:brusselator_1e-4_euler_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_exact_error.png}
+        \caption{$\Delta t =  2^{-13}$とした時の数値解と厳密解の誤差}
+        \label{fig:brusselator_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
 %考察
@@ -219,21 +209,21 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 
 \paragraph*{4段4次Runge-Kutta法を用いた場合}
 最初に，4段4次Runge-Kutta法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 1.0 \times 10^{-2},1.0 \times 10^{-4}$とした場合の4段4次Runge-Kutta法による数値解の誤差を比較した．
+数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次Runge-Kutta法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-2_rk4_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした時の数値解の誤差}
-        \label{fig:brusselator_1e-2_rk4_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_rk4_error.png}
+        \caption{$\Delta t = 2^{-7}$とした時の数値解の誤差}
+        \label{fig:brusselator_2^(-7)_rk4_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-4_rk4_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした時の数値解の誤差}
-        \label{fig:brusselator_1e-4_rk4_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_error.png}
+        \caption{$\Delta t =  2^{-13}$とした時の数値解の誤差}
+        \label{fig:brusselator_2^(-13)_rk4_error}
     \end{minipage}
 \end{figure}
 %考察
@@ -244,15 +234,15 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-2_euler_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-2}$とした時の数値解と厳密解の誤差}
-        \label{fig:brusselator_1e-2_rk4_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.png}
+        \caption{$\Delta t = 2^{-7}$とした時の数値解と厳密解の誤差}
+        \label{fig:brusselator_2^(-7)_rk4_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator/brusselator_1e-4_rk4_exact_error.png}
-        \caption{$\Delta t = 1.0 \times 10^{-4}$とした時の数値解と厳密解の誤差}
-        \label{fig:brusselator_1e-4_exact_error}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_exact_error.png}
+        \caption{$\Delta t =  2^{-13}$とした時の数値解と厳密解の誤差}
+        \label{fig:brusselator_2^(-13)_exact_error}
     \end{minipage}
 \end{figure}
 %考察
