@@ -66,13 +66,13 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_exact_error.png}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解との誤差}
-        \label{fig:lorenz_2^(-7)_exact_error}
+        \label{fig:lorenz_2^(-7)_euler_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_exact_error.png}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解との誤差}
-        \label{fig:lorenz_2^(-13)_exact_error}
+        \label{fig:lorenz_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
 
@@ -104,13 +104,13 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_rk4_exaxt_error.png}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解との誤差}
-        \label{fig:lorenz_2^(-7)_exact_error}
+        \label{fig:lorenz_2^(-7)_rk4_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_rk4_exact_error.png}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解との誤差}
-        \label{fig:lorenz_2^(-13)_exact_error}
+        \label{fig:lorenz_2^(-13)_rk4_exact_error}
     \end{minipage}
 \end{figure}
 %考察
@@ -218,13 +218,13 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_exact_error.png}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解との誤差}   
-        \label{fig:rossler_2^(-7)_exact_error}
+        \label{fig:rossler_2^(-7)_rk4_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_exact_error.png}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解との誤差}
-        \label{fig:rossler_2^(-13)_exact_error}
+        \label{fig:rossler_2^(-13)_rk4_exact_error}
     \end{minipage}
 \end{figure}
 刻み幅$\Delta t = 2^{-7}$では，近似による誤差の影響が大きいと考えられ厳密解と比較して精度が悪い．
@@ -326,7 +326,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_exact_error.png}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解との誤差}
-        \label{fig:brusselator_2^(-13)_exact_error}
+        \label{fig:brusselator_2^(-13)_rk4_exact_error}
     \end{minipage}
 \end{figure}
 %考察
