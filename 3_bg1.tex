@@ -7,7 +7,7 @@
 \section{固定小数点}
 固定小数点数は，与えられたbit数に対して，そのうち小数部にいくつのbitを割り当てるのかを決めて残りのbitを整数部に割り当てて数を表現する方法である．
 例として，$N \in \N$として計算機の中で$N$bitが数字を記憶するために与えられているとする．
-そのうち，$m \ (m < N)$bitを小数部に割り当てた固定小数点数$a$は，符号を考えない場合以下のように表すことができる：
+そのうち，$m \ (m < N)$bitを小数部に割り当てた固定小数点数$a = a_{N-m-1} a_{N-m-2} \cdots a_1 a_0. a_{-1} \cdots a_{-m}$の値は，符号を考えない場合以下のようになる：
 
 \begin{align}
     a = a_{N-m-1} 2^{N-m-1} + a_{N-m-2} 2^{N-m-2} + \cdots + a_1 2^1 + a_0 2^0 + a_{-1} 2^{-1} + \cdots + a_{-m} 2^{-m}.
@@ -40,6 +40,11 @@
     \label{fig:fixedpointnumber_unsigned}
 \end{figure}
 また，符号付き固定小数点の場合，符号に$1$bit割り当てるため整数部が$N-m-2$bitとなる．
+$s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-2} a_{N-m-3} \cdots a_1 a_0. a_{-1} \cdots a_{-m}$の値は以下のようになる：
+\begin{align}
+    a_{signed} &= (-1)^s \left( a_{N-m-2} \times 2^{N-m-2} + a_{N-m-3} \times 2^{N-m-3} + \cdots + a_{1} \times + 2^{1} a_{0} \times 2^{0} \right. \\
+     &\left. + a_{-1} \times 2^{-1} +  \cdots + a_{-m} \times 2^{-m} \right).
+\end{align}
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -49,7 +54,7 @@
         \draw (0,0) grid (16,1);
         \fill (5,0) circle [radius=0.1] node [below] {Fixed Point};
         \draw[ultra thick, dotted] (2.1,0.5) -- (2.9,0.5);
-        \node [anchor=center] at (0.5,0.5) {sign};
+        \node [anchor=center] at (0.5,0.5) {0};
         \node [anchor=center] at (1.5,0.5) {1};
         \node [anchor=center] at (3.5,0.5) {0};
         \node [anchor=center] at (4.5,0.5) {0};
@@ -64,6 +69,7 @@
         \draw[<->,thick] (5,1.2) -- (16,1.2);
         \draw (3,1.3) node[fill=white] {$(N-m-2)$bits};
         \draw (11,1.3) node[fill=white] {$m$bits};
+        \draw (0.5,1.3) node[fill=white] {Sign};
     \end{tikzpicture}
     \caption{$N$bitの符号付き固定小数点のイメージ図}
     \label{fig:fixedpointnumber_signed}
@@ -93,7 +99,81 @@
     \end{tabular}
     \label{tab:Float32_Float64_bit}
 \end{table}
-浮動小数点はbit数によって表現出来る数の範囲が異なる．
+単精度浮動小数点(Float32)の割り当ては以下の様になる．
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \fill[green] (1,0) rectangle (5,1);
+        \fill[pink] (5,0) rectangle (16,1);
+        \fill[blue, opacity=0.2] (0,0) rectangle (1,1);
+        \draw (0,0) grid (16,1);
+        \draw[ultra thick, dotted] (2.1,0.5) -- (2.9,0.5);
+        \node [anchor=center] at (0.5,0.5) {0};
+        \node [anchor=center] at (1.5,0.5) {1};
+        \node [anchor=center] at (3.5,0.5) {0};
+        \node [anchor=center] at (4.5,0.5) {0};
+        \node [anchor=center] at (5.5,0.5) {1};
+        \node [anchor=center] at (6.5,0.5) {0};
+        \node [anchor=center] at (7.5,0.5) {0};
+        \node [anchor=center] at (8.5,0.5) {1};
+        \draw[ultra thick, dotted] (9.1,0.5) -- (13.9,0.5);
+        \node [anchor=center] at (14.5,0.5) {1};
+        \node [anchor=center] at (15.5,0.5) {0};
+        \draw[<->,thick] (1,1.2) -- (5,1.2);
+        \draw[<->,thick] (5,1.2) -- (16,1.2);
+        \draw (3,1.3) node[fill=white] {指数部$8$bits};
+        \draw (11,1.3) node[fill=white] {仮数部$23$bits};
+        \draw (0.5,1.3) node[fill=white] {Sign};
+    \end{tikzpicture}
+    \caption{単精度浮動小数点(Float32)のイメージ図}
+    \label{fig:float32_bit}
+\end{figure}
+単精度浮動小数点(Float32)は，指数部の8bitででは整数値で$0 \sim  255$の値を取るが$-127$のバイアスがある．
+また，仮数部の値は暗黙に一つ上の位が$1$であるとして，小数点以下の位を表す表現方法を用いている．
+よって，単精度浮動小数点で表せられる値$b_{32}$は，指数部の数を$e_{32}$，仮数部の各bitを$b_{-1}$，$b_{-2}$,...,$b{-23}$とすると，
+\begin{align}
+    b_{32} &= (-1)^{sign}(1 + b_{-1}\times 2^{-1} + b_{-2}\times 2^{-2} + \cdots + b_{-23}\times 2^{-23})\times 2^{e_{32} - 127} \\
+        &= (-1)^{sign}\left(1 + \sum_{i = 1}^{23} b_{-i} 2^{-i}\right)\times 2^{e_{32} - 127}
+\end{align}
+となる．
+倍精度浮動小数点（Float64）の割り当ては以下の様になる：
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \fill[green] (1,0) rectangle (5,1);
+        \fill[pink] (5,0) rectangle (16,1);
+        \fill[blue, opacity=0.2] (0,0) rectangle (1,1);
+        \draw (0,0) grid (16,1);
+        \draw[ultra thick, dotted] (2.1,0.5) -- (2.9,0.5);
+        \node [anchor=center] at (0.5,0.5) {0};
+        \node [anchor=center] at (1.5,0.5) {1};
+        \node [anchor=center] at (3.5,0.5) {0};
+        \node [anchor=center] at (4.5,0.5) {0};
+        \node [anchor=center] at (5.5,0.5) {1};
+        \node [anchor=center] at (6.5,0.5) {0};
+        \node [anchor=center] at (7.5,0.5) {0};
+        \node [anchor=center] at (8.5,0.5) {1};
+        \draw[ultra thick, dotted] (9.1,0.5) -- (13.9,0.5);
+        \node [anchor=center] at (14.5,0.5) {1};
+        \node [anchor=center] at (15.5,0.5) {0};
+        \draw[<->,thick] (1,1.2) -- (5,1.2);
+        \draw[<->,thick] (5,1.2) -- (16,1.2);
+        \draw (3,1.3) node[fill=white] {指数部$11$bits};
+        \draw (11,1.3) node[fill=white] {仮数部$52$bits};
+        \draw (0.5,1.3) node[fill=white] {Sign};
+    \end{tikzpicture}
+    \caption{倍精度浮動小数点(Float64)のイメージ図}
+    \label{fig:float64_bit}
+\end{figure}
+倍精度浮動小数点（Float64）は指数部の11bitで整数値$0 \sim  2047$を取るが$-1023$のバイアスがある．
+また，単精度浮動小数点と同様に仮数部の値は暗黙に一つ上の位が$1$であるとして，小数点以下の位を表す表現方法を用いている．
+よって，単精度浮動小数点で表せられる値$b_{64}$は，指数部の数を$e_{64}$，仮数部の各bitを$b_{-1}$，$b_{-2}$,...,$b{-52}$とすると，
+\begin{align}
+    b_{64} &= (-1)^{sign}(1 + b_{-1}\times 2^{-1} + b_{-2}\times 2^{-2} + \cdots + b_{-52}\times 2^{-52})\times 2^{e_{64} - 1023} \\
+        &= (-1)^{sign}\left(1 + \sum_{i = 1}^{52} b_{-i} 2^{-i}\right)\times 2^{e_{64} - 1023}
+\end{align}
+となる．
+以上から浮動小数点はbit数によって表現出来る数の範囲が異なる．
 単精度浮動小数点と倍精度浮動小数点では以下の様になる：
 \begin{table}[H]
     \centering
