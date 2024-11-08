@@ -24,9 +24,9 @@
     end
 
     function err_norm_3d(x_ex,y_ex,z_ex,x,y,z)
-        x_err = x_ex - x
-        y_err = y_ex - y
-        z_err = z_ex - z
+        x_err = x_ex .- x
+        y_err = y_ex .- y
+        z_err = z_ex .- z
         return sqrt.((x_err).^2 .+ (y_err).^2 .+ (z_err).^2)
     end
 

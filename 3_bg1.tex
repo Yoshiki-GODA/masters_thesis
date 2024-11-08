@@ -31,10 +31,10 @@
         \draw[ultra thick, dotted] (8.1,0.5) -- (13.9,0.5);
         \node [anchor=center] at (14.5,0.5) {1};
         \node [anchor=center] at (15.5,0.5) {0};
-        \draw[<->,thick] (0,1.2) -- (5,1.2);
-        \draw (2,1.3) node[fill=white] {$(N-m-1)$bits};
-        \draw[<->,thick] (5,1.2) -- (16,1.2);
-        \draw (11,1.3) node[fill=white] {$m$bits};
+        \draw[<->,thick] (0,1.3) -- (5,1.3);
+        \draw (2,1.35) node[fill=white] {$(N-m-1)$bits};
+        \draw[<->,thick] (5,1.3) -- (16,1.3);
+        \draw (11,1.35) node[fill=white] {$m$bits};
     \end{tikzpicture}
     \caption{$N$bitの符号なし固定小数点のイメージ図}
     \label{fig:fixedpointnumber_unsigned}
@@ -65,11 +65,11 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \draw[ultra thick, dotted] (9.1,0.5) -- (13.9,0.5);
         \node [anchor=center] at (14.5,0.5) {1};
         \node [anchor=center] at (15.5,0.5) {0};
-        \draw[<->,thick] (1,1.2) -- (5,1.2);
-        \draw[<->,thick] (5,1.2) -- (16,1.2);
-        \draw (3,1.3) node[fill=white] {$(N-m-2)$bits};
-        \draw (11,1.3) node[fill=white] {$m$bits};
-        \draw (0.5,1.3) node[fill=white] {Sign};
+        \draw[<->,thick] (1,1.3) -- (5,1.3);
+        \draw[<->,thick] (5,1.3) -- (16,1.3);
+        \draw (3,1.35) node[fill=white] {$(N-m-2)$bits};
+        \draw (11,1.35) node[fill=white] {$m$bits};
+        \draw (0.5,1.35) node[fill=white] {Sign};
     \end{tikzpicture}
     \caption{$N$bitの符号付き固定小数点のイメージ図}
     \label{fig:fixedpointnumber_signed}
@@ -119,8 +119,8 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \draw[ultra thick, dotted] (9.1,0.5) -- (13.9,0.5);
         \node [anchor=center] at (14.5,0.5) {1};
         \node [anchor=center] at (15.5,0.5) {0};
-        \draw[<->,thick] (1,1.2) -- (5,1.2);
-        \draw[<->,thick] (5,1.2) -- (16,1.2);
+        \draw[<->,thick] (1,1.3) -- (5,1.3);
+        \draw[<->,thick] (5,1.3) -- (16,1.3);
         \draw (3,1.3) node[fill=white] {指数部$8$bits};
         \draw (11,1.3) node[fill=white] {仮数部$23$bits};
         \draw (0.5,1.3) node[fill=white] {Sign};
@@ -156,8 +156,8 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \draw[ultra thick, dotted] (9.1,0.5) -- (13.9,0.5);
         \node [anchor=center] at (14.5,0.5) {1};
         \node [anchor=center] at (15.5,0.5) {0};
-        \draw[<->,thick] (1,1.2) -- (5,1.2);
-        \draw[<->,thick] (5,1.2) -- (16,1.2);
+        \draw[<->,thick] (1,1.3) -- (5,1.3);
+        \draw[<->,thick] (5,1.3) -- (16,1.3);
         \draw (3,1.3) node[fill=white] {指数部$11$bits};
         \draw (11,1.3) node[fill=white] {仮数部$52$bits};
         \draw (0.5,1.3) node[fill=white] {Sign};
@@ -180,8 +180,58 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
     \caption{単精度浮動小数点と倍精度浮動小数点の表現可能な数の範囲}
     \begin{tabular}{c|c|c|c}   
      & 最大値 & 最小値　& 0に最も近い数 \\ \hline
-    Float32 & & & \\
-    Float64 & & &
+    Float32 &　$\sum_{i=105}^{128}2^i$ & $-\sum_{i=105}^{128}2^i$& \\
+    Float64 & $\sum_{i=972}^{1024}2^i$ & $-\sum_{i=972}^{1024}2^i$&
     \end{tabular}
     \label{tab:Float32_Float64_range}
 \end{table}
+
+
+以上のように，固定小数点数と浮動小数点数には表現出来る数の値に違いある．
+そのイメージをあらわしたのが以下の図である．
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw [->, thick] (-7,0) -- (7,0);
+        \draw [thick] (-6,0.2) -- (-6,-0.2);
+        \draw [thick] (-5,0.2) -- (-5,-0.2);
+        \draw [thick] (-4,0.2) -- (-4,-0.2);
+        \draw [thick] (-3,0.2) -- (-3,-0.2);
+        \draw [thick] (-2,0.2) -- (-2,-0.2);
+        \draw [thick] (-1,0.2) -- (-1,-0.2);
+        \draw [thick] (0,0.5) -- (0,-0.5) node [below] {0};
+        \draw [thick] (1,0.2) -- (1,-0.2);
+        \draw [thick] (2,0.2) -- (2,-0.2);
+        \draw [thick] (3,0.2) -- (3,-0.2);
+        \draw [thick] (4,0.2) -- (4,-0.2);
+        \draw [thick] (5,0.2) -- (5,-0.2);
+        \draw [thick] (6,0.2) -- (6,-0.2);
+    \end{tikzpicture}
+    \caption{固定小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す}
+    \label{fig:fixedpoint_image}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw [->, thick] (-7,0) -- (7,0);
+        \draw [thick] (-4,0.2) -- (-4,-0.2);
+        \draw [thick] (-2,0.2) -- (-2,-0.2);
+        \draw [thick] (-1,0.2) -- (-1,-0.2);
+        \draw [thick] (-0.5,0.2) -- (-0.5,-0.2);
+        \draw [thick] (-0.25,0.2) -- (-0.25,-0.2);
+        \draw [thick] (-0.125,0.2) -- (-0.125,-0.2);
+        \draw [thick] (0,0.5) -- (0,-0.5) node [below] {0};
+        \draw [thick] (0.125,0.2) -- (0.125,-0.2);
+        \draw [thick] (0.25,0.2) -- (0.25,-0.2);
+        \draw [thick] (0.5,0.2) -- (0.5,-0.2);
+        \draw [thick] (1,0.2) -- (1,-0.2);
+        \draw [thick] (2,0.2) -- (2,-0.2);
+        \draw [thick] (4,0.2) -- (4,-0.2);
+    \end{tikzpicture}
+    \caption{浮動小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す}
+    \label{fig:floatpoint_image}
+\end{figure}
+図(\ref{fig:fixedpoint_image})のように固定小数点数で表せる数で隣り合う数は隣の数までの間隔が一定である．
+それに対して(\ref{fig:floatpoint_image})のように浮動小数点数で表せる数で隣り合う数は隣の数までの感覚が一定ではない．
+また，絶対値が$0$に近い場合
