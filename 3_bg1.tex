@@ -1,8 +1,9 @@
 \chapter{浮動小数点数と固定小数点数についての基礎知識}
 \label{chap:基礎知識1}
 計算機内部で扱う数値には二つの表現方法がある．
-それぞれの表現方法を固定小数点数がと浮動小数点数という．これらの表現方法について説明する．
-固定小数点数，浮動小数点数はともに数を計算機が記憶しておくための数の表現方法である．
+それぞれの表現方法を固定小数点数と浮動小数点数という．
+これらの表現方法について説明する．
+固定小数点数，浮動小数点数はともに数を計算機が記憶しておくための数の表現方法である．%ここの文章は同じことを言っている気がする．
 
 \section{固定小数点}
 固定小数点数は，与えられたbit数に対して，そのうち小数部にいくつのbitを割り当てるのかを決めて残りのbitを整数部に割り当てて数を表現する方法である．
@@ -32,14 +33,14 @@
         \node [anchor=center] at (14.5,0.5) {1};
         \node [anchor=center] at (15.5,0.5) {0};
         \draw[<->,thick] (0,1.3) -- (5,1.3);
-        \draw (2,1.35) node[fill=white] {$(N-m-1)$bits};
+        \draw (2,1.35) node[fill=white] {$(N-m)$bits};
         \draw[<->,thick] (5,1.3) -- (16,1.3);
         \draw (11,1.35) node[fill=white] {$m$bits};
     \end{tikzpicture}
-    \caption{$N$bitの符号なし固定小数点のイメージ図}
+    \caption{$N$bitの符号なし固定小数点のイメージ図．}
     \label{fig:fixedpointnumber_unsigned}
 \end{figure}
-また，符号付き固定小数点の場合，符号に$1$bit割り当てるため整数部が$N-m-2$bitとなる．
+また，符号付き固定小数点の場合，符号に$1$bit割り当てるため整数部が$N-m-1$bitとなる．
 $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-2} a_{N-m-3} \cdots a_1 a_0. a_{-1} \cdots a_{-m}$の値は以下のようになる：
 \begin{align}
     a_{signed} &= (-1)^s \left( a_{N-m-2} \times 2^{N-m-2} + a_{N-m-3} \times 2^{N-m-3} + \cdots + a_{1} \times + 2^{1} a_{0} \times 2^{0} \right. \\
@@ -67,16 +68,16 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \node [anchor=center] at (15.5,0.5) {0};
         \draw[<->,thick] (1,1.3) -- (5,1.3);
         \draw[<->,thick] (5,1.3) -- (16,1.3);
-        \draw (3,1.35) node[fill=white] {$(N-m-2)$bits};
+        \draw (3,1.35) node[fill=white] {$(N-m-1)$bits};
         \draw (11,1.35) node[fill=white] {$m$bits};
         \draw (0.5,1.35) node[fill=white] {Sign};
     \end{tikzpicture}
-    \caption{$N$bitの符号付き固定小数点のイメージ図}
+    \caption{$N$bitの符号付き固定小数点のイメージ図．}
     \label{fig:fixedpointnumber_signed}
 \end{figure}
-本論文では，$N$bitの符号付き固定小数点で小数部に$m$bit，整数部に$(N-m-2)$bitを割り当てた固定小数点を，
+本論文では，$N$bitの符号付き固定小数点で小数部に$m$bit，整数部に$(N-m-1)$bitを割り当てた固定小数点を，
 \begin{equation}
-    \text{Q}(N-m-2)\text{f}m
+    \text{Q}(N-m-1)\text{f}m
 \end{equation}
 と表す．
 例えば，Q11f52は符号に1bit，小数部に52bit，整数部に11bitを割り当てた固定小数点数のことを表す．
@@ -125,10 +126,10 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \draw (11,1.3) node[fill=white] {仮数部$23$bits};
         \draw (0.5,1.3) node[fill=white] {Sign};
     \end{tikzpicture}
-    \caption{単精度浮動小数点(Float32)のイメージ図}
+    \caption{単精度浮動小数点(Float32)のイメージ図．}
     \label{fig:float32_bit}
 \end{figure}
-単精度浮動小数点(Float32)は，指数部の8bitででは整数値で$0 \sim  255$の値を取るが$-127$のバイアスがある．
+単精度浮動小数点(Float32)は，指数部の8bitで整数値では$0 \sim  255$の値を取るが$-127$のバイアスがある．
 また，仮数部の値は暗黙に一つ上の位が$1$であるとして，小数点以下の位を表す表現方法を用いている．
 よって，単精度浮動小数点で表せられる値$b_{32}$は，指数部の数を$e_{32}$，仮数部の各bitを$b_{-1}$，$b_{-2}$,...,$b{-23}$とすると，
 \begin{align}
@@ -162,10 +163,10 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \draw (11,1.3) node[fill=white] {仮数部$52$bits};
         \draw (0.5,1.3) node[fill=white] {Sign};
     \end{tikzpicture}
-    \caption{倍精度浮動小数点(Float64)のイメージ図}
+    \caption{倍精度浮動小数点(Float64)のイメージ図．}
     \label{fig:float64_bit}
 \end{figure}
-倍精度浮動小数点（Float64）は指数部の11bitで整数値$0 \sim  2047$を取るが$-1023$のバイアスがある．
+倍精度浮動小数点（Float64）は指数部の11bitで整数値では$0 \sim  2047$の値を取るが$-1023$のバイアスがある．
 また，単精度浮動小数点と同様に仮数部の値は暗黙に一つ上の位が$1$であるとして，小数点以下の位を表す表現方法を用いている．
 よって，単精度浮動小数点で表せられる値$b_{64}$は，指数部の数を$e_{64}$，仮数部の各bitを$b_{-1}$，$b_{-2}$,...,$b{-52}$とすると，
 \begin{align}
@@ -207,7 +208,7 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \draw [thick] (5,0.2) -- (5,-0.2);
         \draw [thick] (6,0.2) -- (6,-0.2);
     \end{tikzpicture}
-    \caption{固定小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す}
+    \caption{固定小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す．}
     \label{fig:fixedpoint_image}
 \end{figure}
 
@@ -229,9 +230,9 @@ $s$を符号とすると，符号付き固定小数点数$a_{signed} = s a_{N-m-
         \draw [thick] (2,0.2) -- (2,-0.2);
         \draw [thick] (4,0.2) -- (4,-0.2);
     \end{tikzpicture}
-    \caption{浮動小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す}
+    \caption{浮動小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す．}
     \label{fig:floatpoint_image}
 \end{figure}
 図(\ref{fig:fixedpoint_image})のように固定小数点数で表せる数で隣り合う数は隣の数までの間隔が一定である．
-それに対して(\ref{fig:floatpoint_image})のように浮動小数点数で表せる数で隣り合う数は隣の数までの感覚が一定ではない．
+それに対して(\ref{fig:floatpoint_image})のように浮動小数点数で表せる数で隣り合う数は隣の数までの間隔が一定ではない．
 また，絶対値が$0$に近い場合
