@@ -38,7 +38,7 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 図(\ref{fig:lorenz})はLorenz方程式の解の時間発展の様子の一例である．
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig_lorenz/lorenz_2^(-13)_BigFloat_exact.png}
+    \includegraphics[width=0.9\linewidth]{fig_lorenz/lorenz_2^(-7)_BigFloat_exact.pdf}
     \caption{Lorenz方程式の時間発展の様子（$\sigma=10$, $\rho=28$, $\beta=2.6640625$）}
     \label{fig:lorenz}
 \end{figure}
@@ -66,13 +66,13 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:lorenz_2^(-7)_euler_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:lorenz_2^(-13)_euler_error}
     \end{minipage}
@@ -84,13 +84,13 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_exact_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の}
         \label{fig:lorenz_2^(-7)_euler_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_exact_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との}
         \label{fig:lorenz_2^(-13)_euler_exact_error}
     \end{minipage}
@@ -104,13 +104,13 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_rk4_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_rk4_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:lorenz_2^(-7)_rk4_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_rk4_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_rk4_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:lorenz_2^(-13)_rk4_error}
     \end{minipage}
@@ -122,13 +122,13 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_rk4_exaxt_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_rk4_exaxt_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:lorenz_2^(-7)_rk4_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_rk4_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_rk4_exact_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:lorenz_2^(-13)_rk4_exact_error}
     \end{minipage}
@@ -161,7 +161,7 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 %Rossler方程式の時間発展の様子を図示
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig_rossler2/rossler_2^(-13)_BigFloat_rk4.png}
+    \includegraphics[width=0.9\linewidth]{fig_rossler2/rossler_2^(-13)_BigFloat_rk4.pdf}
     \caption{Rossler方程式の解の時間発展の様子}
     \label{fig:rossler}
 \end{figure}
@@ -188,13 +188,13 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-7)_euler_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-13)_euler_error}
     \end{minipage}
@@ -208,13 +208,13 @@ Euler法による数値実験では，,$\Delta t = 2^{-7}$とした場合も$\De
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_exact_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:rossler_2^(-7)_eluer_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_exact_error.pdf}
         \caption{Eulur法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:rossler_2^(-13)_euler_exact_error}
     \end{minipage}
@@ -229,13 +229,13 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-7)_rk4_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:rossler_2^(-13)_rk4_error}
     \end{minipage}   
@@ -249,13 +249,13 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_exact_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}   
         \label{fig:rossler_2^(-7)_rk4_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_exact_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:rossler_2^(-13)_rk4_exact_error}
     \end{minipage}
@@ -275,7 +275,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.9\columnwidth}
-            \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_bigfloat_exact.png}
+            \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_bigfloat_exact.pdf}
     \end{minipage}
     \caption{Bruesslator方程式の解の時間発展の様子}
     \label{fig:brusselator}
@@ -301,13 +301,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-7)_euler_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-13)_euler_error}
     \end{minipage}
@@ -320,13 +320,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:brusselator_2^(-7)_euler_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_exact_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:brusselator_2^(-13)_euler_exact_error}
     \end{minipage}
@@ -343,13 +343,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_rk4_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_rk4_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-7)_rk4_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と正確な数値解との誤差}
         \label{fig:brusselator_2^(-13)_rk4_error}
     \end{minipage}
@@ -362,13 +362,13 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \centering
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:brusselator_2^(-7)_rk4_exact_error}
     \end{minipage}
     \begin{minipage}[b]{0.49\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_exact_error.png}
+        \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_exact_error.pdf}
         \caption{4段4次Runge-Kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差}
         \label{fig:brusselator_2^(-13)_rk4_exact_error}
     \end{minipage}
