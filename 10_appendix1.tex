@@ -1,7 +1,28 @@
 \chapter{補遺}
 \label{chap:補遺}
-\section{数値解法}
-$t \in \R$を独立変数として，
-また，初期値として$\bm{x}(0)$が与えられているとする．
+\section{微分方程式の数値解法}
+独立変数を$t \in \R$，未知関数$\bm{x}(t) = \left(x_1(t),x_2(t),\cdots,x_m(t)\right) \in \R^m$を$k$階微分可能であるとする．
+そして，$\R^{m+1}$から$\R^m$への関数$\bm{f}(t,\bm{x}(t))$
+\begin{align}
+    \bm{f}(t,\bm{x}(t)) = \left(f_1(t,\bm{x}(t)),f_2(t,\bm{x}(t)),\cdots,f_m(t,\bm{x}(t))\right)
+\end{align}
+が与えられているとする．
+また，$\bm{x}(0)$が与えられているとする．
+このとき，
+\begin{align}
+    \frac{d \bm{x}(t)}{dt} = \left(x_1^{\prime}(t),x_2^{\prime}(t),\cdots,x_m^{\prime}(t)\right)
+\end{align}
+として，
+\begin{align}
+    \frac{d \bm{x}(t)}{dt} &= \bm{f}(t,\bm{x}(t)), \label{eq:ode} \\
+    \bm{x}(0) &= \left(x_1(0),x_2(0),\cdots,x_m(0)\right)
+\end{align}
+を解くことを考える．このような問題を微分方程式の初期値問題という．
+計算機を用いてこの問題を解く方法として，以下のようなものが挙げられる．
 \subsection{陽的Euler法}
-ここでは，
+陽的Euler法について説明する．
+$|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる．
+このとき，
+\begin{align}
+    \frac{d \bm{x}(t)}{dt} \backsimeq \frac{\bm{x}(t+\Delta t) - \bm{x}(t)}{\Delta t}
+\end{align}
