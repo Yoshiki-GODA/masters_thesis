@@ -24,5 +24,28 @@
 $|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる．
 このとき，
 \begin{align}
+    \label{eq:dtneq}
     \frac{d \bm{x}(t)}{dt} \backsimeq \frac{\bm{x}(t+\Delta t) - \bm{x}(t)}{\Delta t}
 \end{align}
+と近似することができる．
+式(\ref{eq:ode})，(\ref{eq:dtneq})より，式変形を行い
+\begin{align}
+    \frac{\bm{x}(t + \Delta t) - \bm{x}(t)}{\Delta t} \backsimeq \bm{f}(t,\bm{x}(t)),\\
+    \bm{x}(\Delta t) \backsimeq \bm{x}(t) + \Delta t \bm{f}(t,\bm{x}(t)) \label{eq:euler1}
+\end{align}
+を得る．
+この式により，時刻$t$のときの$\bm{x}(t),\bm{f}(t,\bm{x}(t))$の値から時刻$t+\Delta t$のときの$\bm{x}(t+\Delta t),\bm{f}(t+\Delta t,\bm{x}(t+\Delta t))$の値を計算することが可能となる．
+式(\ref{eq:euler1})の左辺の$t$を$\Delta t$に置き換えることにより時刻$t + 2\delt$のときの$\bm{x}(t+2\delt),\bm{f}(t+2\delt,\bm{x}(t+2\delt))$の値を時刻$t+\Delta t$のときの$\bm{x}(t+\Delta t),\bm{f}(t+\Delta t,\bm{x}(t+\Delta t))$の値から計算することが可能となる．
+この工程を繰り返すことにより，$t_k = t + k\delt$とおくと，
+\begin{align}
+    \bm{x}(t_k) \backsimeq \bm{x}(t{k-1}) + \delt\bm{f}(t_{k-1},\bm{x}(t_{k-1})) \ \left(k = 1,2,\cdots\right) \label{eq:euler2}
+\end{align}
+となり時刻$t_k$の$\bm{x}(t_k)$値を計算できる．
+この式(\ref{eq:euler2})を用いて微分方程式(\ref{eq:ode})の数値計算を行う方法を陽的Euler法という．
+
+\section{陽的Runge-Kutta法}
+陽的Runge-Kutta法について説明する．
+
+\section{St\"ormer-Verlet法}
+St\"ormer-Verlet法について説明する．
+St\"ormer-Verlet法は，保存量を保存するように数値解を計算する方法である．
