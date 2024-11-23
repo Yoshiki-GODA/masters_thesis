@@ -180,9 +180,33 @@ $s$を符号とすると，符号付き固定小数点数$a_{\rm signed} = s a_{
     \centering
     \caption{単精度浮動小数点と倍精度浮動小数点の表現可能な数の範囲．}
     \begin{tabular}{c|c|c|c}   
-     & 最大値 & 最小値　& 0に最も近い数 \\ \hline
-    Float32 &　$\sum_{i=105}^{128}2^i$ & $-\sum_{i=105}^{128}2^i$& \\
-    Float64 & $\sum_{i=972}^{1024}2^i$ & $-\sum_{i=972}^{1024}2^i$&
+        & 最大値 & 最小値　& 0に最も近い数 \\ \hline\hline
+        Float32 &
+        \begin{tabular}{c}
+            $\sum_{i=105}^{128}2^i$ \\
+            $\backsimeq 3.4028235\times 10^{38}$
+        \end{tabular}&
+        \begin{tabular}{c}
+            $-\sum_{i=105}^{128}2^i$ \\
+            $\backsimeq -3.4028235\times 10^{38}$
+        \end{tabular}&
+        \begin{tabular}{c}
+            $2^{-127}$ \\
+            $\backsimeq 1.1754944\times 10^{-38}$
+        \end{tabular} \\ \hline
+        Float64 &
+        \begin{tabular}{c}
+            $\sum_{i=927}^{1024}2^i$ \\
+            $\backsimeq 1.7976931348623157\times 10^{308}$
+        \end{tabular}&
+        \begin{tabular}{c}
+            $-\sum_{i=927}^{1024}2^i$ \\
+            $\backsimeq -1.7976931348623157\times 10^{308}$
+        \end{tabular}&
+        \begin{tabular}{c}
+            $2^{-1023}$ \\
+            $\backsimeq 2.2250738585072014\times 10^{-308}$
+        \end{tabular}
     \end{tabular}
     \label{tab:Float32_Float64_range}
 \end{table}
