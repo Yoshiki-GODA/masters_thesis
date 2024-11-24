@@ -398,7 +398,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 
 また，Lotka-Volterra方程式は，次のような保存量$H$
 \begin{equation}
-    H = cx + by -d \log(x) - a \log(y)
+    H = cx(t) + by(t) -d \log\left(x(t)\right) - a \log\left(y(t)\right)
 \end{equation}
 を持ち時刻$t$に関わらずその値は一定である．以下では，初期時刻での保存量$H_0$と時刻$t$での保存量$H_t$との誤差も比較した．
 実験を行った設定での初期時刻の保存量$H_0$は，$H_0 =2.82944154167\dots$である．
@@ -477,6 +477,20 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \paragraph*{St\"ormer-Verlet法を用いた場合}
 次に，St\"ormer-Verlet法を用いた場合での数値解の誤差を確認した．
 St\"ormer-Verlet法は，保存量を保つ性質のある解法である．
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_BigFloat_sv_h.pdf}
+        \caption{St\"ormer-Verlet法を用いて更新幅を$\Delta t = 2^{-7}$とした場合のBigFloat型を用いたときの保存量}        
+    \end{minipage}
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-13)_BigFloat_sv_h.pdf}
+        \caption{St\"ormer-Verlet法を用いて更新幅を$\Delta t =  2^{-13}$とした場合のBigFloat型を用いたときの保存量}
+    \end{minipage}
+\end{figure}
 以下がその結果である．
 
 \begin{figure}[H]
