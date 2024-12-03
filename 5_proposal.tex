@@ -1,3 +1,39 @@
 \chapter{提案手法}
 \label{chap:提案手法}
 本論文で提案するのは，数値計算を固定小数点によって計算することである．
+私は，浮動小数点を用いて計算することの多い問題に対して固定小数点を用いて計算する方が計算結果の精度が高くなる場合があると考える．
+そのため，次の章では数値実験によって等しいbit数の固定小数点と浮動小数点を用いて実験を行った．
+
+
+第\ref{chap:基礎知識1}章で述べたように，固定小数点と浮動小数点では表現できる数のうち隣り合う2数の間隔が異なる範囲がある．
+そのため，固定小数点と浮動小数点では計算の過程で扱う数の範囲によって計算機の中で表現できる数の個数が異なる． %この文変だなぁ。
+本論文では，ある数値型$\mathrm{T}$と計算機で扱う数の範囲$I \subset \R$を用いて，範囲$I$での数値型$\mathrm{T}$の密度${|I|}_{\mathrm{T}}$を以下のように定義する．
+\begin{align}
+    \label{eq:def_density}
+    {|I|}_{\mathrm{T}}: \text{集合}\left\{x^{\ast} \in \mathbb{F}_{\mathrm{T}} \cap I \right\}\text{の要素の数}
+\end{align}
+ただし，数値型$\mathrm{T}$で表せる最大の数を$M_{\mathrm{T}}$，最小の数を$m_{\mathrm{T}}$とし，
+\begin{equation}
+    I \subset (m_{\mathrm{T}}, M_{\mathrm{T}})
+\end{equation}
+とする．
+例として，8bitの固定小数点(Q3f4)を考える．
+このとき，
+\begin{align}
+    m_{\mathrm{Q}3\mathrm{f}4} &= -7.9375, \\
+    M_{\mathrm{Q}3\mathrm{f}4} &= 7.9375
+\end{align}
+であり，$I$を
+\begin{eqnarray}
+    I = \left(-3,2\right)
+\end{eqnarray}
+とすると，${|\left(-3,2\right)|}_{\mathrm{Q}3\mathrm{f}4}$は，
+\begin{align}
+    &\left\{x^{\ast}\in \fixnumcustom{3}{4} \cap (-3,2)\right\} \\
+    &= \left\{-2.9375,\dots,1.9375\right\}
+\end{align}
+となるため，
+\begin{align}
+    {|I|}_{\mathrm{Q}3\mathrm{f}4} = 
+\end{align}
+となる．
