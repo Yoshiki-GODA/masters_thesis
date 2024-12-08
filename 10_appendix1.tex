@@ -31,7 +31,7 @@ $|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる�
 式(\ref{eq:ode})，(\ref{eq:dtneq})より，式変形を行い
 \begin{align}
     \frac{\bm{x}(t + \Delta t) - \bm{x}(t)}{\Delta t} \backsimeq \bm{f}(t,\bm{x}(t)),\\
-    \bm{x}(\Delta t) \backsimeq \bm{x}(t) + \Delta t \bm{f}(t,\bm{x}(t)) \label{eq:euler1}
+    \bm{x}(t + \Delta t) \backsimeq \bm{x}(t) + \Delta t \bm{f}(t,\bm{x}(t)) \label{eq:euler1}
 \end{align}
 を得る．
 この式により，時刻$t$のときの$\bm{x}(t),\bm{f}(t,\bm{x}(t))$の値から時刻$t+\Delta t$のときの$\bm{x}(t+\Delta t)$の値を計算することが可能となる．
