@@ -10,11 +10,11 @@
 また，$\bm{x}(0)$が与えられているとする．
 このとき，
 \begin{align}
-    \frac{d \bm{x}(t)}{dt} = \left(x_1^{\prime}(t),x_2^{\prime}(t),\cdots,x_m^{\prime}(t)\right)
+    \differencial{\bm{x}(t)}{t} = \left(x_1^{\prime}(t),x_2^{\prime}(t),\cdots,x_m^{\prime}(t)\right)
 \end{align}
 として，
 \begin{align}
-    \frac{d \bm{x}(t)}{dt} &= \bm{f}(t,\bm{x}(t)), \label{eq:ode} \\
+    \differencial{\bm{x}(t)}{t} &= \bm{f}(t,\bm{x}(t)), \label{eq:ode} \\
     \bm{x}(0) &= \left(x_1(0),x_2(0),\cdots,x_m(0)\right)
 \end{align}
 を解くことを考える．このような問題を微分方程式の初期値問題という．
@@ -25,7 +25,7 @@ $|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる�
 このとき，
 \begin{align}
     \label{eq:dtneq}
-    \frac{d \bm{x}(t)}{dt} \backsimeq \frac{\bm{x}(t+\Delta t) - \bm{x}(t)}{\Delta t}
+    \differencial{\bm{x}(t)}{t} \backsimeq \frac{\bm{x}(t+\Delta t) - \bm{x}(t)}{\Delta t}
 \end{align}
 と近似することができる．
 式(\ref{eq:ode})，(\ref{eq:dtneq})より，式変形を行い
@@ -43,7 +43,7 @@ $|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる�
 となり時刻$t_k$の$\bm{x}(t_k)$値を計算できる．
 この式(\ref{eq:euler2})を用いて微分方程式(\ref{eq:ode})の数値計算を行う方法を陽的Euler法という．
 
-\section{陽的Runge--Kutta法}
+\subsection{陽的Runge--Kutta法}
 陽的Runge--Kutta法について説明する．
 陽的Runge--Kutta法も，陽的Euler法と同じように，$|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$に対して，$\bm{x}(t),\bm{f}(t,\bm{x}(t))$から，$\bm{x}(t + \delt )$の値を計算する方法である．
 以下の手順により，$\bm{x(t + \delt)}$を求める．
@@ -57,5 +57,94 @@ $|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる�
 上記の式により，$t_k = t + k\delt \ (k = 1,2,\cdots)$に対して，時刻$t_k$の$\bm{x}(t_k)$の値を計算できる．
 
 
-\section{Lotka--Volterraの保存量を保存する数値解法}
+\subsection{Lotka--Volterraの保存量を保存する数値解法}
 Lotka--Volterraの保存量を保存する数値解法について説明する．
+Lotka--Volterraは
+\begin{align}
+    \label{eq:lv1}
+    \differencial{x}{t} &= a x - b xy,\\
+    \label{eq:lv2}
+    \differencial{y}{t} &= c xy - d y
+\end{align}
+で表される微分方程式であり，保存量は
+\begin{equation}
+    \label{eq:H}
+    H(x,y) = cx(t) + by(t) - d\log\left(x(t)\right) - a\log\left(y(t)\right)
+\end{equation}
+である．
+式(\ref{eq:H})を$t$で微分すると，
+\begin{align}
+    \differencial{H}{t} &= \differencial{}{t}\left(cx(t) + by(t) - d\log\left(x(t)\right) - a\log\left(y(t)\right)\right) \\
+    &= c\differencial{x}{t} + b\differencial{y}{t} - d\differencial{\log\left(x(t)\right)}{t} - a\differencial{\log\left(y(t)\right)}{t} \\
+    &= c\differencial{x}{t} + b\differencial{y}{t} - \frac{d}{x(t)}\differencial{x}{t} - \frac{a}{y(t)}\differencial{y}{t} \\
+    &= c\left(ax - bxy\right) + b\left(cxy - dy\right) - \frac{d}{x}\left(ax - bxy\right) - \frac{a}{y}\left(cxy - dy\right) \\
+    &= acx - bcxy + bcxy - bdy - ad + bdy - acx + ad \\
+    &= 0
+\end{align}
+となり，$H(x,y)$は時刻$t$に依らず常に定数になる．
+また，
+\begin{align}
+    \nabla H = \begin{bmatrix}
+        \partialdiff{H}{x} \\  \\
+        \partialdiff{H}{y}
+    \end{bmatrix} =
+    \begin{bmatrix}
+        c - \frac{d}{x} \\
+        b - \frac{a}{y}
+    \end{bmatrix}
+\end{align}
+となり，式(\ref{eq:lv1})，(\ref{eq:lv2})より，
+\begin{align}
+    \label{eq:lv3}
+    \begin{bmatrix}
+        \differencial{x}{t} \\ 
+        \differencial{y}{t}
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        0 & -xy \\
+        xy & 0
+    \end{bmatrix}
+    \nabla H
+\end{align}
+となる． 
+この式から，時刻$t_i$における$x,y$の値$x_i,y_i$から$\delt$だけ更新した時刻$t_{i+1} = (t + \delt)$における$x,y$の値$x_{i+1},y_{i+1}$を計算する．
+式(\ref{eq:lv3})の左辺を，
+\begin{align}
+    \begin{bmatrix}
+        \differencial{x}{t} \\ 
+        \differencial{y}{t}
+    \end{bmatrix}
+     \backsimeq 
+    \begin{bmatrix}
+        \frac{x_{i+1} - x_i}{\delt} \\
+         \frac{y_{i+1} - y_i}{\delt}
+    \end{bmatrix}
+\end{align}
+と近似し，$\nabla H$の近似$\bar{\nabla}H$を
+\begin{align}
+    \bar{\nabla}H = 
+    \begin{bmatrix}
+        \frac{H(x_{i+1},y_{i+1}) - H(x_i,y_{i+1})}{x_{i+1} - x_i} \\
+        \frac{H(x_{i},y_{i+1}) - H(x_i,y_i)}{y_{i+1} - y_i}
+    \end{bmatrix}
+\end{align}
+とする．
+式(\ref{eq:lv3})より，
+\begin{align}
+    \begin{bmatrix}
+        \frac{x_{i+1} - x_i}{\delt} \\
+         \frac{y_{i+1} - y_i}{\delt}
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        0 & -x_i y_i \\
+        x_i y_i & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        \frac{H(x_{i+1},y_{i+1}) - H(x_i,y_{i+1})}{x_{i+1} - x_i} \\
+        \frac{H(x_{i},y_{i+1}) - H(x_i,y_i)}{y_{i+1} - y_i}
+    \end{bmatrix}
+\end{align}
+という式を得る．
+この式を$x_{i+1},y_{i+1}$について解く．

@@ -52,9 +52,19 @@
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
-        \node (A) at (0,0) {$\bigtriangleup$};
+        \node[text=red] (A-3) at (-3,0) {$\bigtriangleup$};
+        \node[text=red] (A-2) at (-2,0) {$\bigtriangleup$};
+        \node[text=red] (A-1) at (-1,0) {$\bigtriangleup$};
+        \node[text=red] (A0) at (0,0) {$\bigtriangleup$}; 
+        \node[text=red] (A1) at (1,0) {$\bigtriangleup$};
+        \node[text=red] (A2) at (2,0) {$\bigtriangleup$};
+        \node[text=red] (A3) at (3,0) {$\bigtriangleup$};
         \draw [->, thick] (-7,0) -- (7,0);
-        \node (B) at (1,0) {$\bigtriangleup$};
+        \node[left] (X) at (8,0) {$x$};
+        \node[text=blue] (B0) at (0,0) {$\square$};
+        \node[text=blue] (B1) at (1.5,0) {$\square$};
+        \node[text=blue] (B2) at (3,0) {$\square$};
+        \node[text=blue] (B3) at (4.5,0) {$\square$};
     \end{tikzpicture}
 \end{figure}
 
