@@ -17,9 +17,9 @@
 \end{equation}
 と定義する．
 また，厳密解との比較についても対象とした問題の厳密解を得ることは非常に困難であるため，十分に精度の高い数値解法(DifferintialEquations.jlのパッケージを用いて行った数値計算)を厳密解の代わりとし，その計算結果と各数値型での計算結果を比較した．
-つまり，厳密解相当の値を$\bm{x}^{\ast} \in \R^n$，ある数値解法で各数値型を用いて行った計算結果を$\hat{\bm{x}} \in \R^n$とすると，その誤差ノルム$e^{\ast}$は，
+つまり，厳密解相当の値を$\tilde{\bm{x}} \in \R^n$，ある数値解法で各数値型を用いて行った計算結果を$\hat{\bm{x}} \in \R^n$とすると，その誤差ノルム$\tilde{e}$は，
 \begin{equation}
-   e^{\ast} = \|\bm{x}^{\ast} - \hat{\bm{x}}\| = \sqrt{(x_1^{\ast} - \hat{x}_1)^2 + (x_2^{\ast} - \hat{x}_2)^2 + \cdots (x_n^{\ast} - \hat{x}_n)^2}
+   \tilde{e}  = \|\tilde{\bm{x}} - \hat{\bm{x}}\| = \sqrt{(\tilde{x_1} - \hat{x}_1)^2 + (\tilde{x_2} - \hat{x}_2)^2 + \cdots (\tilde{x_n} - \hat{x}_n)^2}
 \end{equation}
 と定義する．
 また，方程式のパラメータや初期値については，数値計算を行う上で誤差ができる他で生じないように2進数を用いて有限の桁数で表すことのできる数を用いた．
@@ -44,7 +44,7 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 \end{figure}
 %Lorenz方程式の時間発展の様子を図示
 実験では，$\sigma=10$, $\rho=28$, $\beta=2.6640625$，初期値は$x(0) = 0.5, y(0) = 0.5, z(0) = 0.5$とした．
-計算時間の領域は$t \in [0,2^7]$，数値解法では刻み幅を$\Delta t =  2^{-7}, 2^{-13}$とした．
+計算時間の領域は$t \in [0,2^7]$，数値解法では更新幅を$\Delta t =  2^{-7}, 2^{-13}$とした．
 パラメータの値は，
 \begin{align}
     \sigma &= 10 = 2^3 + 2^1, \\
@@ -64,13 +64,14 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:lorenz_2^(-7)_euler_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
@@ -82,33 +83,35 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:lorenz_2^(-7)_euler_exact_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:lorenz_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
 
 \paragraph*{4段4次陽的Runge--kutta法を用いた場合}
 最初に，4段4次陽的Runge--kutta法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--kutta法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--kutta法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:lorenz_2^(-7)_rk4_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
@@ -120,16 +123,17 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_rk4_exaxt_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:lorenz_2^(-7)_rk4_exact_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_rk4_exact_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:lorenz_2^(-13)_rk4_exact_error}
     \end{minipage}
 \end{figure}
@@ -152,7 +156,7 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
     \label{fig:rossler}
 \end{figure}
 実験では,$a=0.34275, b=0.390625, c=4.5$，初期値は$x(0) = 4.0, y(0) = 4.0, z(0) = 0.0$とした.
-計算時間の領域は$t \in [0.0 \times 2^7]$，数値解法では刻み幅を$\Delta t =   2^{-7},2^{-13}$とした．
+計算時間の領域は$t \in [0, 2^7]$，数値解法では更新幅を$\Delta t =   2^{-7},2^{-13}$とした．
 パラメータの値は，
 \begin{align}
     a &= 0.34275 = 2^{-2} + 2^{-4} + 2^{-5},\\
@@ -168,17 +172,18 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 である．
 \paragraph*{陽的Euler法を用いた場合}
 最初に，Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いたと精度の高い数値解との誤差$\bar{e}$}
         \label{fig:rossler_2^(-7)_euler_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
@@ -193,16 +198,17 @@ Euler法による数値実験では，,$\Delta t = 2^{-7}$とした場合も$\De
 以下がその結果である．\\
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:rossler_2^(-7)_eluer_exact_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_exact_error.pdf}
-        \caption{Eulur法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{Eulur法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:rossler_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
@@ -211,45 +217,51 @@ Euler法は1次精度の数値解法であるため，厳密解と比較する�
 
 \paragraph*{4段4次陽的Runge--kutta法を用いた場合}
 最初に，4段4次陽的Runge--kutta法による計算の数値解の誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のRunge--kutta法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--kutta法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:rossler_2^(-7)_rk4_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:rossler_2^(-13)_rk4_error}
     \end{minipage}   
 \end{figure}
-%考察
+BigFloat型を用いた精度の高い数値解と各数値型(Float64,Q11f52,Q8f55)との誤差$\bar{e}$は，$\delt = 2^{-7}$の場合も$\delt = 2^{-13}$の場合も陽的Euler法と比べ4段4次陽的Runge--Kutta法の方が小さくなっている．
+しかし，どちらの解法でも時間発展していくにつれて誤差$\bar{e}$は大きくなっている．終端時刻($t=2^7$)付近では更新幅$\delt$に関わらず誤差$\bar{e}$は，$10^{-5}$程度であった．
 
 
-次に，厳密解と各数値型でのRunge--kutta法による計算結果の比較を行った．
+
+次に，厳密解と各数値型での4段4次Runge--kutta法による計算結果の比較を行った．
 以下がその結果である．\\
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_rk4_exact_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}   
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}   
         \label{fig:rossler_2^(-7)_rk4_exact_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_rk4_exact_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:rossler_2^(-13)_rk4_exact_error}
     \end{minipage}
 \end{figure}
-刻み幅$\Delta t = 2^{-7}$では，近似による誤差の影響が大きいと考えられ厳密解と比較して精度が悪い．
-一方，刻み幅$\Delta t =  2^{-13}$では，近似による誤差の影響が小さくなりどの数値型を用いても厳密解と比較して精度が良いと言える．
+更新幅$\Delta t = 2^{-7}$では，近似による打ち切り誤差の影響が大きいと考えられ厳密解と比較して精度が悪い．
+終端時刻($t=2^7$)付近では誤差$\tilde{e}$が$10^0$を超えており，4段4次陽的Runge法で求めた値と厳密解相当の値と比べ$1\backsim2$桁程度しか合っていない．
+一方，更新幅$\Delta t =  2^{-13}$では，近似による誤差の影響が小さくなりどの数値型を用いても厳密解と比較して精度が良い．
+終端の時刻付近の誤差$\tilde{e}$は$10^{-6}$程度であり，4段4次陽的Runge法で求めた値と厳密解相当の値と比べ$6\backsim7$桁程度合っている．
 
 \subsection{Brusselator方程式}
 Brusselator方程式は，次のような式で与えられる微分方程式である：
@@ -269,7 +281,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \label{fig:brusselator}
 \end{figure}
 実験は，$A=1.0, B=3.0$，初期値は$x(0) = 1.0, y(0) = 1.0$とした．
-計算時間の領域は$t \in [0.0, \times 2^5]$，数値解法では刻み幅を$\Delta t =  2^{-7}, 2^{-13}$とした．
+計算時間の領域は$t \in [0.0, \times 2^5]$，数値解法では更新幅を$\Delta t =  2^{-7}, 2^{-13}$とした．
 パラメータの値は，
 \begin{align}
     A &= 1.0 = 2^0, \\
@@ -283,17 +295,18 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 である．
 \paragraph*{陽的Euler法を用いた場合}
 最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:brusselator_2^(-7)_euler_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
@@ -301,21 +314,23 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \end{minipage}
 \end{figure}
 %考察
+陽的Euler法では，更新幅$\delt = 2^{7}$のときよりも，$\delt = 2^{-13}$のときの方が終端時刻($t=2^7$)付近でBigFloatを用いた精度の高い数値解と各数値型(Float64,Q11f52,Q4f59)を用いた数値解との誤差$\bar{e}$が大きくなっている．%本当？
 
 次に，厳密解と各数値型での陽的Euler法による計算結果の比較を行った．
 以下がその結果である．\\
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:brusselator_2^(-7)_euler_exact_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:brusselator_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
@@ -325,17 +340,18 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 
 \paragraph*{4段4次陽的Runge--kutta法を用いた場合}
 最初に，4段4次陽的Runge--kutta法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--kutta法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--kutta法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:brusselator_2^(-7)_rk4_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
@@ -351,16 +367,17 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 以下がその結果である．\\
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:brusselator_2^(-7)_rk4_exact_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_rk4_exact_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$e^{\ast}$}
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$}
         \label{fig:brusselator_2^(-13)_rk4_exact_error}
     \end{minipage}
 \end{figure}
@@ -383,8 +400,8 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \caption{Lotka-Volterra方程式の解の時間発展の様子}
     \label{fig:lotkavolterra}
 \end{figure}
-実験は，$a=1.0, b=1.0 c=1.0, d=1.0$，初期値は$x(0) = 0.5, y(0) = 0.25$とした．
-計算時間の領域は$t \in [0.0, \times 2^5]$，数値解法では刻み幅を$\Delta t =  2^{-7}, 2^{-13}$とした．
+実験は，$a=1.0, b=1.0, c=1.0, d=1.0$，初期値は$x(0) = 0.5, y(0) = 0.25$とした．
+計算時間の領域は$t \in [0.0, \times 2^5]$，数値解法では更新幅を$\Delta t =  2^{-7}, 2^{-13}$とした．
 
 
 また，Lotka-Volterra方程式は，次のような保存量$H$
@@ -395,17 +412,18 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 実験を行った設定での初期時刻の保存量$H_0$は，$H_0 =2.82944154167\dots$である．
 \paragraph*{陽的Euler法を用いた場合}
 最初に，Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:lotkavolterra_2^(-7)_euler_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-13)_euler_error.pdf}
         \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
@@ -413,35 +431,38 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \end{minipage}
 \end{figure}
 %考察
+
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_euler_h_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻でのとの誤差$e^{\ast}$}
+        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻でのとの誤差$\tilde{e}$}
         \label{fig:lotkavolterra_2^(-7)_euler_h_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-13)_euler_h_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$e^{\ast}$}
+        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$\tilde{e}$}
         \label{fig:lotkavolterra_2^(-13)_euler_h_error}
     \end{minipage}
 \end{figure}
 
 \paragraph*{4段4次陽的Runge--kutta法を用いた場合}
 最初に，4段4次陽的Runge--kutta法による計算の数値解に対する誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--kutta法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--kutta法による数値解の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
         \label{fig:lotkavolterra_2^(-7)_rk4_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-13)_rk4_error.pdf}
         \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
@@ -451,33 +472,35 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 %考察
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_rk4_h_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$e^{\ast}$}
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$\tilde{e}$}
         \label{fig:lotkavolterra_2^(-7)_rk4_h_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-13)_rk4_h_error.pdf}
-        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$e^{\ast}$}
+        \caption{4段4次陽的Runge--kutta法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$\tilde{e}$}
         \label{fig:lotkavolterra_2^(-13)_rk4_h_error}
     \end{minipage}
 \end{figure}
 
 \paragraph*{保存量を保存する数値解法を用いた場合}
 最初に，保存量を保存する数値解法による計算の数値解に対する保存量誤差を確かめる．
-数値解法の刻み幅を$\Delta t = 2^{-7}$とした場合の保存量を保存する数値解法による数値解の保存量の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7}$とした場合の保存量を保存する数値解法による数値解の保存量の誤差を比較した．
 以下がその結果である．
 \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.49\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Float64_spm_h_error.pdf}
         \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
         \label{fig:lotkavolterra_2^(-7)smp_h_error}
     \end{minipage}
-    \begin{minipage}[b]{0.49\columnwidth}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Q11f52_spm_h_error.pdf}
         \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q11f52)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
@@ -485,3 +508,4 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \end{minipage}
 \end{figure}
 %考察
+%\tilde{e}ではなくてe^{\star }
