@@ -464,3 +464,24 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
         \label{fig:lotkavolterra_2^(-13)_rk4_h_error}
     \end{minipage}
 \end{figure}
+
+\paragraph*{保存量を保存する数値解法を用いた場合}
+最初に，保存量を保存する数値解法による計算の数値解に対する保存量誤差を確かめる．
+数値解法の刻み幅を$\Delta t = 2^{-7}$とした場合の保存量を保存する数値解法による数値解の保存量の誤差を比較した．
+以下がその結果である．
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Float64_spm_h_error.pdf}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \label{fig:lotkavolterra_2^(-7)smp_h_error}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Q11f52_spm_h_error.pdf}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q11f52)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \label{fig:lotkavolterra_2^(-7)_smp_h_error}
+    \end{minipage}
+\end{figure}
+%考察
