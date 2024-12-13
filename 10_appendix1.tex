@@ -132,6 +132,7 @@ Lotka--Volterraは
 とする．
 式(\ref{eq:lv3})より，
 \begin{align}
+    \label{eq:spm_lv}
     \begin{bmatrix}
         \frac{x_{i+1} - x_i}{\delt} \\
          \frac{y_{i+1} - y_i}{\delt}
@@ -148,3 +149,40 @@ Lotka--Volterraは
 \end{align}
 という式を得る．
 この式を$x_{i+1},y_{i+1}$について解く．
+式(\ref{eq:spm_lv})は，非線形な連立方程式であるため厳密な解を得ることは困難である．
+厳密な解を求める代わりに，数値計算により近似解を求める．
+実験で行った数値計算では，式(\ref{eq:spm_lv})の近似かいを求めるのにNewton法を用いた．
+Newton法は非線形な連立方程式の近似解を求める方法である．
+
+\subsubsection{Newton法}
+$\R^n$から$\R^n$への非線形な関数
+\begin{equation}
+    \bm{g}(\bm{x}) = \left(g_1(\bm{x}), g_2(\bm{x}), \dots, g_n(\bm{x})\right) \ : \ (\bm{x} \in \R^n \rightarrow \bm{g}(\bm{x}) \in R^n)
+\end{equation}
+について，
+\begin{equation}
+    \label{eq:newton_problem}
+    \bm{g}(\bm{x}) = \bm{0}
+\end{equation}
+となるような$\bm{x}$の値を求めることを考える．
+Newton法とは，以下のような手順で式(\ref{eq:newton_problem})の近似解を求める方法である．
+まず，$\bm{g}(\bm{x})$に対して
+\begin{equation}
+    \nabla\bm{g}(\bm{x}) = \begin{pmatrix}
+        \partialdiff{g_1(\bm{x})}{x_1} & \partialdiff{g_1(\bm{x})}{x_2} & \dots & \partialdiff{g_1(\bm{x})}{x_n} \\
+        \partialdiff{g_2(\bm{x})}{x_1} &  & & \vdots \\
+        \vdots & & & \vdots\\
+        \partialdiff{g_n(\bm{x})}{x_1} & \dots & \dots & \partialdiff{g_n(\bm{x})}{x_n}
+    \end{pmatrix}
+\end{equation}
+を定める．
+このとき，$\bm{g}(\bm{x})$をTaylor展開すると，
+\begin{equation}
+    \label{eq:tyalor_newton}
+    \bm{g}(\bm{x}_1) = \bm{g}(\bm{x}_0) + \nabla\bm{g}(\bm{x}_0)(\bm{x}_1- \bm{x}_0)
+\end{equation}
+次に，$\nabla\bm{g}(\bm{x})$が正則であると仮定して，
+\begin{equation}
+    \bm{x}_1 = \bm{x}_0 - \left(\nabla\bm{g}(\bm{x}_0)\right)^{-1}\bm{g}(\bm{x}_0)
+\end{equation}
+ここで$\left(\nabla\bm{g}(\bm{x})\right)^{-1}$は$\nabla\bm{g}(\bm{x})$の逆行列である．
