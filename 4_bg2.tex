@@ -34,6 +34,7 @@
 となる．
 
 
+次に，丸め誤差の大きさがどの程度であるかについて述べる．
 $a \in \R$を計算機の中で表現することを考える．ただし，ここでは計算機の中で表現される数は10進数ではなく2進数であるとする．
 ただし，浮動小数点で表せる最大の数を${M_{\mathrm{float}}}_{(2)}$，最小の数を${m_{\mathrm{float}}}_{(2)}$，固定小数点で表せる最大の数を${M_{\mathrm{fixed}}}_{(2)}$，最小の数を${m_{\mathrm{fixed}}}_{(2)}$とし，
 \begin{align}
@@ -41,6 +42,7 @@ $a \in \R$を計算機の中で表現することを考える．ただし，こ�
    {m_{\mathrm{fixed}}}_{(2)} &< a_{(2)} < {M_{\mathrm{fixed}}}_{(2)}
 \end{align}
 とする．
+浮動小数点での丸め誤差について述べ，続いて固定小数点の丸め誤差について述べる．
 一般的な浮動小数点(Float32,Float54)では,$m_{\mathrm{float}}$，$M_{\mathrm{float}}$のおおよその値は以下のような値である．
 \begin{table}[H]
     \centering
@@ -68,8 +70,8 @@ ${a^{\ast}_{\mathrm{small}}}_{(2)}$の仮数部を$\mathcal{M}_{small}$，指数
 ${a^{\ast}_{\mathrm{large}}}_{(2)}$の仮数部を$\mathcal{M}_{large}$，指数部を$\mathcal{E}_{large}$とする．
 このとき，
 \begin{align}
-    |a - {a^{\ast}_{\mathrm{sall}}}_{(2)}| &\leq 2^{-m-{\mathcal{E}_{small}}}, \\
-    |a - {a^{\ast}_{\mathrm{large}}}_{(2)}| &\leq 2^{-m-{\mathcal{E}_{large}}}
+    |a - {a^{\ast}_{\mathrm{sall}}}_{(2)}| &\leq 2^{-m+{\mathcal{E}_{small}}}, \\
+    |a - {a^{\ast}_{\mathrm{large}}}_{(2)}| &\leq 2^{-m+{\mathcal{E}_{large}}}
 \end{align}
 であり，$a^{\ast}_{(2)}$が
 \begin{align}
@@ -162,7 +164,25 @@ Euler法は付録\ref{chap:補遺}で説明する方法である．
 しかし，$\delt$を小さくすると終端時刻$T$までに計算を行う回数が多くなる．
 加えて，各計算ごとに丸め誤差が生じると考えると，更新した値を求めるたびに蓄積する誤差の影響が大きくなる．
 そのため，打ち切り誤差と丸め誤差はトレードオフの関係にある．
-
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node [below left] at (0,0) {$O$};
+        \draw [->, thick] (-1,0) -- (7,0);
+        \node [right] at (7,0) {更新幅$\delt$};
+        \draw [->, thick] (0,-1) -- (0,4);
+        \node [left] at (0,4) {全体の誤差};
+        \draw [thick, blue] (0,3.5) -- (3.5,1) -- (7,3.5);
+        \draw [thick, dashed, blue] (0,3.3) -- ++(4.2,-3);
+        \draw [thick,dotted] (0.1,3.2) to [out=290,in=180] (3.4,0.9);
+        \node [fill=white, below, font=\scriptsize] at (1.15,1.7) {丸め誤差の蓄積};
+        \draw [thick, dashed, blue] (7,3.3) -- ++(-4.2,-3);
+        \draw [thick, dotted] (3.6,0.9) to [out=10,in=250] (6.9,3.2);
+        \node [fill=white, below, font=\scriptsize] at (5.85,1.7) {打ち切り誤差};
+    \end{tikzpicture}
+    \caption{打ち切り誤差と丸め誤差の関係}
+    \label{fig:error_tradingoff}
+\end{figure}
 
 \section{情報落ち}
 情報落ちとは，浮動小数点数を用いて非常に離れた値の数同士を計算する際に生じる現象である．
