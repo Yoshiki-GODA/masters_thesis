@@ -489,22 +489,61 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 
 \paragraph*{保存量を保存する数値解法を用いた場合}
 最初に，保存量を保存する数値解法による計算の数値解に対する保存量誤差を確かめる．
-数値解法の更新幅を$\Delta t = 2^{-7}$とした場合の保存量を保存する数値解法による数値解の保存量の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7}$とした場合の保存量を保存する数値解法を用いて，精度の高い数値解と各数値型(Float64,Q11f52,Q4f59)での数値解の誤差と各数値型での初期値の保存量と各時刻での保存量の誤差を比較した．
+以下が精度の高い数値解と各数値型での数値解の誤差の結果である．
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.9\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_smp_error.pdf}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
+    \end{minipage}
+\end{figure}
+
+次に，初期値の保存量と各時刻での保存量の差を比較した．
 以下がその結果である．
+
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Float64_spm_h_error.pdf}
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_float64_spm_h_error.pdf}
         \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
-        \label{fig:lotkavolterra_2^(-7)smp_h_error}
+        \label{fig:lotkavolterra_2^(-7)_float64_smp_h_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
-        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Q11f52_spm_h_error.pdf}
-        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q11f52)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
-        \label{fig:lotkavolterra_2^(-7)_smp_h_error}
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_float64_spm_shift_h_error.pdf}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \label{fig:lotkavolterra_2^(-7)_float64_smp_shift_h_error}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Q11f52_spm_shift_h_error.pdf}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q11f52)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \label{fig:lotkavolterra_2^(-7)_Q11f52_smp_shift_h_error}
+    \end{minipage}
+    \hspace{0.01\columnwidth}
+    \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Q4f59_spm_shift_h_error.pdf}   
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q4f59)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \label{fig:lotkavolterra_2^(-7)_Q3f60_smp_shift_h_error}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.9\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_h_error.pdf}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の各数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
     \end{minipage}
 \end{figure}
 %考察
