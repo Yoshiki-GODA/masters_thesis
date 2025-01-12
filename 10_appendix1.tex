@@ -3,15 +3,15 @@
 \section{微分方程式の数値解法}
 独立変数を$t \in \R$，未知関数$\bm{x}(t) = \left(x_1(t),x_2(t),\cdots,x_m(t)\right) \in \R^m$を$k$階微分可能であるとする．
 そして，$\R^{m+1}$から$\R^m$への関数$\bm{f}(t,\bm{x}(t))$
-\begin{align}
+\begin{align*}
     \bm{f}(t,\bm{x}(t)) = \left(f_1(t,\bm{x}(t)),f_2(t,\bm{x}(t)),\cdots,f_m(t,\bm{x}(t))\right)
-\end{align}
+\end{align*}
 が与えられているとする．
 また，$\bm{x}(0)$が与えられているとする．
 このとき，
-\begin{align}
+\begin{align*}
     \differencial{\bm{x}(t)}{t} = \left(x_1^{\prime}(t),x_2^{\prime}(t),\cdots,x_m^{\prime}(t)\right)
-\end{align}
+\end{align*}
 として，
 \begin{align}
     \differencial{\bm{x}(t)}{t} &= \bm{f}(t,\bm{x}(t)), \label{eq:ode} \\
@@ -21,7 +21,7 @@
 計算機を用いてこの問題を解く方法として，以下のようなものが挙げられる．
 \subsection{陽的Euler法}
 陽的Euler法について説明する．
-$|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる．
+$|\Delta t| \ll 1 $となるような十分に小さい値の$\Delta t$をとる．
 このとき，
 \begin{align}
     \label{eq:dtneq}
@@ -48,17 +48,18 @@ $|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$をとる�
 陽的Runge--Kutta法も，陽的Euler法と同じように，$|\Delta t| << 1 $となるような十分に小さい値の$\Delta t$に対して，$\bm{x}(t),\bm{f}(t,\bm{x}(t))$から，$\bm{x}(t + \delt )$の値を計算する方法である．
 以下の手順により，$\bm{x(t + \delt)}$を求める．
 \begin{align}
-    r_1 &= \bm{f}(\bm{x}(t),t), \\
+    r_1 &= \bm{f}(\bm{x}(t),t), \label{eq:rk_first}\\
     r_2 &= \bm{f}(\bm{x}(t)+r_1 \frac{\delt}{2},t + \frac{\delt}{2}), \\
     r_3 &= \bm{f}(\bm{x}(t)r_2 \frac{\delt}{2}, t + \frac{\delt}{2}), \\
     r_4 &= \bm{f}(\bm{x}(t)r_3 s, t + \delt), \\
-    \bm{x}(t + \delt) &= \bm{x}(t) + \frac{\delt}{6}(r_1 + 2r_2 + 2r_3 + r_4).
+    \bm{x}(t + \delt) &= \bm{x}(t) + \frac{\delt}{6}(r_1 + 2r_2 + 2r_3 + r_4). \label{eq:rk_last}
 \end{align}
-上記の式により，$t_k = t + k\delt \ (k = 1,2,\cdots)$に対して，時刻$t_k$の$\bm{x}(t_k)$の値を計算できる．
+式(\ref{eq:rk_first})〜(\ref{eq:rk_last})により，$t_k = t + k\delt \ (k = 1,2,\cdots)$に対して，時刻$t_k$の$\bm{x}(t_k)$の値を計算できる．
 
 
 \subsection{Lotka--Volterraの保存量を保存する数値解法}
 Lotka--Volterraの保存量を保存する数値解法について説明する．
+この解法は，文献(\cite{BB02105565})に書かれている方法である．
 Lotka--Volterraは
 \begin{align}
     \label{eq:lv1}
@@ -66,21 +67,21 @@ Lotka--Volterraは
     \label{eq:lv2}
     \differencial{y}{t} &= c xy - d y
 \end{align}
-で表される微分方程式であり，保存量は
+で表される微分方程式であり，代表的な保存量は
 \begin{equation}
     \label{eq:H}
     H(x,y) = cx(t) + by(t) - d\log\left(x(t)\right) - a\log\left(y(t)\right)
 \end{equation}
 である．
 式(\ref{eq:H})を$t$で微分すると，
-\begin{align}
+\begin{align*}
     \differencial{H}{t} &= \differencial{}{t}\left(cx(t) + by(t) - d\log\left(x(t)\right) - a\log\left(y(t)\right)\right) \\
     &= c\differencial{x}{t} + b\differencial{y}{t} - d\differencial{\log\left(x(t)\right)}{t} - a\differencial{\log\left(y(t)\right)}{t} \\
     &= c\differencial{x}{t} + b\differencial{y}{t} - \frac{d}{x(t)}\differencial{x}{t} - \frac{a}{y(t)}\differencial{y}{t} \\
     &= c\left(ax - bxy\right) + b\left(cxy - dy\right) - \frac{d}{x}\left(ax - bxy\right) - \frac{a}{y}\left(cxy - dy\right) \\
     &= acx - bcxy + bcxy - bdy - ad + bdy - acx + ad \\
     &= 0
-\end{align}
+\end{align*}
 となり，$H(x,y)$は時刻$t$に依らず常に定数になる．
 また，
 \begin{align}
@@ -149,7 +150,7 @@ Lotka--Volterraは
 \end{align}
 という式を得る．
 この式を$x_{i+1},y_{i+1}$について解く．
-式(\ref{eq:spm_lv})は，非線形な連立方程式であるため厳密な解を得ることは困難である．
+式(\ref{eq:spm_lv})は，非線形連立方程式であるため厳密な解を得ることは困難である．
 厳密な解を求める代わりに，数値計算により近似解を求める．
 実験で行った数値計算では，式(\ref{eq:spm_lv})の近似かいを求めるのにNewton法を用いた．
 Newton法は非線形な連立方程式の近似解を求める方法である．
@@ -170,8 +171,8 @@ Newton法とは，以下のような手順で式(\ref{eq:newton_problem})の近�
 \begin{equation}
     \nabla\bm{g}(\bm{x}) = \begin{pmatrix}
         \partialdiff{g_1(\bm{x})}{x_1} & \partialdiff{g_1(\bm{x})}{x_2} & \dots & \partialdiff{g_1(\bm{x})}{x_n} \\
-        \partialdiff{g_2(\bm{x})}{x_1} &  & & \vdots \\
-        \vdots & & & \vdots\\
+        \partialdiff{g_2(\bm{x})}{x_1} & \ddots & & \vdots \\
+        \vdots & & \ddots & \vdots\\
         \partialdiff{g_n(\bm{x})}{x_1} & \dots & \dots & \partialdiff{g_n(\bm{x})}{x_n}
     \end{pmatrix}
 \end{equation}
