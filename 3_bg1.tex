@@ -15,8 +15,8 @@
 そのうち，$m \ (m < N)$bitを小数部に割り当てた固定小数点数$a = a_{N-m-1} a_{N-m-2} \cdots a_1 a_0. a_{-1} \cdots a_{-m} \ (\in \fixnum)$の値は，符号を考えない場合は以下のようになる：
 
 \begin{align*}
-    a &= a_{N-m-1} 2^{N-m-1} + a_{N-m-2} 2^{N-m-2} + \cdots + a_1 2^1 + a_0 2^0 \\
-    &\ \ + a_{-1} 2^{-1} + \cdots + a_{-m} 2^{-m}.
+    a =& a_{N-m-1} 2^{N-m-1} + a_{N-m-2} 2^{N-m-2} + \cdots + a_1 2^1 + a_0 2^0 \\
+    & + a_{-1} 2^{-1} + \cdots + a_{-m} 2^{-m}.
 \end{align*}
 ただし，$a_{i} \ (i = N-m-1,N-m-2,\dots,1,0,-1,\dots,-m)$は$0$または$1$の値を取る．
 \begin{figure}[H]
@@ -48,7 +48,7 @@
 また，符号付き固定小数点の場合，符号に$1$bit割り当てるため整数部が$N-m-1$bitとなる．
 $s$を符号とすると，符号付き固定小数点数$a_{\mathrm{signed}} = s a_{N-m-2} a_{N-m-3} \cdots a_1 a_0. a_{-1} \cdots a_{-m} \ (\in \fixnum)$の値は以下のようになる：
 \begin{align*}
-    a_{\mathrm{signed}} &= (-1)^s \left( a_{N-m-2} \times 2^{N-m-2} + a_{N-m-3} \times 2^{N-m-3} + \cdots \right. \\
+    a_{\mathrm{signed}} =& (-1)^s \left( a_{N-m-2} \times 2^{N-m-2} + a_{N-m-3} \times 2^{N-m-3} + \cdots \right. \\
      &\left. + a_{1} \times + 2^{1} + a_{0} \times 2^{0}+ a_{-1} \times 2^{-1} +  \cdots + a_{-m} \times 2^{-m} \right).
 \end{align*}
 \begin{figure}[H]
