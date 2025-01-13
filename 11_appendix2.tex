@@ -301,24 +301,4 @@
         end
         return result1, result2, result3, result4
     end
-
-    #Stormer Verlet法
-    function stormer_verlet(f1,f2,x0,y0,stepsize,T,N)
-        s = T(stepsize)
-        result1 = T[x0]
-        result2 = T[y0]
-        sizehint!(result1,N+1)
-        S = T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            y1 = result2[end]
-            S+=s
-            x_half = x1 + (s/2)*f1(x1,y1,S) 
-            y_new = y1 + s*f2(x_half,y1,S)
-            x_new = x_half + (s/2)*f1(x_half,y_new,S)
-            push!(result1,x_new)
-            push!(result2,y_new)
-        end
-        return result1, result2
-    end
 \end{lstlisting}
