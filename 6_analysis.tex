@@ -59,41 +59,41 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 \end{align}
 である．
 \paragraph*{陽的Euler法を用いた場合}
-最初に，Euler法による計算の数値解に対する誤差を確かめる．
-数値解法のきざみ幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
+最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
+数値解法のきざみ幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
 図(\ref{fig:lorenz_2^(-7)_euler_error})，(\ref{fig:lorenz_2^(-13)_euler_error})がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:lorenz_2^(-7)_euler_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:lorenz_2^(-13)_euler_error}
     \end{minipage}
 \end{figure}
 %考察
-次に，厳密解と各数値型でのEuler法による計算結果の比較を行った．
+次に，厳密解と各数値型での陽的Euler法による計算結果の比較を行った．
 図(\ref{fig:lorenz_2^(-7)_euler_exact_error})，(\ref{fig:lorenz_2^(-13)_euler_exact_error})がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-7)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
         \label{fig:lorenz_2^(-7)_euler_exact_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lorenz/lorenz_2^(-13)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q9f54)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
         \label{fig:lorenz_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
@@ -171,48 +171,48 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 \end{align*}
 である．
 \paragraph*{陽的Euler法を用いた場合}
-最初に，Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
+最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
 図(\ref{fig:rossler_2^(-7)_euler_error})，(\ref{fig:rossler_2^(-13)_euler_error})がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いたと精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いたと精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:rossler_2^(-7)_euler_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:rossler_2^(-13)_euler_error}
     \end{minipage}
 \end{figure} 
-Euler法による数値実験では，$\Delta t = 2^{-7}$とした場合も$\Delta t =  2^{-13}$とした場合も倍精度浮動小数点(Float64)を用いた計算結果と固定小数点(Q11f52)を用いた数値解としての計算精度はほぼ同等と言って良い．
+陽的Euler法による数値実験では，$\Delta t = 2^{-7}$とした場合も$\Delta t =  2^{-13}$とした場合も倍精度浮動小数点(Float64)を用いた計算結果と固定小数点(Q11f52)を用いた数値解としての計算精度はほぼ同等と言って良い．
 また，固定小数点(Q8f55)を用いた場合の計算結果は，$\Delta t = 2^{-7}$とした場合も$\Delta t =  2^{-13}$とした場合も倍精度浮動小数点(Float64)を用いて計算した結果よりも精度が高くなっている．
 
 
-次に，厳密解と各数値型でのEuler法による計算結果の比較を行った．
+次に，厳密解と各数値型での陽的Euler法による計算結果の比較を行った．
 図(\ref{fig:rossler_2^(-7)_eluer_exact_error})，(\ref{fig:rossler_2^(-13)_eluer_exact_error})がその結果である．\\
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-7)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
         \label{fig:rossler_2^(-7)_eluer_exact_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_rossler2/rossler_2^(-13)_euler_exact_error.pdf}
-        \caption{Eulur法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
+        \caption{陽的Eulur法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q8f55)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
         \label{fig:rossler_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
-Euler法は1次精度の数値解法であるため，厳密解と比較すると精度がかなり悪いため，どの数値型を用いても近似による誤差の影響が大きくなっている．
+陽的Euler法は1次精度の数値解法であるため，厳密解と比較すると精度がかなり悪いため，どの数値型を用いても近似による誤差の影響が大きくなっている．
 そのため，異なる数値型を用いても誤差の差は小さくなっている．
 
 \paragraph*{4段4次陽的Runge--Kutta法を用いた場合}
@@ -295,21 +295,21 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 である．
 \paragraph*{陽的Euler法を用いた場合}
 最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
 図(\ref{fig:brusselator_2^(-7)_euler_error})，(\ref{fig:brusselator_2^(-13)_euler_error})がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:brusselator_2^(-7)_euler_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:brusselator_2^(-13)_euler_error}
     \end{minipage}
 \end{figure}
@@ -323,14 +323,14 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-7)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
         \label{fig:brusselator_2^(-7)_euler_exact_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_brusselator2/brusselator_2^(-13)_euler_exact_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解と厳密解相当の数値解との誤差$\tilde{e}$．}
         \label{fig:brusselator_2^(-13)_euler_exact_error}
     \end{minipage}
 \end{figure}
@@ -359,7 +359,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \end{minipage}
 \end{figure}
 %考察
-陽的Runge--Kutta法による数値実験では，$\Delta t = 2^{-7}$とした場合も$\Delta t =  2^{-13}$とした場合も倍精度浮動小数点(Float64)を用いた計算結果と固定小数点(Q11f52)を用いた数値解としての計算精度はほぼ同等と言って良い．
+4段4次陽的Runge--Kutta法による数値実験では，$\Delta t = 2^{-7}$とした場合も$\Delta t =  2^{-13}$とした場合も倍精度浮動小数点(Float64)を用いた計算結果と固定小数点(Q11f52)を用いた数値解としての計算精度はほぼ同等と言って良い．
 また，固定小数点(Q8f55)を用いた場合の計算結果は，$\Delta t = 2^{-7}$とした場合も$\Delta t =  2^{-13}$とした場合も倍精度浮動小数点(Float64)を用いて計算した結果よりも精度が高くなっている．
 
 
@@ -411,41 +411,41 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 を持ち時刻$t$に関わらずその値は一定である．以下では，初期時刻での保存量$H_0$と時刻$t$での保存量$H_t$との誤差も比較した．
 実験を行った設定での初期時刻の保存量$H_0$は，$H_0 =2.82944154167\dots$である．
 \paragraph*{陽的Euler法を用いた場合}
-最初に，Euler法による計算の数値解に対する誤差を確かめる．
-数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合のEuler法による数値解の誤差を比較した．
+最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
+数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
 図(\ref{fig:lotkavolterra_2^(-7)_euler_error})，(\ref{fig:lotkavolterra_2^(-13)_euler_error})がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:lotkavolterra_2^(-7)_euler_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-13)_euler_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
         \label{fig:lotkavolterra_2^(-13)_euler_error}
     \end{minipage}
 \end{figure}
 %考察
 
-Euler法による数値解の各時刻ごとの保存量を比較したのが，図(\ref{fig:lotkavolterra_2^(-7)_euler_h_error})，(\ref{fig:lotkavolterra_2^(-13)_euler_h_error})である．
+陽的Euler法による数値解の各時刻ごとの保存量を比較したのが，図(\ref{fig:lotkavolterra_2^(-7)_euler_h_error})，(\ref{fig:lotkavolterra_2^(-13)_euler_h_error})である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_euler_h_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻でのとの誤差$\tilde{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻でのとの誤差$\tilde{e}$．}
         \label{fig:lotkavolterra_2^(-7)_euler_h_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-13)_euler_h_error.pdf}
-        \caption{Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$\tilde{e}$．}
+        \caption{陽的Euler法を用いて更新幅を$\Delta t =  2^{-13}$とした場合の異なる数値型(Float64,Q11f52,Q3f60)を用いて数値計算をしたときの数値解により求めた保存量と初期時刻での保存量との誤差$\tilde{e}$．}
         \label{fig:lotkavolterra_2^(-13)_euler_h_error}
     \end{minipage}
 \end{figure}
