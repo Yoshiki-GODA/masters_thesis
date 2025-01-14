@@ -3,8 +3,8 @@
 \section{まとめ}
 本論文では，64bitの固定小数点による計算負荷が少なく同じく64bitの倍精度浮動小数点(Float64)よりも精度の良い数値計算を提案した．
 固定小数点を用いて精度の高い計算を行えるように用いる固定小数点の小数部のbit数をできる限り大きくすることにより，丸め誤差の影響が小さくなるように工夫を行なった．
-結果として，第\ref{chap:数値実験}章の図(\ref{fig:rossler_2^(-7)_euler_error})から図(\ref{fig:rossler_2^(-13)_rk4_exact_error})までのRossler方程式や図(\ref{fig:brusselator_2^(-7)_euler_error})から図(\ref{fig:brusselator_2^(-13)_rk4_exact_error})までのBrusselator方程式の数値実験では，陽的Euler法，4段4次陽的Runge--Kutta法において固定小数点を用いた演算で倍精度浮動小数点(Float64)よりも精度の高い計算を行えることを示すことができた．
-しかし，図(\ref{fig:lorenz_2^(-7)_euler_error})から図(\ref{fig:lorenz_2^(-13)_euler_exact_error})までのLorenz方程式において固定小数点を用いた場合，倍精度浮動小数点(Flaot64)と同じ程度の制度となり，精度の向上はあまり見られなかった．
+結果として，第\ref{chap:数値実験}章の図\ref{fig:rossler_2^(-7)_euler_error}から図\ref{fig:rossler_2^(-13)_rk4_exact_error}までのRossler方程式や図\ref{fig:brusselator_2^(-7)_euler_error}から図\ref{fig:brusselator_2^(-13)_rk4_exact_error}までのBrusselator方程式の数値実験では，陽的Euler法，4段4次陽的Runge--Kutta法において固定小数点を用いた演算で倍精度浮動小数点(Float64)よりも精度の高い計算を行えることを示すことができた．
+しかし，図\ref{fig:lorenz_2^(-7)_euler_error}から図\ref{fig:lorenz_2^(-13)_euler_exact_error}までのLorenz方程式において固定小数点を用いた場合，倍精度浮動小数点(Flaot64)と同じ程度の制度となり，精度の向上はあまり見られなかった．
 また，固定小数点の小数部のbit数を何bitとするかについては，数値実験を繰り返し行い決めていたため，倍精度浮動小数点よりも精度の高い計算結果を得るための試行回数が多くなってしまった．
 
 \section{今後の課題}

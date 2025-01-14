@@ -6,8 +6,7 @@
 \begin{align*}
     \bm{f}(t,\bm{x}(t)) = \left(f_1(t,\bm{x}(t)),f_2(t,\bm{x}(t)),\cdots,f_m(t,\bm{x}(t))\right)
 \end{align*}
-が与えられているとする．
-また，$\bm{x}(0)$が与えられているとする．
+が与えられているとし，$\bm{x}(0)$が与えられている．
 このとき，
 \begin{align*}
     \differencial{\bm{x}(t)}{t} = \left(x_1^{\prime}(t),x_2^{\prime}(t),\cdots,x_m^{\prime}(t)\right)
@@ -28,20 +27,20 @@ $|\Delta t| \ll 1 $となるような十分に小さい値の$\Delta t$をとる
     \differencial{\bm{x}(t)}{t} \backsimeq \frac{\bm{x}(t+\Delta t) - \bm{x}(t)}{\Delta t}
 \end{align}
 と近似することができる．
-式(\ref{eq:ode})，(\ref{eq:dtneq})より，式変形を行い
+式\eqref{eq:ode}，\eqref{eq:dtneq}より
 \begin{align}
     \frac{\bm{x}(t + \Delta t) - \bm{x}(t)}{\Delta t} \backsimeq \bm{f}(t,\bm{x}(t)),\\
     \bm{x}(t + \Delta t) \backsimeq \bm{x}(t) + \Delta t \bm{f}(t,\bm{x}(t)) \label{eq:euler1}
 \end{align}
 を得る．
 この式により，時刻$t$のときの$\bm{x}(t),\bm{f}(t,\bm{x}(t))$の値から時刻$t+\Delta t$のときの$\bm{x}(t+\Delta t)$の値を計算することが可能となる．
-式(\ref{eq:euler1})の左辺の$t$を$\Delta t$に置き換えることにより時刻$t + 2\delt$のときの$\bm{x}(t+2\delt),\bm{f}(t+2\delt,\bm{x}(t+2\delt))$の値を時刻$t+\Delta t$のときの$\bm{x}(t+\Delta t),\bm{f}(t+\Delta t,\bm{x}(t+\Delta t))$の値から計算することが可能となる．
+式\eqref{eq:euler1}の左辺の$t$を$\Delta t$に置き換えることにより時刻$t + 2\delt$のときの$\bm{x}(t+2\delt),\bm{f}(t+2\delt,\bm{x}(t+2\delt))$の値を時刻$t+\Delta t$のときの$\bm{x}(t+\Delta t),\bm{f}(t+\Delta t,\bm{x}(t+\Delta t))$の値から計算することが可能となる．
 この工程を繰り返すことにより，$t_k = t + k\delt \ (k = 1,2,\cdots)$とおくと，
 \begin{align}
     \bm{x}(t_k) \backsimeq \bm{x}(t{k-1}) + \delt\bm{f}(t_{k-1},\bm{x}(t_{k-1})) \ \left(k = 1,2,\cdots\right) \label{eq:euler2}
 \end{align}
-となり時刻$t_k$の$\bm{x}(t_k)$値を計算できる．
-この式(\ref{eq:euler2})を用いて微分方程式(\ref{eq:ode})の数値計算を行う方法を陽的Euler法という．
+となり，時刻$t_k$の$\bm{x}(t_k)$値を計算できる．
+この式\eqref{eq:euler2}を用いて微分方程式\eqref{eq:ode}の数値計算を行う方法を陽的Euler法という．
 
 \subsection{陽的Runge--Kutta法}
 陽的Runge--Kutta法について説明する．
@@ -50,11 +49,11 @@ $|\Delta t| \ll 1 $となるような十分に小さい値の$\Delta t$をとる
 \begin{align}
     r_1 &= \bm{f}(\bm{x}(t),t), \label{eq:rk_first}\\
     r_2 &= \bm{f}(\bm{x}(t)+r_1 \frac{\delt}{2},t + \frac{\delt}{2}), \\
-    r_3 &= \bm{f}(\bm{x}(t)r_2 \frac{\delt}{2}, t + \frac{\delt}{2}), \\
-    r_4 &= \bm{f}(\bm{x}(t)r_3 s, t + \delt), \\
+    r_3 &= \bm{f}(\bm{x}(t)+r_2 \frac{\delt}{2}, t + \frac{\delt}{2}), \\
+    r_4 &= \bm{f}(\bm{x}(t)+r_3 \delt, t + \delt), \\
     \bm{x}(t + \delt) &= \bm{x}(t) + \frac{\delt}{6}(r_1 + 2r_2 + 2r_3 + r_4). \label{eq:rk_last}
 \end{align}
-式(\ref{eq:rk_first})〜(\ref{eq:rk_last})により，$t_k = t + k\delt \ (k = 1,2,\cdots)$に対して，時刻$t_k$の$\bm{x}(t_k)$の値を計算できる．
+式\eqref{eq:rk_first}〜\eqref{eq:rk_last}により，$t_k = t + k\delt \ (k = 1,2,\cdots)$に対して，時刻$t_k$の$\bm{x}(t_k)$の値を計算できる．
 
 
 \subsection{Lotka--Volterraの保存量を保存する数値解法}
@@ -73,7 +72,7 @@ Lotka--Volterraは
     H(x,y) = cx(t) + by(t) - d\log\left(x(t)\right) - a\log\left(y(t)\right)
 \end{equation}
 である．
-式(\ref{eq:H})を$t$で微分すると，
+式\eqref{eq:H}を$t$で微分すると，
 \begin{align*}
     \differencial{H}{t} &= \differencial{}{t}\left(cx(t) + by(t) - d\log\left(x(t)\right) - a\log\left(y(t)\right)\right) \\
     &= c\differencial{x}{t} + b\differencial{y}{t} - d\differencial{\log\left(x(t)\right)}{t} - a\differencial{\log\left(y(t)\right)}{t} \\
@@ -94,7 +93,7 @@ Lotka--Volterraは
         b - \frac{a}{y}
     \end{bmatrix}
 \end{align}
-となり，式(\ref{eq:lv1})，(\ref{eq:lv2})より，
+となり，式\eqref{eq:lv1}，\eqref{eq:lv2}より，
 \begin{align}
     \label{eq:lv3}
     \begin{bmatrix}
@@ -110,7 +109,7 @@ Lotka--Volterraは
 \end{align}
 となる． 
 この式から，時刻$t_i$における$x,y$の値$x_i,y_i$から$\delt$だけ更新した時刻$t_{i+1} = (t + \delt)$における$x,y$の値$x_{i+1},y_{i+1}$を計算する．
-式(\ref{eq:lv3})の左辺を，
+式\eqref{eq:lv3}の左辺を，
 \begin{align}
     \begin{bmatrix}
         \differencial{x}{t} \\ 
@@ -131,7 +130,7 @@ Lotka--Volterraは
     \end{bmatrix}
 \end{align}
 とする．
-式(\ref{eq:lv3})より，
+式\eqref{eq:lv3}より，
 \begin{align}
     \label{eq:spm_lv}
     \begin{bmatrix}
@@ -150,10 +149,10 @@ Lotka--Volterraは
 \end{align}
 という式を得る．
 この式を$x_{i+1},y_{i+1}$について解く．
-式(\ref{eq:spm_lv})は，非線形連立方程式であるため厳密な解を得ることは困難である．
+式\eqref{eq:spm_lv}は，非線形連立方程式であるため厳密な解を得ることは困難である．
 厳密な解を求める代わりに，数値計算により近似解を求める．
-実験で行った数値計算では，式(\ref{eq:spm_lv})の近似かいを求めるのにNewton法を用いた．
-Newton法は非線形な連立方程式の近似解を求める方法である．
+実験で行った数値計算では，式\eqref{eq:spm_lv}の近似解を求めるためにNewton法を用いた．
+Newton法は非線形な連立方程式の近似解を求める方法の一つである．
 
 \subsubsection{Newton法}
 $\R^n$から$\R^n$への非線形な関数
@@ -166,7 +165,7 @@ $\R^n$から$\R^n$への非線形な関数
     \bm{g}(\bm{x}) = \bm{0}
 \end{equation}
 となるような$\bm{x}$の値を求めることを考える．
-Newton法とは，以下のような手順で式(\ref{eq:newton_problem})の近似解を求める方法である．
+Newton法とは，以下のような手順で式\eqref{eq:newton_problem}の近似解を求める方法である．
 まず，$\bm{g}(\bm{x})$に対して
 \begin{equation}
     \nabla\bm{g}(\bm{x}) = \begin{pmatrix}

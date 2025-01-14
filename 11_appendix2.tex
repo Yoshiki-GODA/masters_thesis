@@ -1,10 +1,10 @@
 \chapter{実験環境とプログラムコード}
 \label{chap:実験環境とプログラムコード}
 \section{実験環境}
-本論文の数値実験を行った実験環境は以下の通りである．
+本論文の数値実験を行った実験環境は表\ref{tab:machine_spec}の通りである．
 \begin{table}[H]
     \centering
-    \caption{実験環境の構成}
+    \caption{実験環境の構成．}
     \begin{tabular}{|c||c|}
         \hline
         CPU & Apple M2\\
@@ -16,21 +16,20 @@
         言語 & Jula v1.10.1\\
         \hline
     \end{tabular}
+    \label{tab:machine_spec}
 \end{table}
 
 
 \section{プログラムコード}
-数値実験を行った際に用いたプログラムは以下のようになる．
-プログラムに用いる，パッケージ
-\begin{lstlisting}[caption=package,label=1]{}
+数値実験を行った際に用いたプログラムを掲載する．
+プログラムに用いる，パッケージは\ref{code_package}
+\begin{lstlisting}[caption=package,label=code_package]{}
     using FixedPointNumbers #固定小数点を使用するためのパッケージ
     using DifferentialEquations #微分方程式を数値計算をするためのパッケージ
     using CairoMakie #グラフを描画するためのパッケージ
 \end{lstlisting}
-
-
-数値計算をするためのプログラム
-\begin{lstlisting}[caption =\text{numerical\_scheme.jl}, label = a]{}
+であり，数値計算をするためのプログラムはソースコード\ref{code_numericalscheme}である．
+\begin{lstlisting}[caption =\text{numerical\_scheme.jl}, label =code_numericalscheme]{}
     using FixedPointNumbers
 
     #誤差の計算

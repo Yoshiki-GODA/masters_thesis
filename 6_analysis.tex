@@ -35,7 +35,7 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
     \differencial{z}{t} &= xy - \beta z.
 \end{align*}
 ただし，$\sigma,\rho,\beta$はパラメータである．
-図(\ref{fig:lorenz})はLorenz方程式の解の時間発展の様子の一例である．
+図\ref{fig:lorenz}はLorenz方程式の解の時間発展の様子の一例である．
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig_lorenz/lorenz_2^(-7)_BigFloat_exact.pdf}
@@ -52,16 +52,16 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
     \beta &= 2.6640625 = 2^1 + 2^{-1} + 2^{-3} + 2^{-5} + 2^{-7}
 \end{align*}
 であり，初期値の値は，
-\begin{align}
+\begin{align*}
     x(0) &= 0.5 = 2^{-1}, \\
     y(0) &= 0.5 = 2^{-1}, \\
     z(0) &= 0.5 = 2^{-1}
-\end{align}
+\end{align*}
 である．
 \paragraph*{陽的Euler法を用いた場合}
 最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
 数値解法のきざみ幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
-図(\ref{fig:lorenz_2^(-7)_euler_error})，(\ref{fig:lorenz_2^(-13)_euler_error})がその結果である．
+図\ref{fig:lorenz_2^(-7)_euler_error}，\ref{fig:lorenz_2^(-13)_euler_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -80,7 +80,7 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 \end{figure}
 %考察
 次に，厳密解と各数値型での陽的Euler法による計算結果の比較を行った．
-図(\ref{fig:lorenz_2^(-7)_euler_exact_error})，(\ref{fig:lorenz_2^(-13)_euler_exact_error})がその結果である．
+図\ref{fig:lorenz_2^(-7)_euler_exact_error}，\ref{fig:lorenz_2^(-13)_euler_exact_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -101,7 +101,7 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 \paragraph*{4段4次陽的Runge--Kutta法を用いた場合}
 最初に，4段4次陽的Runge--Kutta法による計算の数値解に対する誤差を確かめる．
 数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--Kutta法による数値解の誤差を比較した．
-図(\ref{fig:lorenz_2^(-7)_rk4_error})，(\ref{fig:lorenz_2^(-13)_rk4_error})がその結果である．
+図\ref{fig:lorenz_2^(-7)_rk4_error}，\ref{fig:lorenz_2^(-13)_rk4_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -120,7 +120,7 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 \end{figure}
 %考察
 次に，4段4次陽的Runge--Kutta法を用いた場合での数値解の誤差を確認した．
-図(\ref{fig:lorenz_2^(-7)_rk4_exact_error})，(\ref{fig:lorenz_2^(-13)_rk4_exact_error})がその結果である．
+図\ref{fig:lorenz_2^(-7)_rk4_exact_error}，\ref{fig:lorenz_2^(-13)_rk4_exact_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -147,7 +147,7 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
     \differencial{z}{t} &= bx + xz - cz.
 \end{align*}
 ただし，$a,b,c$はパラメータである．
-図(\ref{fig:rossler})はRossler方程式の解の時間発展の様子の一例である．
+図\ref{fig:rossler}はRossler方程式の解の時間発展の様子の一例である．
 %Rossler方程式の時間発展の様子を図示
 \begin{figure}[H]
     \centering
@@ -173,7 +173,7 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 \paragraph*{陽的Euler法を用いた場合}
 最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
 数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
-図(\ref{fig:rossler_2^(-7)_euler_error})，(\ref{fig:rossler_2^(-13)_euler_error})がその結果である．
+図\ref{fig:rossler_2^(-7)_euler_error}，\ref{fig:rossler_2^(-13)_euler_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -195,7 +195,7 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 
 
 次に，厳密解と各数値型での陽的Euler法による計算結果の比較を行った．
-図(\ref{fig:rossler_2^(-7)_eluer_exact_error})，(\ref{fig:rossler_2^(-13)_eluer_exact_error})がその結果である．\\
+図\ref{fig:rossler_2^(-7)_eluer_exact_error}，\ref{fig:rossler_2^(-13)_euler_exact_error}がその結果である．\\
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -218,7 +218,7 @@ Rossler方程式は，次のような式で与えられる微分方程式であ�
 \paragraph*{4段4次陽的Runge--Kutta法を用いた場合}
 最初に，4段4次陽的Runge--Kutta法による計算の数値解の誤差を確かめる．
 数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--Kutta法による数値解の誤差を比較した．
-図(\ref{fig:rossler_2^(-7)_rk4_error})，(\ref{fig:rossler_2^(-13)_rk4_error})がその結果である．
+図\ref{fig:rossler_2^(-7)_rk4_error}，\ref{fig:rossler_2^(-13)_rk4_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -241,7 +241,7 @@ BigFloat型を用いた精度の高い数値解と各数値型(Float64,Q11f52,Q8
 
 
 次に，厳密解と各数値型での4段4次Runge--Kutta法による計算結果の比較を行った．
-図(\ref{fig:rossler_2^(-7)_rk4_exact_error})，(\ref{fig:rossler_2^(-13)_rk4_exact_error})がその結果である．\\
+図\ref{fig:rossler_2^(-7)_rk4_exact_error}，\ref{fig:rossler_2^(-13)_rk4_exact_error}がその結果である．\\
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -270,7 +270,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \differencial{y}{t} &= -x^2y + Bx.
 \end{align*}
 ただし，$A,B$はパラメータである．
-図(\ref{fig:brusselator})はBrusselator方程式の解の時間発展の様子の一例である．
+図\ref{fig:brusselator}はBrusselator方程式の解の時間発展の様子の一例である．
 %Brusselator方程式の時間発展の様子を図示
 \begin{figure}[H]
     \centering
@@ -296,7 +296,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \paragraph*{陽的Euler法を用いた場合}
 最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
 数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
-図(\ref{fig:brusselator_2^(-7)_euler_error})，(\ref{fig:brusselator_2^(-13)_euler_error})がその結果である．
+図\ref{fig:brusselator_2^(-7)_euler_error}，\ref{fig:brusselator_2^(-13)_euler_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -317,7 +317,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 陽的Euler法では，更新幅$\delt = 2^{7}$のときよりも，$\delt = 2^{-13}$のときの方が終端時刻($t=2^7$)付近でBigFloatを用いた精度の高い数値解と各数値型(Float64,Q11f52,Q4f59)を用いた数値解との誤差$\bar{e}$が大きくなっている．%本当？
 
 次に，厳密解と各数値型での陽的Euler法による計算結果の比較を行った．
-図(\ref{fig:brusselator_2^(-7)_euler_exact_error})，(\ref{fig:brusselator_2^(-13)_euler_exact_error})がその結果である．\\
+図\ref{fig:brusselator_2^(-7)_euler_exact_error}，\ref{fig:brusselator_2^(-13)_euler_exact_error}がその結果である．\\
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -341,7 +341,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \paragraph*{4段4次陽的Runge--Kutta法を用いた場合}
 最初に，4段4次陽的Runge--Kutta法による計算の数値解に対する誤差を確かめる．
 数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--Kutta法による数値解の誤差を比較した．
-図(\ref{fig:brusselator_2^(-7)_rk4_error})，(\ref{fig:brusselator_2^(-13)_rk4_error})がその結果である．
+図\ref{fig:brusselator_2^(-7)_rk4_error}，\ref{fig:brusselator_2^(-13)_rk4_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -364,7 +364,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 
 
 次に，厳密解と各数値型での4段4次陽的Runge--Kutta法による計算結果の比較を行った．
-図(\ref{fig:brusselator_2^(-7)_rk4_exact_error})，(\ref{fig:brusselator_2^(-13)_rk4_exact_error})がその結果である．\\
+図\ref{fig:brusselator_2^(-7)_rk4_exact_error}，\ref{fig:brusselator_2^(-13)_rk4_exact_error}がその結果である．\\
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -390,7 +390,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
     \differencial{y}{t} &= cxy - dx.
 \end{align*}
 ただし，$a,b,c,d$はパラメータである．
-図(\ref{fig:lotkavolterra})はLotka-Volterra方程式の解の時間発展の様子の一例である．
+図\ref{fig:lotkavolterra}はLotka-Volterra方程式の解の時間発展の様子の一例である．
 %Brusselator方程式の時間発展の様子を図示
 \begin{figure}[H]
     \centering
@@ -413,7 +413,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \paragraph*{陽的Euler法を用いた場合}
 最初に，陽的Euler法による計算の数値解に対する誤差を確かめる．
 数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の陽的Euler法による数値解の誤差を比較した．
-図(\ref{fig:lotkavolterra_2^(-7)_euler_error})，(\ref{fig:lotkavolterra_2^(-13)_euler_error})がその結果である．
+図\ref{fig:lotkavolterra_2^(-7)_euler_error}，\ref{fig:lotkavolterra_2^(-13)_euler_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -432,7 +432,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \end{figure}
 %考察
 
-陽的Euler法による数値解の各時刻ごとの保存量を比較したのが，図(\ref{fig:lotkavolterra_2^(-7)_euler_h_error})，(\ref{fig:lotkavolterra_2^(-13)_euler_h_error})である．
+陽的Euler法による数値解の各時刻ごとの保存量を比較したのが，図\ref{fig:lotkavolterra_2^(-7)_euler_h_error}，\ref{fig:lotkavolterra_2^(-13)_euler_h_error}である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -453,7 +453,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \paragraph*{4段4次陽的Runge--Kutta法を用いた場合}
 最初に，4段4次陽的Runge--Kutta法による計算の数値解に対する誤差を確かめる．
 数値解法の更新幅を$\Delta t = 2^{-7},2^{-13}$とした場合の4段4次陽的Runge--Kutta法による数値解の誤差を比較した．
-図(\ref{fig:lotkavolterra_2^(-7)_rk4_error})，(\ref{fig:lotkavolterra_2^(-13)_rk4_error})がその結果である．
+図\ref{fig:lotkavolterra_2^(-7)_rk4_error}，\ref{fig:lotkavolterra_2^(-13)_rk4_error}がその結果である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -472,7 +472,7 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \end{figure}
 %考察
 
-Runge--Kutta法による数値解の各時刻ごとの保存量を比較したのが，図(\ref{fig:lotkavolterra_2^(-7)_rk4_h_error})，(\ref{fig:lotkavolterra_2^(-13)_rk4_h_error})である．
+Runge--Kutta法による数値解の各時刻ごとの保存量を比較したのが，図\ref{fig:lotkavolterra_2^(-7)_rk4_h_error}，\ref{fig:lotkavolterra_2^(-13)_rk4_h_error}である．
 \begin{figure}[H]
     \centering
     \begin{minipage}[b]{0.48\columnwidth}
@@ -500,7 +500,7 @@ Runge--Kutta法による数値解の各時刻ごとの保存量を比較した�
     \begin{minipage}[b]{0.9\columnwidth}
         \centering
         \includegraphics[width=\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_smp_error.pdf}
-        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の異なる数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの数値解とBigFloat型を用いた精度の高い数値解との誤差$\bar{e}$．}
     \end{minipage}
 \end{figure}
 
@@ -512,14 +512,14 @@ Runge--Kutta法による数値解の各時刻ごとの保存量を比較した�
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_float64_spm_h_error.pdf}
-        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t = 2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差．}
         \label{fig:lotkavolterra_2^(-7)_float64_smp_h_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_float64_spm_shift_h_error.pdf}
-        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の倍精度浮動小数点(Float64)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差．}
         \label{fig:lotkavolterra_2^(-7)_float64_smp_shift_h_error}
     \end{minipage}
 \end{figure}
@@ -529,14 +529,14 @@ Runge--Kutta法による数値解の各時刻ごとの保存量を比較した�
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Q11f52_spm_shift_h_error.pdf}
-        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q11f52)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q11f52)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差．}
         \label{fig:lotkavolterra_2^(-7)_Q11f52_smp_shift_h_error}
     \end{minipage}
     \hspace{0.01\columnwidth}
     \begin{minipage}[b]{0.48\columnwidth}
         \centering
         \includegraphics[width=0.9\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_Q4f59_spm_shift_h_error.pdf}   
-        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q4f59)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の固定小数点(Q4f59)を用いてNewton法の計算で値を変更して数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差．}
         \label{fig:lotkavolterra_2^(-7)_Q3f60_smp_shift_h_error}
     \end{minipage}
 \end{figure}
@@ -546,7 +546,7 @@ Runge--Kutta法による数値解の各時刻ごとの保存量を比較した�
     \begin{minipage}[b]{0.9\columnwidth}
         \centering
         \includegraphics[width=\columnwidth]{fig_lotkavolterra/lotkavolterra_2^(-7)_h_error.pdf}
-        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の各数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差}
+        \caption{保存量を保存する数値解法を用いて更新幅を$\Delta t =  2^{-7}$とした場合の各数値型(Float64,Q11f52,Q4f59)を用いて数値計算をしたときの初期値の値での保存量と各時刻の保存量の値との誤差．}
     \end{minipage}
 \end{figure}
 %考察

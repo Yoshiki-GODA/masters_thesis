@@ -220,7 +220,7 @@ $s$を符号とすると，符号付き固定小数点数$a_{\mathrm{signed}} = 
         \label{tab:Float32_Float64_range}
 \end{table}
 
-以上のように，固定小数点数と浮動小数点数には表現出来る数の値に違いある．
+以上のように，固定小数点数と浮動小数点数には表現出来る数の範囲や０に最も近い値に違いある．
 そのイメージを表したのが以下の図である．
 \begin{figure}[H]
     \centering
@@ -240,7 +240,7 @@ $s$を符号とすると，符号付き固定小数点数$a_{\mathrm{signed}} = 
         \draw [thick] (5,0.2) -- (5,-0.2);
         \draw [thick] (6,0.2) -- (6,-0.2);
     \end{tikzpicture}
-    \caption{固定小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す．}
+    \caption{固定小数点数の値として表せる数のイメージ図．横線が数直線，縦線が表現出来る数を示す．}
     \label{fig:fixedpoint_image}
 \end{figure}
 
@@ -262,12 +262,12 @@ $s$を符号とすると，符号付き固定小数点数$a_{\mathrm{signed}} = 
         \draw [thick] (2,0.2) -- (2,-0.2);
         \draw [thick] (4,0.2) -- (4,-0.2);
     \end{tikzpicture}
-    \caption{浮動小数点数の値として表せる数のイメージ図，横線が数直線，縦線が表現出来る数を示す．}
+    \caption{浮動小数点数の値として表せる数のイメージ図．横線が数直線，縦線が表現出来る数を示す．}
     \label{fig:floatpoint_image}
 \end{figure}
-図(\ref{fig:fixedpoint_image})のように固定小数点数で表せる数で隣り合う数は隣の数までの間隔が一定である．
-それに対して図(\ref{fig:floatpoint_image})のように浮動小数点数で表せる数で隣り合う数は隣の数までの間隔が一定ではない．
+図\ref{fig:fixedpoint_image}のように固定小数点数で表せる数で隣り合う数は隣の数までの間隔が一定である．
+それに対して図\ref{fig:floatpoint_image}のように浮動小数点数で表せる数で隣り合う数は隣の数までの間隔が一定ではない．
 浮動小数点数で表せる数で２つの隣り合う数は，$0$に近い値ほど間隔が小さく密になり，$0$から離れるほど指数的に大きくなる．
 
 
-図(\ref{fig:fixedpoint_image})，(\ref{fig:floatpoint_image})で表したように，固定小数点，浮動小数点ともに計算機の中で表すことのできる数は限られている．
+図\ref{fig:fixedpoint_image}，\ref{fig:floatpoint_image}で表したように，固定小数点，浮動小数点ともに計算機の中で表すことのできる数は限られている．
