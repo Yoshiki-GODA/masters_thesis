@@ -301,3 +301,106 @@
         return result1, result2, result3, result4
     end
 \end{lstlisting}
+
+次に，例としてLorenz方程式での数値実験をEuler法を用いて行い図示をするプログラムのコード\ref{code_lorenz}を掲載する．
+
+\begin{lstlisting}[caption=\text{Lorenz\_example},label=code_lorenz]{}
+    using CairoMakie, FixedPointNumbers, DifferentialEquations
+    CairoMakie.activate!(type = "pdf")
+    CairoMakie.activate!(inline = true)
+    include("../numerical_scheme.jl")
+    setprecision(BigFloat,256)
+    #Lorenz方程式
+
+    #=パラメータの設定
+    σ = 10.0
+    ρ = 28.0
+    β = 2.6640625
+    =#
+
+    #刻み幅2^(-7)
+
+    #float64
+    function f_float64_1(x::Float64,y::Float64,z::Float64,t::Float64)
+        σ = 10.0
+        return σ*(y - x)
+    end
+    function f_float64_2(x::Float64,y::Float64,z::Float64,t::Float64)
+        ρ = 28.0
+        return x*(ρ - z) - y
+    end
+    function f_float64_3(x::Float64,y::Float64,z::Float64,t::Float64)
+        β = 2.6640625
+        return x*y - β*z
+    end
+
+    #64ビットの固定小数点数で実行
+    function f_Q11f52_1(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
+        σ_Q11f52 = Q11f52(10.0)
+        return σ_Q11f52*(y - x)
+    end
+    function f_Q11f52_2(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
+        ρ_Q11f52 = Q11f52(28.0)
+        return x*(ρ_Q11f52 - z) - y
+    end
+    function f_Q11f52_3(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
+        β_Q11f52 = Q11f52(2.6640625)
+        return x*y - β_Q11f52*z
+    end
+
+    function f_Q9f54_1(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
+        σ_Q9f54 = Q9f54(10.0)
+        return σ_Q9f54*(y - x)    
+    end
+    function f_Q9f54_2(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
+        ρ_Q9f54 = Q9f54(28.0)
+        return x*(ρ_Q9f54 - z) - y
+    end
+    function f_Q9f54_3(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
+        β_Q9f54 = Q9f54(2.6640625)
+        return x*y - β_Q9f54*z
+    end
+
+    #BigFloatで実行
+    function f_BigFloat_1(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
+        σ_BigFloat = BigFloat("10.0")
+        return σ_BigFloat*(y - x)
+    end
+    function f_BigFloat_2(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
+        ρ_BigFloat = BigFloat("28.0")
+        return x*(ρ_BigFloat - z) - y
+    end
+    function f_BigFloat_3(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
+        β_BigFloat = BigFloat("2.6640625")
+        return x*y - β_BigFloat*z
+    end
+
+    #=Euler法での誤差の比較=#
+    #刻み幅　Δt = 2^(-7)
+    fig = Figure(size =(600, 400))
+    ax = Axis(fig[1, 1],xlabel ="t", ylabel = "error", yscale = log10, limits = (nothing,(1e-15,1e2)), title = "Lorenz Euler Numerical Solution Error Δt = 2^(-7)")
+    ernorm1 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[3],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-7),Float64,Int(2^14))[1],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-7),Float64,Int(2^14))[2],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-7),Float64,Int(2^14))[3])
+    ernorm2 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[3],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-7),Q11f52,Int(2^14))[1],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-7),Q11f52,Int(2^14))[2],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-7),Q11f52,Int(2^14))[3]) 
+    ernorm3 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[3],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-7),Q9f54,Int(2^14))[1],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-7),Q9f54,Int(2^14))[2],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-7),Q9f54,Int(2^14))[3])
+    t = [i for i in 0:2^(-7):2^7]
+    l1 = lines!(ax, t, ernorm1, color = :red)
+    l2 = lines!(ax, t, ernorm2, color = cgrad(:Accent_4)[1])
+    l3 = lines!(ax, t, ernorm3, color = cgrad(:Accent_4)[2])
+    axislegend(ax,[l1, l2, l3],["Float64","Q11f52","Q9f54"],position = :rb)
+    fig
+    save("lorenz/fig_lorenz/lorenz_2^(-7)_euler_error.pdf", fig)
+
+    #刻み幅　Δt = 2^(-13)
+    fig = Figure(size = (600, 400))
+    ax = Axis(fig[1, 1],xlabel ="t", ylabel = "error", yscale = log10, limits = (nothing,(1e-15,1e2)), title = "Lorenz Euler Numerical Solution Error Δt = 2^(-13)")
+    ernorm1 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[3],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-13),Float64,Int(2^20))[1],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-13),Float64,Int(2^20))[2],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-13),Float64,Int(2^20))[3])
+    ernorm2 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[3],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-13),Q11f52,Int(2^20))[1],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-13),Q11f52,Int(2^20))[2],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-13),Q11f52,Int(2^20))[3]) 
+    ernorm3 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[3],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-13),Q9f54,Int(2^20))[1],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-13),Q9f54,Int(2^20))[2],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-13),Q9f54,Int(2^20))[3])
+    t = [i for i in 0:2^(-13):2^7]
+    l1 = lines!(ax, t, ernorm1, color = :red)
+    l2 = lines!(ax, t, ernorm2, color = cgrad(:Accent_4)[1])
+    l3 = lines!(ax, t, ernorm3, color = cgrad(:Accent_4)[2])
+    axislegend(ax,[l1, l2, l3],["Float64","Q11f52","Q9f54"],position = :rb)
+    fig
+    save("lorenz/fig_lorenz/lorenz_2^(-13)_euler_error.pdf", fig)   
+\end{lstlisting}
