@@ -33,9 +33,13 @@ Q11f52型は，Float64型の仮数部と同じbit数を小数部に割り当て�
 \subsection{Lorenz方程式}
 Lorenz方程式は，次のような式で与えられる微分方程式である：
 \begin{align*}
-    \differencial{x}{t} &= \sigma(y-x), \\
-    \differencial{y}{t} &= x(\rho-z)-y, \\
-    \differencial{z}{t} &= xy - \beta z.
+    \left\{
+        \begin{aligned}
+            \differencial{x}{t} &= \sigma(y-x), \\
+            \differencial{y}{t} &= x(\rho-z)-y, \\
+            \differencial{z}{t} &= xy - \beta z.
+        \end{aligned}   
+    \right.
 \end{align*}
 ただし，$\sigma,\rho,\beta$はパラメータである．
 図\ref{fig:lorenz}はLorenz方程式の解の時間発展の様子の一例である．
@@ -145,9 +149,13 @@ Lorenz方程式は，次のような式で与えられる微分方程式であ�
 \subsection{Rossler方程式}
 Rossler方程式は，次のような式で与えられる微分方程式である：
 \begin{align*}
-    \differencial{x}{t} &= -y-z, \\
-    \differencial{y}{t} &= x+ay, \\
-    \differencial{z}{t} &= bx + xz - cz.
+    \left\{
+    \begin{aligned}        
+        \differencial{x}{t} &= -y-z, \\
+        \differencial{y}{t} &= x+ay, \\
+        \differencial{z}{t} &= bx + xz - cz.
+    \end{aligned}
+    \right.
 \end{align*}
 ただし，$a,b,c$はパラメータである．
 図\ref{fig:rossler}はRossler方程式の解の時間発展の様子の一例である．
@@ -269,8 +277,12 @@ BigFloat型を用いた精度の高い数値解と各数値型(Float64,Q11f52,Q8
 \subsection{Brusselator方程式}
 Brusselator方程式は，次のような式で与えられる微分方程式である：
 \begin{align*}
-    \differencial{x}{t} &= A + x^2y - Bx - x,\\
-    \differencial{y}{t} &= -x^2y + Bx.
+    \left\{
+    \begin{aligned}
+        \differencial{x}{t} &= A + x^2y - Bx - x,\\
+        \differencial{y}{t} &= -x^2y + Bx.
+    \end{aligned}
+        \right.
 \end{align*}
 ただし，$A,B$はパラメータである．
 図\ref{fig:brusselator}はBrusselator方程式の解の時間発展の様子の一例である．
@@ -388,8 +400,12 @@ Brusselator方程式は，次のような式で与えられる微分方程式で
 \subsection{Lotka-Volterra方程式}
 Brusselator方程式は，次のような式で与えられる微分方程式である：
 \begin{align*}
-    \differencial{x}{t} &=  ax - bxy,\\
-    \differencial{y}{t} &= cxy - dx.
+    \left\{
+    \begin{aligned}        
+        \differencial{x}{t} &=  ax - bxy,\\
+        \differencial{y}{t} &= cxy - dx.
+    \end{aligned}
+    \right.
 \end{align*}
 ただし，$a,b,c,d$はパラメータである．
 図\ref{fig:lotkavolterra}はLotka-Volterra方程式の解の時間発展の様子の一例である．
