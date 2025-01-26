@@ -1,7 +1,12 @@
 \chapter{計算機における数値の表現と誤差について}
 \label{chap:基礎知識1}
+一般的に，浮動小数点の方が表現できる範囲が広く計算の誤差が少ないと考えられている．
+そのため，多くの計算機で浮動小数点が用いられている．
+しかし，固定小数点の方が誤差が小さいような状況があれば，その状況下においては固定小数点も実用的であると考える．
+そこで，本章では固定小数点と浮動小数点についての表現の違いにより，誤差が異なることを説明する．
 
 \section{浮動小数点数と固定小数点数についての基礎知識}
+\label{sec:bg_float_fixed}
 計算機内部で扱う数値には二つの表現方法がある．
 それぞれの表現方法を固定小数点数と浮動小数点数という．
 これらの表現方法について説明する．
@@ -274,255 +279,22 @@ $s$を符号とすると，符号付き固定小数点数$a_{\mathrm{signed}} = 
 
 図\ref{fig:fixedpoint_image}，\ref{fig:floatpoint_image}で表したように，固定小数点，浮動小数点ともに計算機の中で表すことのできる数は限られている．
 
-
-\section{丸め誤差・情報落ち・桁落ちについての基礎知識}
-前章で述べたように計算機の中では表現できる数に限りがある．
-そのため計算機の中で表現できる数はそのままの数で計算を行うが，計算機の中で表現できない数はその数にできるだけ近い表現をできる数を代わりに用いて計算を行うことになる．
-ある数$a\ \in \R$に対して,計算機で$a$という数を扱う場合の表現を
-\begin{equation*}    
-    a^{\ast} \ (\in \mathbb{F})
-\end{equation*}
-とする．
-また，$a$を$p$進数で表現することを明記する場合，
-\begin{equation*}
-    a_{(p)}
-\end{equation*}
-と表すことにする．
-\label{chap:基礎知識2}
-
-\subsection{丸め誤差}
-丸め誤差について説明する．
-丸め誤差とは，真の値と計算機で表現するために代わりに用いる数の差である．
-真の値を$x_{\mathrm{true}} \ (\in \R)$とする．
-計算機の中で表現できる数で$x_{\mathrm{true}}$に一番近い数を$x^{\ast} \ (\in \mathbb{F})$とすると，そのときの丸め誤差$\rounderror$は，
-\begin{equation*}
-    \rounderror = x_{\mathrm{true}} - x^{\ast}
-\end{equation*}
-と表せる．
-簡単のため，計算機で扱われる2進数ではなく10進数を用いた場合を考える.
-例えば，計算機では，小数点２桁までしか表現できないとすると，$\pi$という数は，計算機の中で
-\begin{equation*}
-    \pi^{\ast}_{(10)} = 3.14_{(10)} \ (\in \mathbb{F})
-\end{equation*}
-という数で扱うことになる．
-そして，丸め誤差$e_{\mathrm{round}}$は,
-\begin{equation*}
-    {\rounderror}_{(10)} = \pi - \pi^{\ast} = {0.00159265_{(10)}\dots}
-\end{equation*}
-となる．
-
-
-次に，丸め誤差の大きさがどの程度であるかについて述べる．
-$a \in \R$を計算機の中で表現することを考える．ただし，ここでは計算機の中で表現される数は10進数ではなく2進数であるとする．
-ただし，浮動小数点で表せる最大の数を${M_{\mathrm{float}}}_{(2)}$，最小の数を${m_{\mathrm{float}}}_{(2)}$，固定小数点で表せる最大の数を${M_{\mathrm{fixed}}}_{(2)}$，最小の数を${m_{\mathrm{fixed}}}_{(2)}$とし，
-\begin{align*}
-   {m_{\mathrm{float}}}_{(2)} &< a_{(2)} < {M_{\mathrm{float}}}_{(2)}, \\
-   {m_{\mathrm{fixed}}}_{(2)} &< a_{(2)} < {M_{\mathrm{fixed}}}_{(2)}
-\end{align*}
-とする．
-浮動小数点での丸め誤差について述べ，続いて固定小数点の丸め誤差について述べる．
-一般的な浮動小数点(Float32,Float54)では,$m_{\mathrm{float}}$，$M_{\mathrm{float}}$のおおよその値は図\ref{tab:float_max_min}のようになる．
-\begin{table}[H]
-    \centering
-    \caption{Float32，Float64での$m_{\mathrm{float}}$と$M_{\mathrm{float}}$のおおよその値．}
-    \begin{tabular}{c|c|c}
-         & $m_{\mathrm{float}}$ & $M_{\mathrm{float}}$ \\ \hline \hline
-         Float32 & $-3.40 \times 10^{38}$ & $3.40 \times 10^{38}$ \\ \hline
-         Float64 & $-1.80 \times 10^{308}$ & $1.80 \times 10^{308}$
-    \end{tabular}
-    \label{tab:float_max_min}
-\end{table}
-
-丸め誤差は浮動小数点の場合，仮数部を$m$bit，指数部を$e$bitとする．
-ただし，以下ではFloat32，Float64とは異なり指数部$e$にバイアスはないものとする．
-$a^{\ast}_{(2)} \ (\in \flonum)$の中で，
-\begin{align*}
-    {a^{\ast}}_{(2)} < a_{(2)}\ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
-\end{align*}
-となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{small}}}_{(2)}$とする．
-${a^{\ast}_{\mathrm{small}}}_{(2)}$の仮数部を$\mathcal{M}_{\mathrm{small}}$，指数部を$\mathcal{E}_{\mathrm{small}}$とする．
-たま，
-\begin{align*}
-    {a^{\ast}}_{(2)} > a_{(2)} \ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
-\end{align*}
-となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{large}}}_{(2)}$とする．
-${a^{\ast}_{\mathrm{large}}}_{(2)}$の仮数部を$\mathcal{M}_{\mathrm{large}}$，指数部を$\mathcal{E}_{\mathrm{large}}$とする．
-このとき，
-\begin{align*}
-    |a - {a^{\ast}_{\mathrm{sall}}}_{(2)}| &\leq 2^{-m+{\expparts}}, \\
-    |a - {a^{\ast}_{\mathrm{large}}}_{(2)}| &\leq 2^{-m+{\expparts}}
-\end{align*}
-であり，$a^{\ast}_{(2)}$が
-\begin{align*}
-    2^{\beta -1} < a^{\ast}_{(2)} < 2^{\beta}
-\end{align*}
-となるとき，
-\begin{equation*}
-    \mathcal{E}_{\mathrm{small}} = \mathcal{E}_{\mathrm{large}} = \beta
-\end{equation*}
-である．$a^{\ast}_{(2)}$は
-\begin{align*}
-    {a^{\ast}}_{(2)} = \left\{ 
-        \begin{array}{ll}
-            {a^{\ast}_{\mathrm{small}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | < |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | \\
-            {a^{\ast}_{\mathrm{large}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | \geq |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | 
-        \end{array}
-    \right.
-\end{align*}
-となるので，丸め誤差$e_{\mathrm{round}}$は最大で
-\begin{align}
-    \label{eq:rounderror_float}
-    |e_{\mathrm{round}}| \leq 2^{-m+\beta -1}
-\end{align}
-となる．
-ここで，$m$は一定の値であり，$\beta$は$a^{\ast}_{(2)}$の値により決まる値である．
-
-
-固定小数点の場合，小数部が$m$bitとし，${a^{\ast}}_{(2)} \ (\in\fixnum)$の中で，
-\begin{align*}
-    {a^{\ast}}_{(2)} < a_{(2)}\ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
-\end{align*}
-となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{small}}}_{(2)}$とする．
-たま，
-\begin{align*}
-    {a^{\ast}}_{(2)} > a_{(2)} \ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
-\end{align*}
-となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{large}}}_{(2)}$とする．
-このとき，
-\begin{align}
-    |a - {a^{\ast}_{\mathrm{sall}}}_{(2)}| &\leq 2^{-m}, \\
-    |a - {a^{\ast}_{\mathrm{large}}}_{(2)}| &\leq 2^{-m}
-\end{align}
-であり，
-\begin{align*}
-    {a^{\ast}}_{(2)} = \left\{ 
-        \begin{array}{ll}
-            {a^{\ast}_{\mathrm{small}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | < |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | \\
-            {a^{\ast}_{\mathrm{large}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | \geq |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | 
-        \end{array}
-    \right.
-\end{align*}
-となるので，丸め誤差$e_{\mathrm{round}}$は最大で
-\begin{align}
-    \label{eq:rounderror_fixed}
-    |\rounderror| \leq 2^{-m-1}
-\end{align}
-となる．ここで$m$は一定の値である．
-
-
-式\eqref{eq:rounderror_float}，\eqref{eq:rounderror_fixed}から，浮動小数点と固定小数点では丸め誤差の大きさが異なる．
-特に，固定小数点では丸め誤差取りうる値のうち最大値が$a^{\ast}_{(2)}$の値に依らず一定であるのに対して，浮動小数点では$a^{\ast}_{(2)}$の値がどのような範囲にあるのかにより丸め誤差がとりうる値のうち最大値の大きさが異なる．
-
-
-計算機で計算を繰り返し行うと，一度の計算で発生した丸め誤差が次の計算に影響を与えるため，計算回数が多くなるにつれ計算機で行われる計算の結果と厳密な計算の結果の差は大きくなる．
-
-\subsection{打ち切り誤差}
-打ち切り誤差とは，問題の真の結果と解法を用いて厳密な計算により得られる結果の差である．
-以下のような微分方程式を陽的Euler法で$t \in [0,T]$の範囲で解くとこを考える：
-\begin{equation*}
-    \differencial{x}{t} = f(t,x(t)), \ x(0) = x_0.
-\end{equation*}
-Euler法は付録\ref{chap:補遺}で説明する方法である．
-まず，時刻$t,t+\Delta t$における解を$x(t),x(t+\Delta t)$とし，2次の項までTaylor展開すると
-\begin{align}
-    \label{eq:taylor_euler}
-    x(t + \Delta t) = x(t) + \frac{\delt}{1!}x^{\prime}(t) + \frac{\delt^2}{2!}x^{\prime\prime}(t + \theta\delt) \ (0 < \theta < 1)
-\end{align}
-である．
-一方，陽的Euler法では
-\begin{align}
-    \label{eq:euler_appro}
-    x(t + \Delta t) \backsimeq x(t) + \frac{\delt}{1!}f(t,x(t))
-\end{align}
-という近似により解を得るため，式\eqref{eq:taylor_euler}，\eqref{eq:euler_appro}より真の解$x_{\mathrm{true}}(t)$とEuler法により得られる解$x_{\mathrm{euler}}(t)$には，
-\begin{align*}
-    x_{\mathrm{true}}(t) - x_{\mathrm{euler}}(t) = \frac{\delt^2}{2!}x^{\prime\prime}(t + \theta\delt) \ (0 < \theta < 1)
-\end{align*}
-という誤差が含まれる．
-上の例では，任意の$t$に対して$t$の十分近くでは$|x^{\prime\prime}(t)| \leq M$となるような$M \in \R$が存在していると仮定すると，更新幅$\delt$を小さくすることにより打ち切り誤差を小さくできる．
-しかし，$\delt$を小さくすると終端時刻$T$までに計算を行う回数が多くなる．
-加えて，各計算ごとに丸め誤差が生じると考えると，更新した値を求めるたびに蓄積する誤差の影響が大きくなる．
-そのため，打ち切り誤差と丸め誤差はトレードオフの関係にある．
-その関係を図示したのが図\ref{fig:error_tradingoff}である．
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \node [below left] at (0,0) {$O$};
-        \draw [->, thick] (-1,0) -- (7,0);
-        \node [right] at (7,0) {更新幅$\delt$};
-        \draw [->, thick] (0,-1) -- (0,4);
-        \node [left] at (0,4) {全体の誤差};
-        \draw [thick, blue] (0,3.5) -- (3.5,1) -- (7,3.5);
-        \draw [thick, dashed, blue] (0,3.3) -- ++(4.2,-3);
-        \draw [thick,dotted] (0.1,3.2) to [out=290,in=180] (3.4,0.9);
-        \node [fill=white, below, font=\scriptsize] at (1.15,1.7) {丸め誤差の蓄積};
-        \draw [thick, dashed, blue] (7,3.3) -- ++(-4.2,-3);
-        \draw [thick, dotted] (3.6,0.9) to [out=10,in=250] (6.9,3.2);
-        \node [fill=white, below, font=\scriptsize] at (5.85,1.7) {打ち切り誤差};
-    \end{tikzpicture}
-    \caption{同じ終端時刻$T$まで計算を行うときの更新幅$\delt$と打ち切り誤差と丸め誤差の関係．}
-    \label{fig:error_tradingoff}
-\end{figure}
-
-\subsection{情報落ち}
-情報落ちとは，浮動小数点数を用いて非常に離れた値の数同士を計算する際に生じる現象である．
-簡単のため，計算機で扱われる2進数ではなく10進数を用いた場合を考える．
-浮動小数点数の仮数部が小数点3桁までしか表現できない場合を考える．
-a,bを浮動小数点数で表せる数として，$|a| >> |b|$とする．例えば
-\begin{align*}
-    a &= 1.000 \times 10^{-2}, \\
-    b &= 1.000 \times 10^{3}
-\end{align*}
-として，
-\begin{equation*}
-    a + b
-\end{equation*}
-を考えると，
-\begin{equation*}
-    a + b = 1.001 \times 10^{-2} + 1.000 \times 10^{3} = 0.01 + 1000 = 1000.01 \backsimeq 1.000 \times 10^{3}
-\end{equation*}
-となり，$a$を足したという情報が失われてしまうことになる．
-このような現象を情報落ちという．
-
-\subsection{桁落ち}
-桁落ちとは，浮動小数点数を用いて非常に近い数同士を計算する際に生じる現象である．
-簡単のため，計算機で扱われる2進数はなく10進数を用いた場合を考える．
-浮動小数点数の仮数部が小数点3桁までしか表現できない場合を考える．
-a,bを浮動小数点数で表せる数として，$|a - b| << 1$とする．
-例えば，
-\begin{align*}
-    a &= 1.234 \times 10^{-2}, \\
-    b &= 1.233 \times 10^{-2}
-\end{align*}
-として，
-\begin{equation*}
-    a - b
-\end{equation*}
-を考えると，
-\begin{align*}
-    a - b &= 1.234 \times 10^{-2} - 1.233 \times 10^{-2} = 0.01234 - 0.01233 \\
-    &= 0.00001 = 1.000 \times 10^{-5}
-\end{align*}
-となり，計算前の$a,b$は仮数部に4桁の情報があったのに対し，計算後の$a-b$の結果は仮数部の情報が1桁になってしまっている．
-このような現象を桁落ちという．
-
-
-\section{固定小数点を用いた数値計算の提案}
-\label{chap:提案手法}
+\section{浮動小数点と固定小数点の表現方法および演算方法}
+\label{sec:float_fixed_expression}
 \begin{comment}
     ストーリー：
-    固定小数点演算は浮動小数点演算よりも計算時間が速いとされている．
+    固定小数点演算は浮動小数点演算よりも計算時間が速いとされている．<-これいらないかも
     しかし，浮動小数点に比べて精度が低くなる恐れがある．
     本論文では，固定小数点と浮動小数点での数値計算の結果を比べ，固定小数点での演算も浮動小数点と同程度の精度で計算できることを示した．
     実験結果より固定小数点演算で浮動小数点より高速で，浮動小数点と同程度の計算を実現できるのではないかと考える．
 \end{comment}
 本論文で行う実験は，数値計算を固定小数点によって計算することである．
-本章では，固定小数点と浮動小数点の表現できる数の範囲や丸め誤差の大きさ，演算の違いについて述べる．
-第\ref{chap:基礎知識1}で述べたように，固定小数点と浮動小数点では表現方法が異なる．
-そのため，固定小数点と浮動小数点には利点と欠点が存在する．
-本章では固定小数点と浮動小数点の利点と欠点を述べ，固定小数点の利点を活かした数値計算を行うことを提案する．
+本章では，固定小数点と浮動小数点の表現できる数の範囲や扱える数の最小単位の大きさ，演算の違いについて述べる．
+第\ref{sec:bg_float_fixed}章で述べたように，固定小数点と浮動小数点では表現方法が異なる．
+そのため，固定小数点と浮動小数点には数値を表現する上での利点と欠点が存在する．
+第\ref{sec:float_fixed_expression}章では，固定小数点と浮動小数点の表現方法と演算方法についての利点と欠点を述べる．
 
-\subsection{固定小数点と浮動小数点の表現できる範囲と丸め誤差}
+\subsection{固定小数点と浮動小数点の表現範囲と数の最小単位}
 固定小数数点と浮動小数点では，表現方法が異なるためそれぞれに利点が存在する．
 浮動小数点の利点は，表現できる数の範囲が同じbit数の固定小数点よりも広いことである．
 例として，同じ64bitの固定小数点と倍精度浮動小数点(Float64)を考える．
@@ -545,28 +317,9 @@ a,bを浮動小数点数で表せる数として，$|a - b| << 1$とする．
 数値計算を行う際に，計算の過程で扱う数が計算機で扱う数の範囲を超えてしまうオーバーフローという現象が発生する心配がある．
 浮動小数点は，固定小数数点に比べ表現できる数の範囲が広いため，固定小数点に比べオーバーフローが起こりにくいという利点がある．
 
-次に，固定小数点と浮動小数点の丸め誤差について述べる．
-第\ref{chap:基礎知識2}で述べたように，固定小数点の丸め誤差の最大値は真の値によらず一定であるのに対して，浮動小数点の丸め誤差の最大値は真の値の絶対値の大きさによって異なる．
-表\ref{tab:fixed_float_rounding_error}は同じ64bitの倍精度浮動小数点(Float64)と倍精度浮動小数点(Float64)の仮数部と同じbit数の小数部を持つ固定小数点(Q11f52)の丸め誤差を表したものである．
+次に，固定小数点と浮動小数点の扱える数の最小単位について述べる．
+第\ref{chap:基礎知識2}で述べたように，固定小数点は小数点が固定されているため最小単位の値によらず一定であるのに対して，浮動小数点の最小単位の値の指数部の大きさによって異なる．
 
-\begin{table}[H]
-    \centering
-    \caption{固定小数点(Q11f52)と浮動小数点(Float64)のそれぞれの数値に対する丸め誤差の大きさ}
-    \begin{tabular}{c|c|c}
-        & Q11f52 & Float64 \\ \hline \hline
-        0.01 & $8.674 \times 10^{-18}$ & $1.735 \times 10^{-18}$\\
-        0.1 & $8.327 \times 10^{-17}$ & $1.388 \times 10^{-17}$\\
-        1.1 & $8.327 \times 10^{-17}$ & $2.220 \times 10^{-16}$\\
-        10.1 & $8.327 \times 10^{-17}$ & $1.776 \times 10^{-15}$\\
-        100.1 & $8.327 \times 10^{-17}$ & $1.421 \times 10^{-14}$ 
-    \end{tabular}
-    \label{tab:fixed_float_rounding_error}
-\end{table}
-
-このように，固定小数点は，$1$よりも大きい数に対しては丸め誤差の値が一定であるのに対して，浮動小数点は，絶対値の小さい数に対しては丸め誤差の値も小さく，絶対値の大きい数に対しては丸め誤差の値も大きくなる．
-固定小数点は，小数部のbit数が同じでありるため表現できる数の中で隣り合う2数の間隔が一定であるのに対して，浮動小数点は表現できる2数の間隔が2数の絶対値の大きさによって異なる．
-そのため，固定小数点と浮動小数点では丸め誤差が真の値によって異なる．
-また，数値計算において絶対値がとても小さい数を表現できなくなるアンダーフローという現象がある．
 表\ref{tab:fixed_float_zero_error}は固定小数点(Q11f52，Q1f62)と浮動小数点(Float64)の$0$に最も近い値を示したものである．
 
 \begin{table}[H]
@@ -584,7 +337,7 @@ a,bを浮動小数点数で表せる数として，$|a - b| << 1$とする．
 このように，浮動小数点は絶対値のとても小さい数も表現できるため，固定小数点に比べアンダーフローを起こしにくいという利点がある．
 
 
-固定小数点と浮動小数点の表現できる数の中で隣り合う2数の間隔を表したイメージ図が図\ref{fig:fixed_float_image}である．
+固定小数点と浮動小数点の表現できる数の最小単位を表したイメージ図が図\ref{fig:fixed_float_image}である．
 
 \begin{figure}[H]
     \centering
@@ -606,14 +359,15 @@ a,bを浮動小数点数で表せる数として，$|a - b| << 1$とする．
         \draw[thick] (-3,1) -- (3,1) node[right] {固定小数点数};
         \draw[thick] (-4,2) -- (4,2) node[right] {固定小数点数};
     \end{tikzpicture}
-    \caption{固定小数点と浮動小数点の表現できる数の中で隣り合う2数の間隔のイメージ図．}
+    \caption{固定小数点と浮動小数点の表現できる数の最小単位のイメージ図．}
     \label{fig:fixed_float_image}
 \end{figure}
 
 浮動小数点は固定小数点に比べ，表現できる数の範囲が広く，オーバーフローやアンダーフローが起こる可能性が低いという利点がる．
 その一方で，表現できる数の中で隣り合う間隔が数の絶対値の大きさによって異なる．
-そのため，図\ref{fig:fixed_float_image}で固定小数点のグラフが浮動小数点のグラフの下に来ている範囲では固定小数点の方が丸め誤差を少なくして計算が行える．
-図\ref{fig:fixed_float_image_zoom}は図\ref{fig:fixed_float_image}の一部を拡大し，固定小数点の方が浮動小数点よりも丸め誤差が少ない範囲を示した図である．
+そのため，図\ref{fig:fixed_float_image}で固定小数点のグラフが浮動小数点のグラフの下に来ている範囲では固定小数点の方が最小単位が小さい数で演算を行え，誤差が少なくなるできると考える．
+図\ref{fig:fixed_float_image_zoom}は図\ref{fig:fixed_float_image}の一部を拡大し，固定小数点の方が浮動小数点よりも最小単位が小さい範囲を示した図である．
+図\ref{fig:fixed_float_image_zoom}のグレーの範囲であれば，浮動小数点よりも固定小数点の誤差が小さくできると考えている．
 
 \begin{figure}[H]
     \centering
@@ -631,17 +385,23 @@ a,bを浮動小数点数で表せる数として，$|a - b| << 1$とする．
         \node[above] at (7,{pow(1.2,7)-1}) {浮動小数点};
         \node[right] at (7,1) {固定小数点};
     \end{tikzpicture}
-    \caption{固定小数点と浮動小数点の表現できる数の中で隣り合う2数の間隔のイメージ図(グレーの部分が固定小数点の方が浮動小数点よりも誤差を小さくすることができる範囲)．}
+    \caption{固定小数点と浮動小数点の表現できる数の最小単位のイメージ図(グレーの部分が固定小数点の方が浮動小数点より最小単位が小さい範囲)．}
     \label{fig:fixed_float_image_zoom}
 \end{figure}
 
-\subsection{固定小数点と浮動小数点の演算の違い}
-計算機の中で主に演算を行うのはCPU(Central Processing Unit)である．
-固定小数点と浮動小数点では，演算におけるCPUへの負担が異なり浮動小数点の方が負荷が大きい．
-そのため，かつてはCPUの性能が低く浮動小数点を専門に扱うためのFPU(Floating Point Unit)を用いて浮動小数点演算を行なっていた．
-現代では，CPUの性能が向上したためFPUの機能はCPU自体に組み込まれていることが多い．
-しかし，浮動小数点演算を組み込まずに固定小数点演算を行うような計算機があれば，計算の負荷を少なくすることが可能である．
-以下では，固定小数点と浮動小数点の演算の違いについて述べる．
+\subsection{浮動小数点と固定小数点の演算の違い}
+\label{sec:dif_arithmetic}
+\begin{comment} %今回の論文は速さについては言及してない．   
+    計算機の中で主に演算を行うのはCPU(Central Processing Unit)である．
+    固定小数点と浮動小数点では，演算におけるCPUへの負担が異なり浮動小数点の方が負荷が大きい．
+    そのため，かつてはCPUの性能が低く浮動小数点を専門に扱うためのFPU(Floating Point Unit)を用いて浮動小数点演算を行なっていた．
+    現代では，CPUの性能が向上したためFPUの機能はCPU自体に組み込まれていることが多い．
+    しかし，浮動小数点演算を組み込まずに固定小数点演算を行うような計算機があれば，計算の負荷を少なくすることが可能である．
+    以下では，固定小数点と浮動小数点の演算の違いについて述べる．
+\end{comment}
+固定小数点と浮動小数点は，数の表現方法の違いから四則演算の方法が異なる．
+固定小数点は厳密な四則演算と似たように加減算が行えるのに対して，浮動小数点は指数部の大きさを揃えてから加減算を行わなければいけないといった違いがある．
+第\ref{sec:dif_arithmetic}では，固定小数点と浮動小数点の四則演算の違いについて述べる．
 
 \subsubsection{固定小数点の演算}
 固定小数数点の四則演算は，整数での四則演算と同様に行える．
@@ -790,13 +550,277 @@ $p$進数の浮動小数点は，指数部を$e$，仮数部を$m$としたと�
 \end{align*}
 となる．
 
-以上から，固定小数点に比べ浮動小数点の計算は，手順が多く一回の計算あたりにかかる計算機への負荷が大きい．
-そのため，固定小数点の方が計算負荷が少ないという利点がある．
-\section{先行研究との違い}
-先行研究では，小数部が11bitの固定小数点を用いて，浮動小数点よりも速い計算時間で連立方程式や高次方程式の近似解を求めるている\cite{IJERTV12IS010134}．
-しかし，\cite{IJERTV12IS010134}において，精度に関しては浮動小数点の方が精度が高いことも示されている．
-また，32bitの固定小数点を用いて微分方程式を解き32bitの単精度浮動小数点(Float32)と比較し，浮動小数点よりも精度の良い結果を得られることが示されている\cite{hopkins2020stochastic}．
-\cite{hopkins2020stochastic}では，計算時に計算機にかかる負荷が固定小数点の方が浮動小数点比べ低いことは示唆されているが，使用した固定小数点はISO18037の規格に従った数値型(s16.15,u0.32,s0.31,s8.7,u0.16,s0.15)であり，いずれも32bit以下の固定小数点である．
-現在，多くのプログラミング言語では通常使われる浮動小数点は64bitの倍精度浮動小数点(Float64)であり，32bitの単精度浮動小数点(Float32)よりも精度が高い計算が行える．
-そこで，倍精度浮動小数点(Float64)と同じ64bitの固定小数点を用い，また演算が行える範囲内で最大限小数部のbit数を増やすことによって倍精度浮動小数点(Float64)よりも計算の精度を高めることができるのではないかと考える．
-固定小数点を用いた計算をサポートしている言語(C,C++等)はまだ少なく，多くの数値計算では浮動小数点を用いるのが一般的であるが，将来的に固定小数点での演算のために最適化された計算機やプログラミング言語の開発が行なわれれば，固定小数点を用いた計算負荷が少なく計算時間が短く浮動小数点よりも精度の高い計算を行えることが可能になるのではないかと考える．
+\section{丸め誤差・情報落ち・桁落ちについての基礎知識}
+第\ref{}節で述べたように計算機の中では表現できる数に限りがある．
+そのため計算機の中で表現できる数はそのままの数で計算を行うが，計算機の中で表現できない数はその数にできるだけ近い表現をできる数を代わりに用いて計算を行うことになる．
+ある数$a\ \in \R$に対して,計算機で$a$という数を扱う場合の表現を
+\begin{equation*}    
+    a^{\ast} \ (\in \mathbb{F})
+\end{equation*}
+とする．
+また，$a$を$p$進数で表現することを明記する場合，
+\begin{equation*}
+    a_{(p)}
+\end{equation*}
+と表すことにする．
+\label{chap:基礎知識2}
+
+\subsection{丸め誤差}
+丸め誤差について説明する．
+丸め誤差とは，真の値と計算機で表現するために代わりに用いる数の差である．
+真の値を$x_{\mathrm{true}} \ (\in \R)$とする．
+計算機の中で表現できる数で$x_{\mathrm{true}}$に一番近い数を$x^{\ast} \ (\in \mathbb{F})$とすると，そのときの丸め誤差$\rounderror$は，
+\begin{equation*}
+    \rounderror = x_{\mathrm{true}} - x^{\ast}
+\end{equation*}
+と表せる．
+簡単のため，計算機で扱われる2進数ではなく10進数を用いた場合を考える.
+例えば，計算機では，小数点２桁までしか表現できないとすると，$\pi$という数は，計算機の中で
+\begin{equation*}
+    \pi^{\ast}_{(10)} = 3.14_{(10)} \ (\in \mathbb{F})
+\end{equation*}
+という数で扱うことになる．
+そして，丸め誤差$e_{\mathrm{round}}$は,
+\begin{equation*}
+    {\rounderror}_{(10)} = \pi - \pi^{\ast} = {0.00159265_{(10)}\dots}
+\end{equation*}
+となる．
+
+
+次に，丸め誤差の大きさがどの程度であるかについて述べる．
+$a \in \R$を計算機の中で表現することを考える．ただし，ここでは計算機の中で表現される数は10進数ではなく2進数であるとする．
+ただし，浮動小数点で表せる最大の数を${M_{\mathrm{float}}}_{(2)}$，最小の数を${m_{\mathrm{float}}}_{(2)}$，固定小数点で表せる最大の数を${M_{\mathrm{fixed}}}_{(2)}$，最小の数を${m_{\mathrm{fixed}}}_{(2)}$とし，
+\begin{align*}
+   {m_{\mathrm{float}}}_{(2)} &< a_{(2)} < {M_{\mathrm{float}}}_{(2)}, \\
+   {m_{\mathrm{fixed}}}_{(2)} &< a_{(2)} < {M_{\mathrm{fixed}}}_{(2)}
+\end{align*}
+とする．
+浮動小数点での丸め誤差について述べ，続いて固定小数点の丸め誤差について述べる．
+一般的な浮動小数点(Float32,Float54)では,$m_{\mathrm{float}}$，$M_{\mathrm{float}}$のおおよその値は図\ref{tab:float_max_min}のようになる．
+\begin{table}[H]
+    \centering
+    \caption{Float32，Float64での$m_{\mathrm{float}}$と$M_{\mathrm{float}}$のおおよその値．}
+    \begin{tabular}{c|c|c}
+         & $m_{\mathrm{float}}$ & $M_{\mathrm{float}}$ \\ \hline \hline
+         Float32 & $-3.40 \times 10^{38}$ & $3.40 \times 10^{38}$ \\ \hline
+         Float64 & $-1.80 \times 10^{308}$ & $1.80 \times 10^{308}$
+    \end{tabular}
+    \label{tab:float_max_min}
+\end{table}
+
+丸め誤差は浮動小数点の場合，仮数部を$m$bit，指数部を$e$bitとする．
+ただし，以下ではFloat32，Float64とは異なり指数部$e$にバイアスはないものとする．
+$a^{\ast}_{(2)} \ (\in \flonum)$の中で，
+\begin{align*}
+    {a^{\ast}}_{(2)} < a_{(2)}\ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
+\end{align*}
+となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{small}}}_{(2)}$とする．
+${a^{\ast}_{\mathrm{small}}}_{(2)}$の仮数部を$\mathcal{M}_{\mathrm{small}}$，指数部を$\mathcal{E}_{\mathrm{small}}$とする．
+たま，
+\begin{align*}
+    {a^{\ast}}_{(2)} > a_{(2)} \ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
+\end{align*}
+となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{large}}}_{(2)}$とする．
+${a^{\ast}_{\mathrm{large}}}_{(2)}$の仮数部を$\mathcal{M}_{\mathrm{large}}$，指数部を$\mathcal{E}_{\mathrm{large}}$とする．
+このとき，
+\begin{align*}
+    |a - {a^{\ast}_{\mathrm{sall}}}_{(2)}| &\leq 2^{-m+{\expparts}}, \\
+    |a - {a^{\ast}_{\mathrm{large}}}_{(2)}| &\leq 2^{-m+{\expparts}}
+\end{align*}
+であり，$a^{\ast}_{(2)}$が
+\begin{align*}
+    2^{\beta -1} < a^{\ast}_{(2)} < 2^{\beta}
+\end{align*}
+となるとき，
+\begin{equation*}
+    \mathcal{E}_{\mathrm{small}} = \mathcal{E}_{\mathrm{large}} = \beta
+\end{equation*}
+である．$a^{\ast}_{(2)}$は
+\begin{align*}
+    {a^{\ast}}_{(2)} = \left\{ 
+        \begin{array}{ll}
+            {a^{\ast}_{\mathrm{small}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | < |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | \\
+            {a^{\ast}_{\mathrm{large}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | \geq |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | 
+        \end{array}
+    \right.
+\end{align*}
+となるので，丸め誤差$e_{\mathrm{round}}$は最大で
+\begin{align}
+    \label{eq:rounderror_float}
+    |e_{\mathrm{round}}| \leq 2^{-m+\beta -1}
+\end{align}
+となる．
+ここで，$m$は一定の値であり，$\beta$は$a^{\ast}_{(2)}$の値により決まる値である．
+
+
+固定小数点の場合，小数部が$m$bitとし，${a^{\ast}}_{(2)} \ (\in\fixnum)$の中で，
+\begin{align*}
+    {a^{\ast}}_{(2)} < a_{(2)}\ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
+\end{align*}
+となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{small}}}_{(2)}$とする．
+たま，
+\begin{align*}
+    {a^{\ast}}_{(2)} > a_{(2)} \ \text{かつ} |a_{(2)} - {a^{\ast}}_{(2)}| \ \text{が最小}
+\end{align*}
+となるような数${a^{\ast}}_{(2)}$を${a^{\ast}_{\mathrm{large}}}_{(2)}$とする．
+このとき，
+\begin{align}
+    |a - {a^{\ast}_{\mathrm{sall}}}_{(2)}| &\leq 2^{-m}, \\
+    |a - {a^{\ast}_{\mathrm{large}}}_{(2)}| &\leq 2^{-m}
+\end{align}
+であり，
+\begin{align*}
+    {a^{\ast}}_{(2)} = \left\{ 
+        \begin{array}{ll}
+            {a^{\ast}_{\mathrm{small}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | < |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | \\
+            {a^{\ast}_{\mathrm{large}}}_{(2)} &\text{if} \ |a^{\ast}_{2} - {a^{\ast}_{\mathrm{small}}}_{(2)} | \geq |a^{\ast}_{2} - {a^{\ast}_{\mathrm{large}}}_{(2)} | 
+        \end{array}
+    \right.
+\end{align*}
+となるので，丸め誤差$e_{\mathrm{round}}$は最大で
+\begin{align}
+    \label{eq:rounderror_fixed}
+    |\rounderror| \leq 2^{-m-1}
+\end{align}
+となる．ここで$m$は一定の値である．
+
+
+式\eqref{eq:rounderror_float}，\eqref{eq:rounderror_fixed}から，固定小数点では丸め誤差取りうる値のうち最大値が$a^{\ast}_{(2)}$の値に依らず一定であるのに対して，浮動小数点では$a^{\ast}_{(2)}$の値がどのような範囲にあるのかにより丸め誤差がとりうる値のうち最大値の大きさが異なる．
+表\ref{tab:fixed_float_rounding_error}は同じ64bitの倍精度浮動小数点(Float64)と倍精度浮動小数点(Float64)の仮数部と同じbit数の小数部を持つ固定小数点(Q11f52)の丸め誤差を表したものである．
+
+\begin{table}[H]
+    \centering
+    \caption{固定小数点(Q11f52)と浮動小数点(Float64)のそれぞれの数値に対する丸め誤差の大きさ}
+    \begin{tabular}{c|c|c}
+        & Q11f52 & Float64 \\ \hline \hline
+        0.01 & $8.674 \times 10^{-18}$ & $1.735 \times 10^{-18}$\\
+        0.1 & $8.327 \times 10^{-17}$ & $1.388 \times 10^{-17}$\\
+        1.1 & $8.327 \times 10^{-17}$ & $2.220 \times 10^{-16}$\\
+        10.1 & $8.327 \times 10^{-17}$ & $1.776 \times 10^{-15}$\\
+        100.1 & $8.327 \times 10^{-17}$ & $1.421 \times 10^{-14}$ 
+    \end{tabular}
+    \label{tab:fixed_float_rounding_error}
+\end{table}
+
+このように，固定小数点は，$1$よりも大きい数に対しては丸め誤差の値が一定であるのに対して，浮動小数点は，絶対値の小さい数に対しては丸め誤差の値も小さく，絶対値の大きい数に対しては丸め誤差の値も大きくなる．
+固定小数点は，小数部のbit数が同じでありるため表現できる数の中で隣り合う2数の間隔が一定であるのに対して，浮動小数点は表現できる2数の間隔が2数の絶対値の大きさによって異なる．
+そのため，固定小数点と浮動小数点では丸め誤差が真の値によって異なる．
+また，数値計算において絶対値がとても小さい数を表現できなくなるアンダーフローという現象がある．
+
+
+計算機で計算を繰り返し行うと，一度の計算で発生した丸め誤差が次の計算に影響を与えるため，計算回数が多くなるにつれ計算機で行われる計算の結果と厳密な計算の結果の差は大きくなる．
+
+\subsection{打ち切り誤差}
+打ち切り誤差とは，問題の真の結果と解法を用いて厳密な計算により得られる結果の差である．
+以下のような微分方程式を陽的Euler法で$t \in [0,T]$の範囲で解くとこを考える：
+\begin{equation*}
+    \differencial{x}{t} = f(t,x(t)), \ x(0) = x_0.
+\end{equation*}
+Euler法は付録\ref{chap:補遺}で説明する方法である．
+まず，時刻$t,t+\Delta t$における解を$x(t),x(t+\Delta t)$とし，2次の項までTaylor展開すると
+\begin{align}
+    \label{eq:taylor_euler}
+    x(t + \Delta t) = x(t) + \frac{\delt}{1!}x^{\prime}(t) + \frac{\delt^2}{2!}x^{\prime\prime}(t + \theta\delt) \ (0 < \theta < 1)
+\end{align}
+である．
+一方，陽的Euler法では
+\begin{align}
+    \label{eq:euler_appro}
+    x(t + \Delta t) \backsimeq x(t) + \frac{\delt}{1!}f(t,x(t))
+\end{align}
+という近似により解を得るため，式\eqref{eq:taylor_euler}，\eqref{eq:euler_appro}より真の解$x_{\mathrm{true}}(t)$とEuler法により得られる解$x_{\mathrm{euler}}(t)$には，
+\begin{align*}
+    x_{\mathrm{true}}(t) - x_{\mathrm{euler}}(t) = \frac{\delt^2}{2!}x^{\prime\prime}(t + \theta\delt) \ (0 < \theta < 1)
+\end{align*}
+という誤差が含まれる．
+上の例では，任意の$t$に対して$t$の十分近くでは$|x^{\prime\prime}(t)| \leq M$となるような$M \in \R$が存在していると仮定すると，更新幅$\delt$を小さくすることにより打ち切り誤差を小さくできる．
+しかし，$\delt$を小さくすると終端時刻$T$までに計算を行う回数が多くなる．
+加えて，各計算ごとに丸め誤差が生じると考えると，更新した値を求めるたびに蓄積する誤差の影響が大きくなる．
+そのため，打ち切り誤差と丸め誤差はトレードオフの関係にある．
+その関係を図示したのが図\ref{fig:error_tradingoff}である．
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node [below left] at (0,0) {$O$};
+        \draw [->, thick] (-1,0) -- (7,0);
+        \node [right] at (7,0) {更新幅$\delt$};
+        \draw [->, thick] (0,-1) -- (0,4);
+        \node [left] at (0,4) {全体の誤差};
+        \draw [thick, blue] (0,3.5) -- (3.5,1) -- (7,3.5);
+        \draw [thick, dashed, blue] (0,3.3) -- ++(4.2,-3);
+        \draw [thick,dotted] (0.1,3.2) to [out=290,in=180] (3.4,0.9);
+        \node [fill=white, below, font=\scriptsize] at (1.15,1.7) {丸め誤差の蓄積};
+        \draw [thick, dashed, blue] (7,3.3) -- ++(-4.2,-3);
+        \draw [thick, dotted] (3.6,0.9) to [out=10,in=250] (6.9,3.2);
+        \node [fill=white, below, font=\scriptsize] at (5.85,1.7) {打ち切り誤差};
+    \end{tikzpicture}
+    \caption{同じ終端時刻$T$まで計算を行うときの更新幅$\delt$と打ち切り誤差と丸め誤差の関係．}
+    \label{fig:error_tradingoff}
+\end{figure}
+
+\subsection{情報落ち}
+情報落ちとは，浮動小数点数を用いて非常に離れた値の数同士を計算する際に生じる小さい数が無視されてしまう現象である．
+簡単のため，計算機で扱われる2進数ではなく10進数を用いた場合を考える．
+浮動小数点数の仮数部が小数点3桁までしか表現できない場合を考える．
+a,bを浮動小数点数で表せる数として，$|a| \gg |b|$とする．例えば
+\begin{align*}
+    a &= 1.000 \times 10^{-2}, \\
+    b &= 1.000 \times 10^{3}
+\end{align*}
+として，
+\begin{equation*}
+    a + b
+\end{equation*}
+を考えると，
+\begin{equation*}
+    a + b = 1.001 \times 10^{-2} + 1.000 \times 10^{3} = 0.01 + 1000 = 1000.01 \backsimeq 1.000 \times 10^{3}
+\end{equation*}
+となり，$a$を足したという情報が失われてしまうことになる．
+このような現象を情報落ちという．
+情報落ちは，浮動小数点で指数部が異なることによって生じる現象である．
+固定小数点は，小数点が固定されているため，情報落ちを生じない．
+
+\subsection{桁落ち}
+桁落ちとは，浮動小数点数を用いて非常に近い数同士を計算する際に生じる計算の精度が落ちてしまう現象である．
+簡単のため，計算機で扱われる2進数はなく10進数を用いた場合を考える．
+浮動小数点数の仮数部が小数点3桁までしか表現できない場合を考える．
+a,bを浮動小数点数で表せる数として，$|a - b| \ll 1$とする．
+例えば，
+\begin{align*}
+    a &= 1.234 \times 10^{-2}, \\
+    b &= 1.233 \times 10^{-2}
+\end{align*}
+として，
+\begin{equation*}
+    a - b
+\end{equation*}
+を考えると，
+\begin{align*}
+    a - b &= 1.234 \times 10^{-2} - 1.233 \times 10^{-2} = 0.01234 - 0.01233 \\
+    &= 0.00001 = 1.000 \times 10^{-5}
+\end{align*}
+となり，計算前の$a,b$は仮数部に4桁の情報があったのに対し，計算後の$a-b$の結果は仮数部の情報が1桁になってしまっている．
+このような現象を桁落ちという．
+桁落ちは，仮数部のbit数に限りがあるため生じる現象である．
+固定小数点でも小数部に限りはあるが，扱える数の範囲内においては，扱える数の最小単位まで精度を失わずに計算が行える．
+
+\section{固定小数点演算の実用性の検証のための誤差比較}
+これまで，固定小数点演算と浮動小数点演算の利点や欠点について述べた．
+現在の計算機では，浮動小数点が主流である．
+浮動小数点の方が範囲が広く，指数部を調整することのよって扱える数の最小単位を変えることができるため計算による誤差も固定小数点に比べ少ないと考えられている．
+一方で，固定小数点は扱える範囲内では小さい数が無視されてしまう情報落ちや計算の精度が落ちてしまう情報落ちが生じないという利点も存在する．
+そのため，扱う数の範囲が小さい状況下では，固定小数点の方が浮動小数点よりも計算誤差を少なくできると考えた．
+固定小数点での計算の誤差が浮動小数点の誤差と同程度に小さければ，固定小数点も実用性がある．
+第\ref{chap:数値実験}章では，固定小数点と浮動小数点の誤差を比較し，固定小数点の実用性を検証した．
+
+\begin{comment}
+    \section{先行研究との違い}
+    先行研究では，小数部が11bitの固定小数点を用いて，浮動小数点よりも速い計算時間で連立方程式や高次方程式の近似解を求めるている\cite{IJERTV12IS010134}．
+    しかし，\cite{IJERTV12IS010134}において，精度に関しては浮動小数点の方が精度が高いことも示されている．
+    また，32bitの固定小数点を用いて微分方程式を解き32bitの単精度浮動小数点(Float32)と比較し，浮動小数点よりも精度の良い結果を得られることが示されている\cite{hopkins2020stochastic}．
+    \cite{hopkins2020stochastic}では，計算時に計算機にかかる負荷が固定小数点の方が浮動小数点比べ低いことは示唆されているが，使用した固定小数点はISO18037の規格に従った数値型(s16.15,u0.32,s0.31,s8.7,u0.16,s0.15)であり，いずれも32bit以下の固定小数点である．
+    現在，多くのプログラミング言語では通常使われる浮動小数点は64bitの倍精度浮動小数点(Float64)であり，32bitの単精度浮動小数点(Float32)よりも精度が高い計算が行える．
+    そこで，倍精度浮動小数点(Float64)と同じ64bitの固定小数点を用い，また演算が行える範囲内で最大限小数部のbit数を増やすことによって倍精度浮動小数点(Float64)よりも計算の精度を高めることができるのではないかと考える．
+    固定小数点を用いた計算をサポートしている言語(C,C++等)はまだ少なく，多くの数値計算では浮動小数点を用いるのが一般的であるが，将来的に固定小数点での演算のために最適化された計算機やプログラミング言語の開発が行なわれれば，固定小数点を用いた計算負荷が少なく計算時間が短く浮動小数点よりも精度の高い計算を行えることが可能になるのではないかと考える．
+\end{comment}
+
