@@ -30,377 +30,246 @@
 \end{lstlisting}
 であり，数値計算をするためのプログラムはソースコード\ref{code_numericalscheme}である．
 \begin{lstlisting}[caption =\text{numerical\_scheme.jl}, label =code_numericalscheme]{}
-    using FixedPointNumbers
+using FixedPointNumbers
 
-    #誤差の計算
-    function err(x_ex,x)
-        x_err = x_ex .- x
+#誤差の計算
+function err(x_ex,x)
+    x_err = x_ex .- x
+end
+
+function err_norm_2d(x_ex,y_ex,x,y)
+    x_err = x_ex .- x
+    y_err = y_ex .- y
+    return sqrt.((x_err).^2 .+ (y_err).^2)
+end
+
+function err_norm_3d(x_ex,y_ex,z_ex,x,y,z)
+    x_err = x_ex .- x
+    y_err = y_ex .- y
+    z_err = z_ex .- z
+    return sqrt.((x_err).^2 .+ (y_err).^2 .+ (z_err).^2)
+end
+
+#オイラー法
+function euler_1(f1,x0,stepsize,T,N) 
+    s = T(stepsize)
+    result1 = T[x0]
+    sizehint!(result1,N+1)
+    S= T(0.0)
+    for i in range(1,N)
+        x1 = result1[end]
+        S+=s
+        x_new = x1 + s*f1(x1,S)
+        push!(result1,x_new)
     end
+    return result1
+end
 
-    function err_norm_2d(x_ex,y_ex,x,y)
-        x_err = x_ex .- x
-        y_err = y_ex .- y
-        return sqrt.((x_err).^2 .+ (y_err).^2)
+function euler_2(f1,f2,x0,y0,stepsize,T,N)
+    s = T(stepsize)
+    result1 = T[x0]
+    result2 = T[y0]
+    sizehint!(result1,N+1)
+    sizehint!(result2,N+1)
+    S= T(0.0)
+    for i in range(1,N)
+        x1 = result1[end]
+        y1 = result2[end]
+        S+=s
+        x_new = x1 + s*f1(x1,y1,S)
+        y_new = y1 + s*f2(x1,y1,S)
+        push!(result1,x_new)
+        push!(result2,y_new)
     end
+    return result1, result2
+end
 
-    function err_norm_3d(x_ex,y_ex,z_ex,x,y,z)
-        x_err = x_ex .- x
-        y_err = y_ex .- y
-        z_err = z_ex .- z
-        return sqrt.((x_err).^2 .+ (y_err).^2 .+ (z_err).^2)
+function euler_3(f1,f2,f3,x0,y0,z0,stepsize,T,N)
+    s = T(stepsize)
+    result1 = T[x0]
+    result2 = T[y0]
+    result3 = T[z0]
+    sizehint!(result1,N+1)
+    sizehint!(result2,N+1)
+    sizehint!(result3,N+1)
+    S= T(0.0)
+    for i in range(1,N)
+        x1 = result1[end]
+        y1 = result2[end]
+        z1 = result3[end]
+        S+=s
+        x_new = x1 + s*f1(x1,y1,z1,S)
+        push!(result1,x_new)
+        y_new = y1 + s*f2(x1,y1,z1,S)
+        push!(result2,y_new)
+        z_new = z1 + s*f3(x1,y1,z1,S)
+        push!(result3,z_new)
     end
+    return result1, result2, result3
+end
 
-    #オイラー法
-    function euler_1(f1,x0,stepsize,T,N) 
-        s = T(stepsize)
-        result1 = T[x0]
-        sizehint!(result1,N+1)
-        S= T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            S+=s
-            x_new = x1 + s*f1(x1,S)
-            push!(result1,x_new)
-        end
-        return result1
+#ルンゲ・クッタ法
+function rk4_1(f1,x0,stepsize,T,N)
+    s = T(stepsize)
+    result1 = T[x0]
+    sizehint!(result1,N+1)
+    S= T(0.0)
+    for i in range(1,N)
+        x1 = result1[end]
+        S+=s
+        k1 = f1(x1,S)
+        k2 = f1(x1+k1*(s/2),S+(s/2))
+        k3 = f1(x1+k2*(s/2),S+(s/2))
+        k4 = f1(x1+(k3*s),S+s)
+        x_new = x1 + (s)*(k1/6 + k2/3 + k3/3 + k4/6)
+        push!(result1,x_new)
     end
+    return result1
+end
 
-    function euler_2(f1,f2,x0,y0,stepsize,T,N)
-        s = T(stepsize)
-        result1 = T[x0]
-        result2 = T[y0]
-        sizehint!(result1,N+1)
-        sizehint!(result2,N+1)
-        S= T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            y1 = result2[end]
-            S+=s
-            x_new = x1 + s*f1(x1,y1,S)
-            y_new = y1 + s*f2(x1,y1,S)
-            push!(result1,x_new)
-            push!(result2,y_new)
-        end
-        return result1, result2
+function rk4_2(f1,f2,x0,y0,stepsize,T,N)
+    s = T(stepsize)
+    result1 = [x0]
+    result2 = [y0]
+    sizehint!(result1,N+1)
+    sizehint!(result2,N+1)
+    S= T(0.0)
+    for i in range(1,N)
+        x1 = result1[end]
+        y1 = result2[end]
+        S+=s
+        k1 = T(f1(x1,y1,S))
+        j1 = T(f2(x1,y1,S))
+        k2 = T(f1(x1+k1*(s/2),y1+j1*(s/2),S+(s/2)))
+        j2 = T(f2(x1+k1*(s/2),y1+j1*(s/2),S+(s/2)))
+        k3 = T(f1(x1+k2*(s/2),y1+j2*(s/2),S+(s/2)))
+        j3 = T(f2(x1+k2*(s/2),y1+j2*(s/2),S+(s/2)))
+        k4 = T(f1(x1+k3*s,y1+j3*s,S+s))
+        j4 = T(f2(x1+k3*s,y1+j3*s,S+s))
+        x_new = x1 + (s)*(k1/6 + k2/3 + k3/3 + k4/6)
+        push!(result1,x_new)
+        y_new = y1 + (s)*(j1/6 + j2/3 + j3/3 + j4/6)
+        push!(result2,y_new)
     end
+    return result1, result2
+end
 
-    function euler_3(f1,f2,f3,x0,y0,z0,stepsize,T,N)
-        s = T(stepsize)
-        result1 = T[x0]
-        result2 = T[y0]
-        result3 = T[z0]
-        sizehint!(result1,N+1)
-        sizehint!(result2,N+1)
-        sizehint!(result3,N+1)
-        S= T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            y1 = result2[end]
-            z1 = result3[end]
-            S+=s
-            x_new = x1 + s*f1(x1,y1,z1,S)
-            push!(result1,x_new)
-
-            y_new = y1 + s*f2(x1,y1,z1,S)
-            push!(result2,y_new)
-
-            z_new = z1 + s*f3(x1,y1,z1,S)
-            push!(result3,z_new)
-        end
-        return result1, result2, result3
+function rk4_3(f1,f2,f3,x0,y0,z0,stepsize,T,N)
+    s = T(stepsize)
+    result1 = T[x0]
+    result2 = T[y0]
+    result3 = T[z0]
+    sizehint!(result1,N+1)
+    sizehint!(result2,N+1)
+    sizehint!(result3,N+1)
+    S= T(0.0)
+    for i in range(1,N)
+        x1 = result1[end]
+        y1 = result2[end]
+        z1 = result3[end]
+        S+=s
+        k1 = f1(x1,y1,z1,S)
+        j1 = f2(x1,y1,z1,S)
+        l1 = f3(x1,y1,z1,S)
+        k2 = f1(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),S+(s/2))
+        j2 = f2(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),S+(s/2))
+        l2 = f3(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),S+(s/2))
+        k3 = f1(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),S+(s/2))
+        j3 = f2(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),S+(s/2))
+        l3 = f3(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),S+(s/2))
+        k4 = f1(x1+k3*s,y1+j3*s,z1+l3*s,S+s)
+        j4 = f2(x1+k3*s,y1+j3*s,z1+l3*s,S+s)
+        l4 = f3(x1+k3*s,y1+k3*s,z1+l3*s,S+s)
+        x_new = x1 + (s)*(k1/6 + k2/3+ k3/3 + k4/6)
+        push!(result1,x_new)
+        y_new = y1 + (s)*(j1/6 +j2/3 + j3/3 + j4/6)
+        push!(result2,y_new)
+        z_new = z1 + (s)*(l1/6 + l2/3 + l3/3 + l4/6)
+        push!(result3,z_new)
     end
-
-    function euler_4(f1,f2,f3,f4,x0,y0,z0,w0,stepsize,T,N)
-        s = T(stepsize)
-        result1 = T[x0]
-        result2 = T[y0]
-        result3 = T[z0] 
-        result4 = T[w0]
-        sizehint!(result1,N+1)
-        sizehint!(result2,N+1)
-        sizehint!(result3,N+1)
-        sizehint!(result4,N+1)
-        S= T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            y1 = result2[end]
-            z1 = result3[end]
-            w1 = result4[end]
-            S+=s
-            x_new = x1 + s*f1(x1,y1,z1,w1,S)
-            push!(result1,x_new)
-
-            y_new = y1 + s*f2(x1,y1,z1,w1,S)
-            push!(result2,y_new)
-
-            z_new = z1 + s*f3(x1,y1,z1,w1,S)
-            push!(result3,z_new)
-
-            w_new = w1 + s*f4(x1,y1,z1,w1,S)
-            push!(result4,w_new)
-        end
-        return result1, result2, result3, result4
-    end
-
-    #ルンゲ・クッタ法
-    function rk4_1(f1,x0,stepsize,T,N)
-        s = T(stepsize)
-        result1 = T[x0]
-        sizehint!(result1,N+1)
-        S= T(0.0)
-
-        for i in range(1,N)
-            x1 = result1[end]
-            S+=s
-            k1 = f1(x1,S)
-            k2 = f1(x1+k1*(s/2),S+(s/2))
-            k3 = f1(x1+k2*(s/2),S+(s/2))
-            k4 = f1(x1+(k3*s),S+s)
-            x_new = x1 + (s)*(k1/6 + k2/3 + k3/3 + k4/6)
-            push!(result1,x_new)
-        end
-        return result1
-    end
-
-    function rk4_2(f1,f2,x0,y0,stepsize,T,N)
-        s = T(stepsize)
-
-        result1 = [x0]
-        result2 = [y0]
-
-        sizehint!(result1,N+1)
-        sizehint!(result2,N+1)
-
-        S= T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            y1 = result2[end]
-
-            S+=s
-
-            k1 = T(f1(x1,y1,S))
-            j1 = T(f2(x1,y1,S))
-
-            k2 = T(f1(x1+k1*(s/2),y1+j1*(s/2),S+(s/2)))
-            j2 = T(f2(x1+k1*(s/2),y1+j1*(s/2),S+(s/2)))
-
-            k3 = T(f1(x1+k2*(s/2),y1+j2*(s/2),S+(s/2)))
-            j3 = T(f2(x1+k2*(s/2),y1+j2*(s/2),S+(s/2)))
-
-            k4 = T(f1(x1+k3*s,y1+j3*s,S+s))
-            j4 = T(f2(x1+k3*s,y1+j3*s,S+s))
-
-            x_new = x1 + (s)*(k1/6 + k2/3 + k3/3 + k4/6)
-            push!(result1,x_new)
-
-            y_new = y1 + (s)*(j1/6 + j2/3 + j3/3 + j4/6)
-            push!(result2,y_new)
-        end
-        return result1, result2
-    end
-
-    function rk4_3(f1,f2,f3,x0,y0,z0,stepsize,T,N)
-        s = T(stepsize)
-
-        result1 = T[x0]
-        result2 = T[y0]
-        result3 = T[z0]
-
-        sizehint!(result1,N+1)
-        sizehint!(result2,N+1)
-        sizehint!(result3,N+1)
-
-        S= T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            y1 = result2[end]
-            z1 = result3[end]
-
-            S+=s
-
-            k1 = f1(x1,y1,z1,S)
-            j1 = f2(x1,y1,z1,S)
-            l1 = f3(x1,y1,z1,S)
-
-            k2 = f1(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),S+(s/2))
-            j2 = f2(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),S+(s/2))
-            l2 = f3(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),S+(s/2))
-
-            k3 = f1(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),S+(s/2))
-            j3 = f2(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),S+(s/2))
-            l3 = f3(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),S+(s/2))
-
-            k4 = f1(x1+k3*s,y1+j3*s,z1+l3*s,S+s)
-            j4 = f2(x1+k3*s,y1+j3*s,z1+l3*s,S+s)
-            l4 = f3(x1+k3*s,y1+k3*s,z1+l3*s,S+s)
-
-            x_new = x1 + (s)*(k1/6 + k2/3+ k3/3 + k4/6)
-            push!(result1,x_new)
-
-            y_new = y1 + (s)*(j1/6 +j2/3 + j3/3 + j4/6)
-            push!(result2,y_new)
-
-            z_new = z1 + (s)*(l1/6 + l2/3 + l3/3 + l4/6)
-            push!(result3,z_new)
-        end
-        return result1, result2, result3
-    end
-
-    function rk4_4(f1,f2,f3,f4,x0,y0,z0,w0,stepsize,T,N)
-        s = T(stepsize)
-        result1 = T[x0]       
-        result2 = T[y0]
-        result3 = T[z0]
-        result4 = T[w0]
-
-        sizehint!(result1,N+1)
-        sizehint!(result2,N+1)
-        sizehint!(result3,N+1)
-        sizehint!(result4,N+1)
-
-        S= T(0.0)
-        for i in range(1,N)
-            x1 = result1[end]
-            y1 = result2[end]
-            z1 = result3[end]
-            w1 = result4[end]
-            S+=s
-
-            k1 = f1(x1,y1,z1,w1,S)
-            j1 = f2(x1,y1,z1,w1,S)
-            l1 = f3(x1,y1,z1,w1,S)
-            m1 = f4(x1,y1,z1,w1,S)
-
-            k2 = f1(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),w1+m1*(s/2),S+(s/2))
-            j2 = f2(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),w1+m1*(s/2),S+(s/2))
-            l2 = f3(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),w1+m1*(s/2),S+(s/2))
-            m2 = f4(x1+k1*(s/2),y1+j1*(s/2),z1+l1*(s/2),w1+m1*(s/2),S+(s/2))
-
-            k3 = f1(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),w1+m2*(s/2),S+(s/2))
-            j3 = f2(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),w1+m2*(s/2),S+(s/2))
-            l3 = f3(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),w1+m2*(s/2),S+(s/2))
-            m3 = f4(x1+k2*(s/2),y1+j2*(s/2),z1+l2*(s/2),w1+m2*(s/2),S+(s/2))
-
-            k4 = f1(x1+k3*s,y1+j3*s,z1+l3*s,w1+m3*s,S+s)
-            j4 = f2(x1+k3*s,y1+j3*s,z1+l3*s,w1+m3*s,S+s)
-            l4 = f3(x1+k3*s,y1+j3*s,z1+l3*s,w1+m3*s,S+s)
-            m4 = f4(x1+k3*s,y1+j3*s,z1+l3*s,w1+m3*s,S+s)
-
-            x_new = x1 + (s)*(k1/6 + k2/3+ k3/3 + k4/6)
-            push!(result1,x_new)
-
-            y_new = y1 + (s)*(j1/6 + j2/3 + j3/3 + j4/6)
-            push!(result2,y_new)
-
-            z_new = z1 + (s)*(l1/6 + l2/3 + l3/3 + l4/6)
-            push!(result3,z_new)
-
-            w_new = w1 + (s)*(m1/6 + m2/3 + m3/3 + m4/6)
-            push!(result4,w_new)
-        end
-        return result1, result2, result3, result4
-    end
+    return result1, result2, result3
+end
 \end{lstlisting}
 
-次に，例としてLorenz方程式での数値実験をEuler法を用いて行い図示をするプログラムのコード\ref{code_lorenz}を掲載する．
+例としてLorenz方程式での数値実験をEuler法を用いて行うプログラムのコードを掲載する．
 
-\begin{lstlisting}[caption=\text{Lorenz\_example},label=code_lorenz]{}
-    using CairoMakie, FixedPointNumbers, DifferentialEquations
-    CairoMakie.activate!(type = "pdf")
-    CairoMakie.activate!(inline = true)
-    include("../numerical_scheme.jl")
-    setprecision(BigFloat,256)
-    #Lorenz方程式
+\begin{lstlisting}[caption=\text{Lorenz方程式の関数を定義},label=code_lorenz]{}
+using CairoMakie, FixedPointNumbers, DifferentialEquations
+include("../numerical_scheme.jl")
+setprecision(BigFloat,256)
+#Lorenz方程式
+#=パラメータの設定
+σ = 10.0
+ρ = 28.0
+β = 2.6640625
+=#
 
-    #=パラメータの設定
+#float64
+function f_float64_1(x::Float64,y::Float64,z::Float64,t::Float64)
     σ = 10.0
+    return σ*(y - x)
+end
+function f_float64_2(x::Float64,y::Float64,z::Float64,t::Float64)
     ρ = 28.0
+    return x*(ρ - z) - y
+end
+function f_float64_3(x::Float64,y::Float64,z::Float64,t::Float64)
     β = 2.6640625
-    =#
+    return x*y - β*z
+end
 
-    #刻み幅2^(-7)
+#64ビットの固定小数点数で実行
+function f_Q11f52_1(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
+    σ_Q11f52 = Q11f52(10.0)
+    return σ_Q11f52*(y - x)
+end
+function f_Q11f52_2(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
+    ρ_Q11f52 = Q11f52(28.0)
+    return x*(ρ_Q11f52 - z) - y
+end
+function f_Q11f52_3(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
+    β_Q11f52 = Q11f52(2.6640625)
+    return x*y - β_Q11f52*z
+end
 
-    #float64
-    function f_float64_1(x::Float64,y::Float64,z::Float64,t::Float64)
-        σ = 10.0
-        return σ*(y - x)
-    end
-    function f_float64_2(x::Float64,y::Float64,z::Float64,t::Float64)
-        ρ = 28.0
-        return x*(ρ - z) - y
-    end
-    function f_float64_3(x::Float64,y::Float64,z::Float64,t::Float64)
-        β = 2.6640625
-        return x*y - β*z
-    end
+function f_Q9f54_1(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
+    σ_Q9f54 = Q9f54(10.0)
+    return σ_Q9f54*(y - x)    
+end
+function f_Q9f54_2(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
+    ρ_Q9f54 = Q9f54(28.0)
+    return x*(ρ_Q9f54 - z) - y
+end
+function f_Q9f54_3(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
+    β_Q9f54 = Q9f54(2.6640625)
+    return x*y - β_Q9f54*z
+end
 
-    #64ビットの固定小数点数で実行
-    function f_Q11f52_1(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
-        σ_Q11f52 = Q11f52(10.0)
-        return σ_Q11f52*(y - x)
-    end
-    function f_Q11f52_2(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
-        ρ_Q11f52 = Q11f52(28.0)
-        return x*(ρ_Q11f52 - z) - y
-    end
-    function f_Q11f52_3(x::Q11f52,y::Q11f52,z::Q11f52,t::Q11f52)
-        β_Q11f52 = Q11f52(2.6640625)
-        return x*y - β_Q11f52*z
-    end
+#BigFloatで実行
+function f_BigFloat_1(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
+    σ_BigFloat = BigFloat("10.0")
+    return σ_BigFloat*(y - x)
+end
+function f_BigFloat_2(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
+    ρ_BigFloat = BigFloat("28.0")
+    return x*(ρ_BigFloat - z) - y
+end
+function f_BigFloat_3(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
+    β_BigFloat = BigFloat("2.6640625")
+    return x*y - β_BigFloat*z
+end
+\end{lstlisting}
 
-    function f_Q9f54_1(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
-        σ_Q9f54 = Q9f54(10.0)
-        return σ_Q9f54*(y - x)    
-    end
-    function f_Q9f54_2(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
-        ρ_Q9f54 = Q9f54(28.0)
-        return x*(ρ_Q9f54 - z) - y
-    end
-    function f_Q9f54_3(x::Q9f54,y::Q9f54,z::Q9f54,t::Q9f54)
-        β_Q9f54 = Q9f54(2.6640625)
-        return x*y - β_Q9f54*z
-    end
-
-    #BigFloatで実行
-    function f_BigFloat_1(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
-        σ_BigFloat = BigFloat("10.0")
-        return σ_BigFloat*(y - x)
-    end
-    function f_BigFloat_2(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
-        ρ_BigFloat = BigFloat("28.0")
-        return x*(ρ_BigFloat - z) - y
-    end
-    function f_BigFloat_3(x::BigFloat,y::BigFloat,z::BigFloat,t::BigFloat)
-        β_BigFloat = BigFloat("2.6640625")
-        return x*y - β_BigFloat*z
-    end
-
-    #=Euler法での誤差の比較=#
-    #刻み幅　Δt = 2^(-7)
-    fig = Figure(size =(600, 400))
-    ax = Axis(fig[1, 1],xlabel ="t", ylabel = "error", yscale = log10, limits = (nothing,(1e-15,1e2)), title = "Lorenz Euler Numerical Solution Error Δt = 2^(-7)")
-    ernorm1 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[3],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-7),Float64,Int(2^14))[1],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-7),Float64,Int(2^14))[2],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-7),Float64,Int(2^14))[3])
-    ernorm2 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[3],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-7),Q11f52,Int(2^14))[1],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-7),Q11f52,Int(2^14))[2],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-7),Q11f52,Int(2^14))[3]) 
-    ernorm3 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))[3],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-7),Q9f54,Int(2^14))[1],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-7),Q9f54,Int(2^14))[2],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-7),Q9f54,Int(2^14))[3])
-    t = [i for i in 0:2^(-7):2^7]
-    l1 = lines!(ax, t, ernorm1, color = :red)
-    l2 = lines!(ax, t, ernorm2, color = cgrad(:Accent_4)[1])
-    l3 = lines!(ax, t, ernorm3, color = cgrad(:Accent_4)[2])
-    axislegend(ax,[l1, l2, l3],["Float64","Q11f52","Q9f54"],position = :rb)
-    fig
-    save("lorenz/fig_lorenz/lorenz_2^(-7)_euler_error.pdf", fig)
-
-    #刻み幅　Δt = 2^(-13)
-    fig = Figure(size = (600, 400))
-    ax = Axis(fig[1, 1],xlabel ="t", ylabel = "error", yscale = log10, limits = (nothing,(1e-15,1e2)), title = "Lorenz Euler Numerical Solution Error Δt = 2^(-13)")
-    ernorm1 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[3],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-13),Float64,Int(2^20))[1],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-13),Float64,Int(2^20))[2],euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-13),Float64,Int(2^20))[3])
-    ernorm2 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[3],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-13),Q11f52,Int(2^20))[1],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-13),Q11f52,Int(2^20))[2],euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-13),Q11f52,Int(2^20))[3]) 
-    ernorm3 = err_norm_3d(euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[1],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[2],euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-13)),BigFloat,Int(2^20))[3],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-13),Q9f54,Int(2^20))[1],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-13),Q9f54,Int(2^20))[2],euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-13),Q9f54,Int(2^20))[3])
-    t = [i for i in 0:2^(-13):2^7]
-    l1 = lines!(ax, t, ernorm1, color = :red)
-    l2 = lines!(ax, t, ernorm2, color = cgrad(:Accent_4)[1])
-    l3 = lines!(ax, t, ernorm3, color = cgrad(:Accent_4)[2])
-    axislegend(ax,[l1, l2, l3],["Float64","Q11f52","Q9f54"],position = :rb)
-    fig
-    save("lorenz/fig_lorenz/lorenz_2^(-13)_euler_error.pdf", fig)   
+\begin{lstlisting}[caption={誤差を計算}, label=code_error]{}
+#=Euler法での誤差の比較=#
+#刻み幅　Δt = 2^(-7)
+#それぞれの数値型で実行
+ans_big = euler_3(f_BigFloat_1,f_BigFloat_2,f_BigFloat_3,BigFloat("0.5"),BigFloat("0.5"),BigFloat("0.5"),BigFloat(2^(-7)),BigFloat,Int(2^14))
+ans_fl64 = euler_3(f_float64_1,f_float64_2,f_float64_3,0.5,0.5,0.5,2^(-7),Float64,Int(2^14))
+ans_Q11f52 = euler_3(f_Q11f52_1,f_Q11f52_2,f_Q11f52_3,Q11f52(0.5),Q11f52(0.5),Q11f52(0.5),2^(-7),Q11f52,Int(2^14))
+ans_Q9f54 = euler_3(f_Q9f54_1,f_Q9f54_2,f_Q9f54_3,Q9f54(0.5),Q9f54(0.5),Q9f54(0.5),2^(-7),Q9f54,Int(2^14))
+#誤差を計算
+ernrom1 = err_norm_3d(ans_big[1],ans_big[2],ans_bih[3],ans_fl64[1],ans_fl64[2],ans_fl64[])
+ernrom2 = err_norm_3d(ans_big[1],ans_big[2],ans_bih[3],ans_Q11f52[1],ans_Q11f52[2],ans_Q11f52[])
+ernrom3 = err_norm_3d(ans_big[1],ans_big[2],ans_bih[3],ans_Q9f54[1],ans_Q9f54[2],ans_Q9f54[])
 \end{lstlisting}

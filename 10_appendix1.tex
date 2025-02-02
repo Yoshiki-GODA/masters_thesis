@@ -167,22 +167,33 @@ $\R^n$から$\R^n$への非線形な関数
 となるような$\bm{x}$の値を求めることを考える．
 Newton法とは，以下のような手順で式\eqref{eq:newton_problem}の近似解を求める方法である．
 まず，$\bm{g}(\bm{x})$に対して
-\begin{equation}
+\begin{equation*}
     \nabla\bm{g}(\bm{x}) = \begin{pmatrix}
         \partialdiff{g_1(\bm{x})}{x_1} & \partialdiff{g_1(\bm{x})}{x_2} & \dots & \partialdiff{g_1(\bm{x})}{x_n} \\
         \partialdiff{g_2(\bm{x})}{x_1} & \ddots & & \vdots \\
         \vdots & & \ddots & \vdots\\
         \partialdiff{g_n(\bm{x})}{x_1} & \dots & \dots & \partialdiff{g_n(\bm{x})}{x_n}
     \end{pmatrix}
-\end{equation}
+\end{equation*}
 を定める．
 このとき，$\bm{g}(\bm{x})$をTaylor展開すると，
-\begin{equation}
-    \label{eq:tyalor_newton}
-    \bm{g}(\bm{x}_1) = \bm{g}(\bm{x}_0) + \nabla\bm{g}(\bm{x}_0)(\bm{x}_1- \bm{x}_0)
-\end{equation}
+\begin{equation*}
+    %\label{eq:tyalor_newton}
+    \bm{g}(\bm{x}_1) = \bm{g}(\bm{x}_0) + \nabla\bm{g}(\bm{x}_0)(\bm{x}_1- \bm{x}_0) + O\left((\bm{x}_1 - \bm{x}_0)^2\right)
+\end{equation*}
 次に，$\nabla\bm{g}(\bm{x})$が正則であると仮定して，
+\begin{equation*}
+    \hat{\bm{g}}(\bm{x}) = \bm{g}(\bm{x}_0) + \nabla\bm{g}(\bm{x}_0)(\bm{x}- \bm{x}_0)
+\end{equation*}
+$g(\bm{x})=\bm{0}$を求める代わりに近似的な連立方程式$\hat{\bm{g}}(\bm{x})=0$の解を求める．
 \begin{equation}
+    \label{eq:newton_step}
     \bm{x}_1 = \bm{x}_0 - \left(\nabla\bm{g}(\bm{x}_0)\right)^{-1}\bm{g}(\bm{x}_0)
 \end{equation}
 ここで$\left(\nabla\bm{g}(\bm{x})\right)^{-1}$は$\nabla\bm{g}(\bm{x})$の逆行列である．
+式\eqref{eq:newton_step}によって，$\bm{x}_0$から$\bm{x}_1$を求めることができる．
+繰り返し行うことにより$\bm{x}_k$から$\bm{x}_{k+1}$の値を
+\begin{equation*}
+    \bm{x}_{k+1} = \bm{x}_k - \left(\nabla\bm{g}(\bm{x}_k)\right)^{-1}\bm{g}(\bm{x}_k)
+\end{equation*}
+から求めることができる．

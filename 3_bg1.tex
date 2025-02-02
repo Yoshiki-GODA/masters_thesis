@@ -5,7 +5,7 @@
 しかし，固定小数点の方が誤差が小さいような状況があれば，その状況下においては固定小数点も実用的であると考える．
 そこで，本章では固定小数点と浮動小数点についての表現の違いにより，誤差が異なることを説明する．
 
-\section{浮動小数点数と固定小数点数についての基礎知識}
+\section{浮動小数点数と固定小数点数の表現方法}
 \label{sec:bg_float_fixed}
 計算機内部で扱う数値には二つの表現方法がある．
 それぞれの表現方法を固定小数点数と浮動小数点数という．
@@ -279,7 +279,7 @@ $s$を符号とすると，符号付き固定小数点数$a_{\mathrm{signed}} = 
 
 図\ref{fig:fixedpoint_image}，\ref{fig:floatpoint_image}で表したように，固定小数点，浮動小数点ともに計算機の中で表すことのできる数は限られている．
 
-\section{浮動小数点と固定小数点の表現方法および演算方法}
+\section{浮動小数点と固定小数点の演算方法}
 \label{sec:float_fixed_expression}
 \begin{comment}
     ストーリー：
@@ -335,59 +335,6 @@ $s$を符号とすると，符号付き固定小数点数$a_{\mathrm{signed}} = 
 \end{table}
 
 このように，浮動小数点は絶対値のとても小さい数も表現できるため，固定小数点に比べアンダーフローを起こしにくいという利点がある．
-
-
-固定小数点と浮動小数点の表現できる数の最小単位を表したイメージ図が図\ref{fig:fixed_float_image}である．
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[scale=0.92]
-        \draw [->, thick] (-7,0) -- (7,0);
-        \draw [->, thick] (0,-1) -- (0,4);
-        \node [below left] at (0,0) {$0$};
-        \node [below right] at (7,0) {表現できる数};
-        \node [above] at (0,4) {隣り合う2数の間隔};
-        \begin{scope}
-            \clip(0,-1) rectangle (7,4);
-            \draw[thick] plot(\x,{pow(1.5,\x)-1});
-        \end{scope}
-        \begin{scope}
-            \clip(-7,-1) rectangle (0,4);
-            \draw[thick] plot(\x,{pow(1.5,-\x)-1});
-        \end{scope}
-        \node[right] at (4,{pow(1.5,4)-1}) {浮動小数点};
-        \draw[thick] (-3,1) -- (3,1) node[right] {固定小数点数};
-        \draw[thick] (-4,2) -- (4,2) node[right] {固定小数点数};
-    \end{tikzpicture}
-    \caption{固定小数点と浮動小数点の表現できる数の最小単位のイメージ図．}
-    \label{fig:fixed_float_image}
-\end{figure}
-
-浮動小数点は固定小数点に比べ，表現できる数の範囲が広く，オーバーフローやアンダーフローが起こる可能性が低いという利点がる．
-その一方で，表現できる数の中で隣り合う間隔が数の絶対値の大きさによって異なる．
-そのため，図\ref{fig:fixed_float_image}で固定小数点のグラフが浮動小数点のグラフの下に来ている範囲では固定小数点の方が最小単位が小さい数で演算を行え，誤差が少なくなるできると考える．
-図\ref{fig:fixed_float_image_zoom}は図\ref{fig:fixed_float_image}の一部を拡大し，固定小数点の方が浮動小数点よりも最小単位が小さい範囲を示した図である．
-図\ref{fig:fixed_float_image_zoom}のグレーの範囲であれば，浮動小数点よりも固定小数点の誤差が小さくできると考えている．
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[scale=0.92]
-        \fill[lightgray] (3,-1)--(3,4)--(6,4)--(6,-1);
-        \draw[->, thick] (-1,0) -- (9,0);
-        \draw[->, thick] (0,-1) -- (0,4);
-        \node [below left] at (0,0) {$0$};
-        \node [below right] at (9,0) {表現できる数};
-        \node [above] at (0,4) {隣り合う2数の間隔};
-
-        \draw[thick,domain=0:7] plot(\x,{pow(1.2,\x)-1});
-        \draw[thick,domain=0:7] plot(\x,1);
-
-        \node[above] at (7,{pow(1.2,7)-1}) {浮動小数点};
-        \node[right] at (7,1) {固定小数点};
-    \end{tikzpicture}
-    \caption{固定小数点と浮動小数点の表現できる数の最小単位のイメージ図(グレーの部分が固定小数点の方が浮動小数点より最小単位が小さい範囲)．}
-    \label{fig:fixed_float_image_zoom}
-\end{figure}
 
 \subsection{浮動小数点と固定小数点の演算の違い}
 \label{sec:dif_arithmetic}
@@ -803,15 +750,6 @@ a,bを浮動小数点数で表せる数として，$|a - b| \ll 1$とする．
 このような現象を桁落ちという．
 桁落ちは，仮数部のbit数に限りがあるため生じる現象である．
 固定小数点でも小数部に限りはあるが，扱える数の範囲内においては，扱える数の最小単位まで精度を失わずに計算が行える．
-
-\section{固定小数点演算の実用性の検証のための誤差比較}
-これまで，固定小数点演算と浮動小数点演算の利点や欠点について述べた．
-現在の計算機では，浮動小数点が主流である．
-浮動小数点の方が範囲が広く，指数部を調整することのよって扱える数の最小単位を変えることができるため計算による誤差も固定小数点に比べ少ないと考えられている．
-一方で，固定小数点は扱える範囲内では小さい数が無視されてしまう情報落ちや計算の精度が落ちてしまう情報落ちが生じないという利点も存在する．
-そのため，扱う数の範囲が小さい状況下では，固定小数点の方が浮動小数点よりも計算誤差を少なくできると考えた．
-固定小数点での計算の誤差が浮動小数点の誤差と同程度に小さければ，固定小数点も実用性がある．
-第\ref{chap:数値実験}章では，固定小数点と浮動小数点の誤差を比較し，固定小数点の実用性を検証した．
 
 \begin{comment}
     \section{先行研究との違い}
