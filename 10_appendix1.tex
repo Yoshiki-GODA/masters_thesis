@@ -45,7 +45,7 @@ $|\Delta t| \ll 1 $となるような十分に小さい値の$\Delta t$をとる
 \subsection{陽的Runge--Kutta法}
 陽的Runge--Kutta法について説明する．
 陽的Runge--Kutta法も，陽的Euler法と同じように，$|\Delta t| \ll 1 $となるような十分に小さい値の$\Delta t$に対して，$\bm{x}(t),\bm{f}(t,\bm{x}(t))$から，$\bm{x}(t + \delt )$の値を計算する方法である．
-以下の手順により，$\bm{x(t + \delt)}$を求める．
+以下の手順により，$\bm{x}(t + \delt)$を求める．
 \begin{align}
     r_1 &= \bm{f}(\bm{x}(t),t), \label{eq:rk_first}\\
     r_2 &= \bm{f}(\bm{x}(t)+r_1 \frac{\delt}{2},t + \frac{\delt}{2}), \\
@@ -61,10 +61,13 @@ Lotka--Volterraの保存量を保存する数値解法について説明する�
 この解法は，文献(\cite{BB02105565})に書かれている方法である．
 Lotka--Volterraは
 \begin{align}
-    \label{eq:lv1}
-    \differencial{x}{t} &= a x - b xy,\\
-    \label{eq:lv2}
-    \differencial{y}{t} &= c xy - d y
+    \left\{
+    \begin{aligned}    
+        \label{eq:lv1}
+        \differencial{x}{t} &= a x - b xy,\\
+        \differencial{y}{t} &= c xy - d y
+    \end{aligned}
+    \right.
 \end{align}
 で表される微分方程式であり，代表的な保存量は
 \begin{equation}
@@ -82,73 +85,111 @@ Lotka--Volterraは
     &= 0
 \end{align*}
 となり，$H(x,y)$は時刻$t$に依らず常に定数になる．
-また，
+ここで，式\eqref{eq:lv1}に対して，$x > 0,y>0$であると仮定して，
 \begin{align}
-    \nabla H = \begin{bmatrix}
-        \partialdiff{H}{x} \\  \\
-        \partialdiff{H}{y}
+    \label{eq:u}
+    u &= \log x, \\
+    \label{eq:v}
+    v &= \log y.
+\end{align}
+とおくと,
+\begin{align}
+    \label{eq:du}
+    \differencial{u}{t} &= \frac{1}{x}, \\
+    \label{eq:dv}
+    \differencial{v}{t} &= \frac{1}{y}
+\end{align}
+でとなる．
+式\eqref{eq:lv1}の第1式の両辺を$x$，第2式の両辺を$y$で割って，式\eqref{eq:u}〜\eqref{eq:dv}を代入すると，
+\begin{align}
+    \left\{
+        \begin{aligned}
+            \label{eq:lv2}
+            \differencial{u}{t} &= a - b \exp(v), \\
+            \differencial{v}{t} &= c \exp(u) - d
+        \end{aligned}
+    \right.
+\end{align}
+となる．
+また，保存量の式\eqref{eq:H}に対数をとったものを$G$とし，$u,v$で表すと
+\begin{align}
+    G(u,v) = \log\left(H(x,y)\right)  = c\exp(u) + b\exp(v) - du -av
+\end{align}
+であり，$G$も時刻$t$によらず一定である．
+\begin{align}
+    \nabla G = \begin{bmatrix}
+        \partialdiff{G}{u} \\
+        \partialdiff{G}{v}
     \end{bmatrix} =
     \begin{bmatrix}
-        c - \frac{d}{x} \\
-        b - \frac{a}{y}
+        c\exp(u) - d \\
+        b\exp(v) - a
     \end{bmatrix}
 \end{align}
-となり，式\eqref{eq:lv1}，\eqref{eq:lv2}より，
+となり，式\eqref{eq:lv2}より，
 \begin{align}
     \label{eq:lv3}
     \begin{bmatrix}
-        \differencial{x}{t} \\ 
-        \differencial{y}{t}
+        \differencial{u}{t} \\ 
+        \differencial{v}{t}
     \end{bmatrix}
     = 
     \begin{bmatrix}
-        0 & -xy \\
-        xy & 0
+        0 & -1 \\
+        1 & 0
     \end{bmatrix}
-    \nabla H
+    \nabla G
 \end{align}
 となる． 
-この式から，時刻$t_i$における$x,y$の値$x_i,y_i$から$\delt$だけ更新した時刻$t_{i+1} = (t + \delt)$における$x,y$の値$x_{i+1},y_{i+1}$を計算する．
+この式から，時刻$t_i$における$u,v$の値$u_i,v_i$から$\delt$だけ更新した時刻$t_{i+1} = (t + \delt)$における$u,v$の値$xu_{i+1},v_{i+1}$を計算する．
 式\eqref{eq:lv3}の左辺を，
 \begin{align}
+    \label{eq:lv4}
     \begin{bmatrix}
-        \differencial{x}{t} \\ 
-        \differencial{y}{t}
+        \differencial{u}{t} \\ 
+        \differencial{v}{t}
     \end{bmatrix}
      \backsimeq 
     \begin{bmatrix}
-        \frac{x_{i+1} - x_i}{\delt} \\
-         \frac{y_{i+1} - y_i}{\delt}
+        \frac{u_{i+1} - u_i}{\delt} \\
+         \frac{v_{i+1} - v_i}{\delt}
     \end{bmatrix}
 \end{align}
-と近似し，$\nabla H$の近似$\bar{\nabla}H$を
+と近似し，$\nabla G$の近似$\overline{\nabla}G$を
 \begin{align}
-    \bar{\nabla}H = 
+    \label{eq:lv5}
+    \overline{\nabla}G = 
     \begin{bmatrix}
-        \frac{H(x_{i+1},y_{i+1}) - H(x_i,y_{i+1})}{x_{i+1} - x_i} \\
-        \frac{H(x_{i},y_{i+1}) - H(x_i,y_i)}{y_{i+1} - y_i}
+        \frac{G(u_{i+1},v_{i+1}) - G(u_i,v_{i+1})}{u_{i+1} - u_i} \\
+        \frac{G(u_{i},v_{i+1}) - G(u_i,v_i)}{v_{i+1} - v_i}
     \end{bmatrix}
 \end{align}
 とする．
-式\eqref{eq:lv3}より，
+式\eqref{eq:lv3}〜\eqref{eq:lv5}より，
 \begin{align}
     \label{eq:spm_lv}
     \begin{bmatrix}
-        \frac{x_{i+1} - x_i}{\delt} \\
-         \frac{y_{i+1} - y_i}{\delt}
+        \frac{u_{i+1} - u_i}{\delt} \\
+         \frac{v_{i+1} - v_i}{\delt}
     \end{bmatrix}
     = 
     \begin{bmatrix}
-        0 & -x_i y_i \\
-        x_i y_i & 0
+        0 & -u_i v_i \\
+        u_i v_i & 0
     \end{bmatrix}
     \begin{bmatrix}
-        \frac{H(x_{i+1},y_{i+1}) - H(x_i,y_{i+1})}{x_{i+1} - x_i} \\
-        \frac{H(x_{i},y_{i+1}) - H(x_i,y_i)}{y_{i+1} - y_i}
+        \frac{G(u_{i+1},v_{i+1}) - G(u_i,v_{i+1})}{u_{i+1} - u_i} \\
+        \frac{G(u_{i},v_{i+1}) - G(x_i,v_i)}{v_{i+1} - v_i}
     \end{bmatrix}
 \end{align}
-という式を得る．
-この式を$x_{i+1},y_{i+1}$について解く．
+を得る．
+この式を$u_{i+1},v_{i+1}$について解く．
+各時刻$t_{k}$の$u_{k},v_{k}$に対して，式\eqref{eq:u}，\eqref{eq:v}より
+\begin{align*}
+    x_k &= \exp(u_k), \\
+    y_k &= \exp(v_k)
+\end{align*}
+と計算できる．
 式\eqref{eq:spm_lv}は，非線形連立方程式であるため厳密な解を得ることは困難である．
 厳密な解を求める代わりに，数値計算により近似解を求める．
 実験で行った数値計算では，式\eqref{eq:spm_lv}の近似解を求めるためにNewton法を用いた．
